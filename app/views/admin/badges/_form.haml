@@ -1,0 +1,27 @@
+= form_for([:admin, @badge]) do |f|
+  - if @badge.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@badge.errors.count, "error")
+        prohibited this badge from being saved:
+      %ul
+        - @badge.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :color
+    %br
+      = f.number_field :color
+  .field
+    = f.label :name
+    %br
+      = f.text_field :name
+  .field
+    = f.label :description
+    %br
+      = f.text_area :description
+  .field
+    = f.label :comment
+    %br
+      = f.text_area :comment
+  .actions
+    = f.submit

@@ -1,0 +1,12 @@
+pl:
+  activerecord:
+    attributes:
+      user:
+        email: 'Email'
+        password: 'Hasło'
+        password_confirmation: 'Potwierdzenie hasła'
+        username: 'Nazwa użytkownika'
+        terms_of_service: 'Regulamin'
+        privacy_policy: 'Polityka prywatności'
+        remember_me: 'Zapamiętaj mnie'
+        current_password: 'Obecne hasło'

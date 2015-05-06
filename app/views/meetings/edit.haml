@@ -1,0 +1,22 @@
+.panel.panel-default
+  .panel-heading
+    %b Stwórz spotkanie
+
+= form_for @meeting, url: update_meeting_path(@meeting) do |f|
+  .form-inputs.form-horizontal
+    .form-group.col-sm-12
+      = f.label :name, class: "col-sm-2 control-label"
+      .col-sm-6
+        = f.text_field :name, class: "form-control", required: true
+    .form-group.col-sm-12
+      = f.label :start_date, class: "col-sm-2 control-label"
+      .col-sm-6
+        = f.datetime_field :start_date, class: "form-control datetimepicker", required: true
+    .form-group.col-sm-12
+      = f.label :stop_date, class: "col-sm-2 control-label"
+      .col-sm-6
+        = f.datetime_field :stop_date, class: "form-control datetimepicker", required: true
+    .form-actions
+      .form-group
+        .col-sm-2.col-md-offset-3
+          = f.submit 'Zapisz'

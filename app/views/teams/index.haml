@@ -1,0 +1,16 @@
+%h1 Listing teams
+%table#teams_table{cellpadding: "0", cellspacing:"0", border: "0", class: "datatable table table-striped table-bordered"}
+  %thead
+    %tr
+      %th Name
+      %th History
+      %th Situation description
+      %th
+  %tbody
+    - @teams.each do |team|
+      %tr{id: "j-#{team.id}"}
+        %td= team.name
+        %td= team.history
+        %td= team.situation_description
+        %td= link_to 'Pokaż', team_path(team)
+%br

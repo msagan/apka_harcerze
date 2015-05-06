@@ -1,0 +1,1 @@
+json.extract! @user, :first_name, :last_name, :stars, :description, :pesel, :address_1, :address_2, :school, :school_class, :parental_agreement, :medical_info, :team_id, :created_at, :updated_at

@@ -1,0 +1,50 @@
+%h1 Listing users
+.container-fluid
+  %table#users_table{cellpadding: "0", cellspacing:"0", border: "0", class: "datatable table table-striped table-bordered"}
+    %thead
+      %tr
+        %th First name
+        %th Last name
+        %th Email
+        %th Stars
+        %th Badges
+        %th Description
+        %th Pesel
+        %th Address 1
+        %th Address 2
+        %th School
+        %th School class
+        %th Parental agreement
+        %th Medical info
+        %th Team
+        %th
+    %tbody
+      - @users.each do |user|
+        %tr{id: "j-#{user.id}"}
+          %td= user.first_name
+          %td= user.last_name
+          %td= user.email
+          %td= user.stars
+          %td
+            -user.badges_names.each do |name|
+              =name
+          %td= user.description
+          %td= user.pesel
+          %td= user.address_1
+          %td= user.address_2
+          %td= user.school
+          %td= user.school_class
+          %td= user.parental_agreement
+          %td= user.medical_info
+          %td
+            -if user.team.present?
+              = user.team.name
+          %td
+            -if user.stars < 3
+              -if user.has_incomplete_trials?
+                -if user.is_done_with_trial?
+                  =link_to 'Zamknij próbę', finish_trial_path(user.trials.last.id)
+                -else
+                  =link_to 'Zarządzaj próbą', manage_trial_path(user.trials.last.id)
+              -else
+                =link_to 'Rozpocznij próbę na następną gwiazdkę', user_start_trial_path(user.id)

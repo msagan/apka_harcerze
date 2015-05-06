@@ -1,0 +1,35 @@
+.authform{
+  margin-top: 60px;
+  max-width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+.bgn-red{
+  background-color: red;
+  height: 17px;
+}
+.bgn-purple{
+  background-color: purple;
+  height: 17px;
+}
+.bgn-yellow{
+  background-color: yellow;
+  height: 17px;
+}
+.bgn-blue{
+  background-color: blue;
+  height: 17px;
+}
+.bgn-green{
+  background-color: green;
+  height: 17px;
+}
+body{
+  background-color: #f5f3f1 !important;
+}
+.flt-rght{
+  float: right;
+}
+.margin-left-md{
+  margin-left: 155px !important;
+}

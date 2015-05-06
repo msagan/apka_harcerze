@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @team.name
+%p
+  %strong History:
+  = @team.history
+%p
+  %strong Situation description:
+  = @team.situation_description
+= link_to 'Edit', edit_admin_team_path(@team)
+|
+\#{link_to 'Back', admin_teams_path}

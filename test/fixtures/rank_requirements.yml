@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  color: 1
+  description: MyText
+  rank_id: 
+
+two:
+  color: 1
+  description: MyText
+  rank_id: 

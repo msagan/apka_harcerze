@@ -1,0 +1,1 @@
+json.extract! @badge, :color, :user_id, :name, :description, :comment, :created_at, :updated_at

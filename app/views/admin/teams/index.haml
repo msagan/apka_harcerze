@@ -1,0 +1,21 @@
+%h1 Listing teams
+%table#teams_table{cellpadding: "0", cellspacing:"0", border: "0", class: "datatable table table-striped table-bordered"}
+  %thead
+    %tr
+      %th Name
+      %th History
+      %th Situation description
+      %th
+      %th
+      %th
+  %tbody
+    - @teams.each do |team|
+      %tr{id: "j-#{team.id}"}
+        %td= team.name
+        %td= team.history
+        %td= team.situation_description
+        %td= link_to 'Show', [:admin, team]
+        %td= link_to 'Edit', edit_admin_team_path(team)
+        %td= link_to 'Destroy', [:admin, team], method: :delete, data: { confirm: 'Are you sure?' }
+%br
+  = link_to 'New Team', new_admin_team_path

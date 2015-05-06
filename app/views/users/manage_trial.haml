@@ -1,0 +1,54 @@
+.container-fluid
+  %h2 Zuch #{@user.full_name} próba na #{@trial.rank.level} gwiazdkę
+  .row
+    =form_for(@user, url: progress_trial_path(@user)) do |f|
+      .col-md-5
+        %h2 
+          Pozostałe wymagania
+          %h4 Odznaki do zdobycia
+          -@trial.rank.rank_requirements.each do |rr|
+            -rr.badges.each do |b|
+              -unless @user.has_badge? b
+                .form-group
+                  .col-xs-1{class: "bgn-#{b.color}"}
+                  .col-sm-6
+                    = b.name
+                  .col-sm-2
+                    =check_box("user", "badge_ids", {:multiple => true}, b.id, nil)
+                %br
+              -else
+                =f.hidden_field 'badge_ids', multiple: true, value: b.id
+          %h4 Zadania indywidualne do wykonania
+          -@trial.custom_tasks.each do |t|
+            -unless @user.has_task? t
+              .form-group
+                .col-sm-2
+                  = t.name
+                .col-sm-6
+                  = t.description
+                .col-sm-2
+                  =check_box("user", "custom_task_ids", {:multiple => true}, t.id, nil)
+              %br
+            -else
+              =f.hidden_field 'custom_task_ids',multiple: true, value: t.id
+      .col-md-5
+        %h2
+          Zaliczone wymagania
+        %h4 Zgobyte odznaki
+        -@trial.rank.rank_requirements.each do |rr|
+          -rr.badges.each do |b|
+            -if @user.has_badge? b
+              .col-xs-1{class: "bgn-#{b.color}"}
+              .col-sm-10
+                = b.name
+            %br
+        %h4 Wykonane zadania
+        -@trial.custom_tasks.each do |t|
+          -if @user.has_task? t
+            .col-sm-2
+              = t.name
+            .col-sm-10
+              = t.description
+          %br
+      .col-md-2
+        =f.submit 'Zalicz zadania', class: 'btn btn-success'

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  task_name: MyString
+  task_time: 1
+  task_info: MyText
+  materials_neede: MyText
+  person_responsible: MyString
+  set_id: 
+
+two:
+  task_name: MyString
+  task_time: 1
+  task_info: MyText
+  materials_neede: MyText
+  person_responsible: MyString
+  set_id: 

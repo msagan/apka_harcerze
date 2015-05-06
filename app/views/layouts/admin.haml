@@ -1,0 +1,14 @@
+!!!
+%html
+  %head
+    = render '/admin/partials/head'
+  %body
+    = render '/admin/partials/nav_bar'
+    .container-fluid
+      .col-sm-9.main
+        %h1.page-header
+          = @page
+        %p.notice= notice
+        %p.alert= alert
+        %p
+        = yield

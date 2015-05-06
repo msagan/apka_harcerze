@@ -1,0 +1,20 @@
+.navbar.navbar-inverse.navbar-fixed-top{:role => 'navigation'}
+  .container-fluid
+    .navbar-header
+      %button.navbar-toggle.collapsed{'data-target' => '.navbar-collapse', 'data-toggle' => 'collapse', :type => 'button'}
+        %span.sr-only Nawigacja
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to "Portal", root_path, :class => "navbar-brand"
+    .navbar-collapse.collapse
+      %ul.nav.navbar-nav.navbar-left
+        %li
+          = link_to "Użytkownicy", admin_users_path, class: "navbar-nav"
+        %li
+          = link_to "Odznaki", admin_badges_path, class: "navbar-nav"
+        %li
+          = link_to "Gromady", admin_teams_path, class: "navbar-nav"
+      %ul.nav.navbar-nav.navbar-right
+        %li
+          = link_to "[ wyloguj #{current_user.email} ]", destroy_user_session_path, method: :delete

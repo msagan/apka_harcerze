@@ -1,0 +1,41 @@
+.container-fluid
+  %h2 Zuch #{@trial.user.full_name} próba na #{@trial.rank.level} gwiazdkę
+  .row
+    .col-md-6
+      %h2 
+        Pozostałe wymagania
+        %h4 Odznaki do zdobycia
+        -@trial.badges.each do |b|
+          -unless @user.has_badge? b
+            .form-group
+              .col-xs-1{class: "bgn-#{b.color}"}
+              .col-sm-6
+                = b.name
+            %br
+        %h4 Zadania indywidualne do wykonania
+        -@trial.custom_tasks.each do |t|
+          -unless @user.has_task? t
+            .form-group
+              .col-sm-2
+                = t.name
+              .col-sm-6
+                = t.description
+            %br
+    .col-md-6
+      %h2
+        Zaliczone wymagania
+      %h4 Zgobyte odznaki
+      -@trial.badges.each do |b|
+        -if @user.has_badge? b
+          .col-xs-1{class: "bgn-#{b.color}"}
+          .col-sm-10
+            = b.name
+        %br
+      %h4 Wykonane zadania
+      -@trial.custom_tasks.each do |t|
+        -if @user.has_task? t
+          .col-sm-2
+            = t.name
+          .col-sm-10
+            = t.description
+        %br

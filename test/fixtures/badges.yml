@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  color: 1
+  user_id: 
+  name: MyString
+  description: MyText
+  comment: MyText
+
+two:
+  color: 1
+  user_id: 
+  name: MyString
+  description: MyText
+  comment: MyText

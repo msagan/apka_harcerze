@@ -1,0 +1,28 @@
+%h3
+  Lista spotkań w cyklu
+
+= link_to 'Dodaj spotkanie', new_meeting_path(@cycle), class: 'btn btn-primary'
+
+%br
+%br
+%table#cycles_table{cellpadding: "0", cellspacing:"0", border: "0", class: "datatable table table-striped table-bordered"}
+  %thead
+    %tr
+      %th Nazwa
+      %th Data początku
+      %th Data końca
+      %th Akcje
+  %tbody
+    -@cycle.meetings.each do |meeting|
+      %tr{id: "j-#{meeting.id}"}
+        %td=meeting.name
+        %td=meeting.start_date
+        %td=meeting.stop_date
+        %td
+          = link_to 'Edytuj spotkanie', edit_meeting_path(meeting), class: 'btn-sm btn-primary'
+          -if meeting.plan.present?
+            =link_to 'Edytuj plan spotkania', edit_plan_path(meeting.plan.id), class: 'btn-sm btn-primary'
+          -else
+            =link_to 'Stwórz plan spotkania', new_plan_path(meeting), class: 'btn-sm btn-success'
+          / = link_to 'Usuń', destroy_meeting_path(meeting), method: :delete, confirm: 'Na pewno? (Tej operacji nie można cofnąć!)', class: 'btn-sm btn-danger'
+
