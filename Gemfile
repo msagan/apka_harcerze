@@ -26,6 +26,8 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'thin'
 gem 'nested_form_fields'
 gem 'jquery-ui-rails'
+gem 'capistrano', '~> 3.4.0'
+gem 'capistrano-bundler', '~> 1.1.2'
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
 gem 'haml'
