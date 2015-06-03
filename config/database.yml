@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: apka_harcerze_production
+  database: apka-harcerze
   username: apka_harcerze
-  password: <%= ENV['APKA_HARCERZE_DATABASE_PASSWORD'] %>
+  password: apka2015
