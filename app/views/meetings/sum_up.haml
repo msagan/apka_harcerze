@@ -1,0 +1,22 @@
+.container-fluid
+  =form_for @meeting, url: finish_meeting_up_path(@meeting) do |f|
+    .form-inputs.form-horizontal.col-md-5
+      %h2 Lista obecności
+      -@scouts.each do |s|
+        .form-group.col-sm-12
+          .col-xs-6.pull-left
+            = f.label "#{s.full_name}", class: 'control-label'
+          .col-xs-1.pull-left
+            = check_box("plan", "user_ids", {:multiple => true}, s.id, nil)
+    .form-inputs.form-horizontal.col-md-5
+      %h2 Zakończone zadania
+      -@meeting.plan.plan_points.each do |pp|
+        .form-group.col-sm-12
+          .col-xs-6.pull-left
+            = f.label "#{pp.task_name}", class: 'control-label'
+            -if pp.badge_requirement.present?
+              %p="(Dotyczy zadania: #{pp.badge_requirement.description})"
+          .col-xs-1.pull-left
+            = check_box('plan', 'plan_point_ids', {:multiple => true}, pp.id, nil)
+    .col-md-2
+      =f.submit 'Zakończ podsumowanie', class: 'btn btn-success'

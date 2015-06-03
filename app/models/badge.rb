@@ -35,8 +35,19 @@ class Badge < ActiveRecord::Base
     end
   end
 
+  def requirement_count
+    self.badge_requirements.size
+  end
+
   def requirement_names
     self.badge_requirements.pluck(:description).sort
+  end
+
+  def requirements_select
+    self.badge_requirements.collect{|b| [b.id, b.description]}
+  end
+
+  def badges_teams
   end
 
   #TODO do przepisania, za długo

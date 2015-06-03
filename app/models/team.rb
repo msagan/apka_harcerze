@@ -4,6 +4,4 @@ class Team < ActiveRecord::Base
   has_many :cycles
   has_many :year_plans
 
-
-
 end

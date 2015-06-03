@@ -1,15 +1,15 @@
 .panel.panel-default
   .panel-heading
-    %b Stwórz plan
+    %b Stwórz plan roczny
 
 = form_for @year_plan do |f|
   .form-inputs.form-horizontal
     .form-group.col-sm-12
-      = f.label :title, class: "col-sm-2 control-label"
+      = f.label 'Tytuł', class: "col-sm-2 control-label"
       .col-sm-6
         = f.text_field :title, class: "form-control", required: true
     .form-group.col-sm-12.margin-left-md
-      = f.label :team_id, class: 'pull-left'
+      = f.label 'Drużyna', class: 'pull-left'
       .col-sm-6
         =select("year_plan", "team_id", @teams.all.collect {|t| [ t.name, t.id ] }, { include_blank: true, class: "pull-left" })
     .form-group.col-sm-12.margin-left-md

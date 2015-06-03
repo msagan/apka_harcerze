@@ -5,6 +5,11 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.find(params[:id])
   end
 
+  def sum_up
+    @meeting = Meeting.find(params[:id])
+    @scouts = @meeting.cycle.team.scouts
+  end
+
   def new
     @cycle = Cycle.find(params[:id])
     @meeting = Meeting.new
@@ -40,7 +45,7 @@ class MeetingsController < ApplicationController
   end
 
   def meeting_params
-    params.require(:meeting).permit(:name, :start_date, :stop_date)
+    params.require(:meeting).permit(:name, :start_date, :stop_date, user_ids: [], plan_point_ids: [])
   end
 
 

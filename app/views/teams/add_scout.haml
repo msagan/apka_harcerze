@@ -1,0 +1,64 @@
+.container-fluid
+  .col-md-5
+  %h2 Dane osobowe
+  = form_for(:user, url: create_scout_path(@team)) do |f|
+    - if @user.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@user.errors.count, "error")
+          prohibited this user from being saved:
+        %ul
+          - @user.errors.full_messages.each do |msg|
+            %li= msg
+    .form-inputs.form-horizontal
+      .form-group.col-sm-12
+        = f.label 'Imię', class: "col-sm-2 control-label"
+        .col-sm-4
+          = f.text_field :first_name, class: 'form-control'
+      .form-group.col-sm-12
+        = f.label 'Nazwisko', class: "col-sm-2 control-label"
+        .col-sm-4
+          = f.text_field :last_name, class: 'form-control'
+      .form-group.col-sm-12
+        = f.label :email, class: "col-sm-2 control-label"
+        .col-sm-4
+          = f.text_field :email, class: 'form-control'
+      .form-group.col-sm-12
+        = f.label 'Liczba gwiazdek', class: "col-sm-2 control-label"
+        .col-sm-4
+          = f.number_field :stars, class: 'form-control'
+      .form-group.col-sm-12
+        = f.label 'Opis', class: "col-sm-2 control-label"
+        .col-sm-4
+          = f.text_area :description, class: 'form-control'
+      .form-group.col-sm-12
+        = f.label 'Pesel', class: "col-sm-2 control-label"
+        .col-sm-4
+          = f.number_field :pesel, class: 'form-control'
+      .form-group.col-sm-12
+        = f.label 'Adres 1', class: "col-sm-2 control-label"
+        .col-sm-4
+          = f.text_field :address_1, class: 'form-control'
+      .form-group.col-sm-12
+        = f.label 'Adres 2', class: "col-sm-2 control-label"
+        .col-sm-4
+          = f.text_field :address_2, class: 'form-control'
+      .form-group.col-sm-12
+        = f.label 'Szkoła', class: "col-sm-2 control-label"
+        .col-sm-4
+          = f.text_field :school, class: 'form-control'
+      .form-group.col-sm-12
+        = f.label 'Klasa', class: "col-sm-2 control-label"
+        .col-sm-4
+          = f.text_field :school_class, class: 'form-control'
+      .form-group.col-sm-12
+        = f.label 'Zgoda rodzicielska', class: "col-sm-2 control-label"
+        .col-sm-4
+          = f.check_box :parental_agreement
+      .form-group.col-sm-12
+        = f.label 'Informacje medyczne', class: "col-sm-2 control-label"
+        .col-sm-4
+          = f.text_area :medical_info, class: 'form-control'
+      =f.hidden_field :team_id, value: @team.id
+      .actions
+        = f.submit 'Zapisz zucha'

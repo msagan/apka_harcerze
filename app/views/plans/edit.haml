@@ -3,32 +3,83 @@
     %b Edytuj plan spotkania
 
 = form_for @plan, url: update_plan_path(@plan) do |f|
-  .form-inputs.form-horizontal
-    %li.list-group-item
-      = f.nested_fields_for :plan_points do |ff|
-        .form-group.col-sm-12
-          = ff.label 'Nazwa', class: "col-sm-2 control-label"
-          .col-sm-6
-            = ff.text_field :task_name, class: 'form-control'
-        .form-group.col-sm-12
-          = ff.label 'Opis', class: "col-sm-2 control-label"
-          .col-sm-6
-            = ff.text_field :task_info, class: 'form-control'
-        .form-group.col-sm-12
-          = ff.label 'Czas operacyjny', class: "col-sm-2 control-label"
-          .col-sm-6
-            = ff.text_field :task_time, class: 'form-control'
-        .form-group.col-sm-12
-          = ff.label 'Potrzebne materiały', class: "col-sm-2 control-label"
-          .col-sm-6
-            = ff.text_area :materials_needed, class: 'form-control'
-        .form-group.col-sm-12
-          = ff.label 'Osoba odpowiedzialna za przygotowanie: ', class: "col-sm-2 control-label"
-          .col-sm-6
-            = ff.text_field :person_responsible, class: 'form-control'
-        = ff.remove_nested_fields_link 'Usuń punkt planu'
-    = f.add_nested_fields_link :plan_points, 'Dodaj punkt planu'
-    .form-actions
-      .form-group
-        .col-sm-2.col-md-offset-3
-          = f.submit 'Zapisz'
+  .col-md-6
+    .form-inputs.form-horizontal
+      .drop
+        = f.nested_fields_for :plan_points do |ff|
+          %li.list-group-item
+            .form-group.col-sm-12
+              = ff.label 'Nazwa', class: "col-sm-2 control-label"
+              .col-sm-6
+                = ff.text_field :task_name, class: 'form-control'
+            .form-group.col-sm-12
+              = ff.label 'Opis', class: "col-sm-2 control-label"
+              .col-sm-6
+                = ff.text_field :task_info, class: 'form-control'
+            .form-group.col-sm-12
+              = ff.label 'Czas operacyjny', class: "col-sm-2 control-label"
+              .col-sm-6
+                = ff.text_field :task_time, class: 'form-control'
+            .form-group.col-sm-12
+              = ff.label 'Potrzebne materiały', class: "col-sm-2 control-label"
+              .col-sm-6
+                = ff.text_area :materials_needed, class: 'form-control'
+            .form-group.col-sm-12
+              = ff.label 'Osoba odpowiedzialna: ', class: "col-sm-2 control-label"
+              .col-sm-6
+                = ff.text_field :person_responsible, class: 'form-control'
+            .form-group.col-sm-12
+              = ff.label 'Realizowany punkt: ', class: "col-sm-2 control-label"
+              .col-sm-6
+                -if ff.object.id && @pp = PlanPoint.find(ff.object.id)
+                  = ff.select :badge_requirement_id, {@pp.badge_requirement_text => @pp.badge_requirement_id, 'Nic' => nil}, {}, {class: 'form-control select-box'}
+
+                -else
+                  = ff.select :badge_requirement_id, '-', class: 'form-control select-box'
+            = ff.remove_nested_fields_link 'Usuń punkt planu'
+        = f.add_nested_fields_link :plan_points, 'Dodaj punkt planu', class: 'droppable'
+      .form-actions
+        .form-group
+          .col-sm-2.col-md-offset-3
+            = f.submit 'Zapisz'
+  .col-md-5
+    %h2
+      Punkty do zrealizowania w planie
+    .col-sm-10
+      %ul.list-group
+        -@badges.each do |badge|
+          %li.list-group-item
+            %button.btn{"aria-controls" => "badge#{badge.id}", "aria-expanded" => "false", "data-target" => "#badge#{badge.id}", "data-toggle" => "collapse", :type => "button", class: "bgn-#{badge.color}-color"}
+              %b= badge.name
+            .collapse{id: "badge#{badge.id}"}
+              -badge.badge_requirements.each do |br|
+                =label_tag br, br.description, id: "#{br.id}", class: 'drag'
+:javascript
+  $(document).ready(function(){
+    $('li').droppable({
+        drop: function(event, ui) {
+          element = [ui.helper.attr('id'), ui.helper.text()];
+          $(this).find('select').append($('<option/>', { 
+            value: element[0],
+            text : element[1]
+          }));
+          $(this).find('select').val(element[0]);
+        }
+      });
+    $(".drag").draggable({
+      revert: true
+    });
+    $(document).on("fields_added.nested_form_fields", function(event, param){
+      $('.drop').find('li').last().droppable({
+        drop: function(event, ui) {
+          element = [ui.helper.attr('id'), ui.helper.text()];
+          $(this).find('select').append($('<option/>', { 
+            value: element[0],
+            text : element[1]
+          }));
+          $(this).find('select').val(element[0]);
+        }
+      });
+    });
+  });
+

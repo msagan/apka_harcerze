@@ -8,6 +8,11 @@ class PlansController < ApplicationController
   def new
     @meeting = Meeting.find(params[:id])
     @plan = Plan.new
+    @badges = @meeting.cycle.year_plan.badges
+    @badge_requirements = []
+    @badges.each do |b|
+      @badge_requirements += b.badge_requirements.collect{|b| [b.description, b.id]}
+    end
   end
 
   def create
@@ -21,8 +26,13 @@ class PlansController < ApplicationController
   end
 
   def edit
-    @meeting = Meeting.find(params[:id])
     @plan = Plan.find(params[:id])
+    @meeting = @plan.meeting
+    @badges = @meeting.cycle.year_plan.badges
+    @badge_requirements = []
+    @badges.each do |b|
+      @badge_requirements += b.badge_requirements.collect{|b| [b.description, b.id]}
+    end
   end
 
   def update
@@ -36,12 +46,29 @@ class PlansController < ApplicationController
 
   def destroy
     @plan = Plan.find(params[:id])
+    @cycle = @plan.meeting.cycle
     @plan.destroy
     redirect_to cycle_path(@cycle)
   end
 
+  def finish_up
+    @meeting = Meeting.find(params[:id])
+    @meeting.summed_up = true
+    @meeting.user_ids = plan[:user_ids]
+    @meeting.save
+    users = User.find(params[:plan][:user_ids])
+    brs = PlanPoint.where(id: params[:plan][:plan_point_ids]).pluck(:badge_requirement_id)
+    users.each do |u|
+      u.badge_requirement_ids = u.badge_requirement_ids | brs
+      u.save
+    end
+    redirect_to root_path, notice: 'Podsumowane!'
+  end
+
+
+
   def plan_params
-    params.require(:plan).permit(:name, :start_date, :stop_date, plan_points_attributes: [:id, :task_name, :task_time, :task_info, :materials_needed, :person_responsible, :_destroy])
+    params.require(:plan).permit(:name, :start_date, :stop_date, user_ids: [], plan_point_ids:[], plan_points_attributes: [:id, :task_name, :task_time, :task_info, :badge_requirement_id, :materials_needed, :person_responsible, :_destroy])
 
 
   end

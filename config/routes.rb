@@ -13,10 +13,21 @@ Rails.application.routes.draw do
   resources :cycles, only: [:show, :index, :destroy]
   resources :year_plans
   resources :plans, only: [:show, :destroy]
-  get 'plans/edit/:id', to: 'plans#edit', as: :edit_plan
+
+  get 'meetings/sum_up/:id', to: 'meetings#sum_up', as: :sum_up_meeting
+  patch 'plans/finish_up/:id', to: 'plans#finish_up', as: :finish_meeting_up
+
   get 'plans/new/:id', to: 'plans#new', as: :new_plan
+  get 'plans/edit/:id', to: 'plans#edit', as: :edit_plan
   post 'plans/create/:id', to: 'plans#create', as: :create_plan
   patch 'plans/update/:id', to: 'plans#update', as: :update_plan
+  delete 'plans/delete/:id', to: 'plans#destroy', as: :destroy_plan
+
+  get 'team/add_scout/:id', to: 'teams#add_scout', as: :add_scout
+  post 'team/create_scout/:id', to: 'teams#create_scout', as: :create_scout
+  get 'team/edit_scout/:id', to: 'teams#edit_scout', as: :team_edit_scout
+  patch 'team/update_scout/:id', to: 'teams#update_scout', as: :team_update_scout
+
   get 'scouts/edit/:id', to: 'users#edit_scout', as: :edit_scout
   get 'meetings/edit/:id', to: 'meetings#edit', as: :edit_meeting
   get 'meetings/new/:id', to: 'meetings#new', as: :new_meeting

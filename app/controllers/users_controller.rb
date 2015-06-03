@@ -8,6 +8,7 @@ class UsersController < ApplicationController
   end
 
   def edit_trial
+    @colors = ['czerwony', 'zolty', 'zielony', 'fioletowy', 'niebieski']
     @trial = Trial.find(params[:id])
     @badges = Badge.all
   end
@@ -33,7 +34,7 @@ class UsersController < ApplicationController
   def update_scout
     @user = User.find(params[:id])
     @user.update(user_params)
-  def
+  end
 
   def show_trial
     @trial = Trial.find(params[:id])
@@ -60,11 +61,11 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(badge_ids: [], custom_task_ids: [], :first_name, :last_name, :description)
+    params.require(:user).permit(:first_name, :last_name, :description, badge_ids: [], custom_task_ids: [])
   end
 
   def trial_params
-    params.require(:trial).permit(:rank, :badges, custom_tasks_attributes: [:id, :name, :description, :_destroy], badge_ids: [] )
+    params.require(:trial).permit(:rank, :badges, custom_tasks_attributes: [:id, :name, :description, :_destroy], badge_ids: [])
   end
 
   private

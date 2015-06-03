@@ -24,6 +24,22 @@
   background-color: green;
   height: 17px;
 }
+.bgn-red-color{
+  background-color: red;
+}
+.bgn-purple-color{
+  background-color: purple;
+}
+.bgn-yellow-color{
+  background-color: yellow;
+}
+.bgn-blue-color{
+  background-color: blue;
+}
+.bgn-green-color{
+  background-color: green;
+}
+
 body{
   background-color: #f5f3f1 !important;
 }

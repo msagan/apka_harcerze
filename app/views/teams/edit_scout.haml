@@ -1,0 +1,82 @@
+= form_for(@user, url: team_update_scout_path(@user)) do |f|
+  .container-fluid
+    .col-md-4
+      %button.btn{"aria-controls" => '#personal', "aria-expanded" => "false", "data-target" => '#personal', "data-toggle" => "collapse", :type => "button"}
+        %b Dane osobowe
+      .collapse{id: 'personal'}
+        - if @user.errors.any?
+          #error_explanation
+            %h2
+              = pluralize(@user.errors.count, "error")
+              prohibited this user from being saved:
+            %ul
+              - @user.errors.full_messages.each do |msg|
+                %li= msg
+        .form-inputs.form-horizontal
+          .form-group.col-sm-12
+            = f.label 'Imię', class: "col-sm-2 control-label"
+            .col-sm-7
+              = f.text_field :first_name, class: 'form-control'
+          .form-group.col-sm-12
+            = f.label 'Nazwisko', class: "col-sm-2 control-label"
+            .col-sm-7
+              = f.text_field :last_name, class: 'form-control'
+          .form-group.col-sm-12
+            = f.label :email, class: "col-sm-2 control-label"
+            .col-sm-7
+              = f.text_field :email, class: 'form-control'
+          .form-group.col-sm-12
+            = f.label 'Liczba gwiazdek', class: "col-sm-2 control-label"
+            .col-sm-7
+              .form-control= @user.stars
+          .form-group.col-sm-12
+            = f.label 'Opis', class: "col-sm-2 control-label"
+            .col-sm-7
+              = f.text_area :description, class: 'form-control'
+          .form-group.col-sm-12
+            = f.label 'Pesel', class: "col-sm-2 control-label"
+            .col-sm-7
+              = f.number_field :pesel, class: 'form-control'
+          .form-group.col-sm-12
+            = f.label 'Adres 1', class: "col-sm-2 control-label"
+            .col-sm-7
+              = f.text_field :address_1, class: 'form-control'
+          .form-group.col-sm-12
+            = f.label 'Adres 2', class: "col-sm-2 control-label"
+            .col-sm-7
+              = f.text_field :address_2, class: 'form-control'
+          .form-group.col-sm-12
+            = f.label 'Szkoła', class: "col-sm-2 control-label"
+            .col-sm-7
+              = f.text_field :school, class: 'form-control'
+          .form-group.col-sm-12
+            = f.label 'Klasa', class: "col-sm-2 control-label"
+            .col-sm-7
+              = f.text_field :school_class, class: 'form-control'
+          .form-group.col-sm-12
+            = f.label 'Zgoda rodzicielska', class: "col-sm-2 control-label"
+            .col-sm-7
+              = f.check_box :parental_agreement
+          .form-group.col-sm-12
+            = f.label 'Informacje medyczne', class: "col-sm-2 control-label"
+            .col-sm-7
+              = f.text_area :medical_info, class: 'form-control'
+    .col-md-4
+      %button.btn{"aria-controls" => '#attendance', "aria-expanded" => "false", "data-target" => '#attendance', "data-toggle" => "collapse", :type => "button"}
+        %b Obecność na zbiórkach
+      .collapse{id: 'attendance'}
+        -@user.attended_meetings.each do |m|
+          .col-sm-12
+            %p
+              ="#{m.name} #{m.start_date.to_formatted_s(:db)} - #{m.stop_date.to_formatted_s(:db)}"
+    .col-md-2
+      %button.btn{"aria-controls" => '#badges', "aria-expanded" => "false", "data-target" => '#badges', "data-toggle" => "collapse", :type => "button"}
+        %b Zdobywane odznaki
+      .collapse{id: 'badges'}
+        -@user.incomplete_badges.each do |b|
+          .col-sm-12
+            %p
+              =b[0].name + "#{b[1]}/#{b[0].requirement_count}"
+
+    .col-md-1
+      = f.submit 'Zapisz zucha', class: 'btn btn-primary'

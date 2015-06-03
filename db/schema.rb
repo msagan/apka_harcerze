@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150324195613) do
+ActiveRecord::Schema.define(version: 20150528112233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(version: 20150324195613) do
   end
 
   add_index "badge_requirements", ["badge_id"], name: "index_badge_requirements_on_badge_id", using: :btree
+
+  create_table "badge_requirements_users", force: true do |t|
+    t.integer "badge_requirement_id"
+    t.integer "user_id"
+  end
+
+  add_index "badge_requirements_users", ["badge_requirement_id"], name: "index_badge_requirements_users_on_badge_requirement_id", using: :btree
+  add_index "badge_requirements_users", ["user_id"], name: "index_badge_requirements_users_on_user_id", using: :btree
 
   create_table "badge_trials", force: true do |t|
     t.integer  "user_id"
@@ -96,9 +104,18 @@ ActiveRecord::Schema.define(version: 20150324195613) do
     t.integer  "cycle_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "summed_up"
   end
 
   add_index "meetings", ["cycle_id"], name: "index_meetings_on_cycle_id", using: :btree
+
+  create_table "meetings_users", force: true do |t|
+    t.integer "meeting_id"
+    t.integer "user_id"
+  end
+
+  add_index "meetings_users", ["meeting_id"], name: "index_meetings_users_on_meeting_id", using: :btree
+  add_index "meetings_users", ["user_id"], name: "index_meetings_users_on_user_id", using: :btree
 
   create_table "plan_points", force: true do |t|
     t.string   "task_name"
@@ -110,8 +127,10 @@ ActiveRecord::Schema.define(version: 20150324195613) do
     t.string   "set_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "badge_requirement_id"
   end
 
+  add_index "plan_points", ["badge_requirement_id"], name: "index_plan_points_on_badge_requirement_id", using: :btree
   add_index "plan_points", ["set_id", "set_type"], name: "index_plan_points_on_set_id_and_set_type", using: :btree
 
   create_table "plans", force: true do |t|
