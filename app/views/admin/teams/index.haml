@@ -5,6 +5,14 @@
       %th Name
       %th History
       %th Situation description
+      %th Miejsce działania
+      %th Drużynowy
+      %th Przyboczny
+      %th Przyboczny
+      %th Hufiec
+      %th Chorągiew
+      %th Data powołania
+      %th Obrzędowość
       %th
       %th
       %th
@@ -14,8 +22,15 @@
         %td= team.name
         %td= team.history
         %td= team.situation_description
+        %td= team.base
+        %td= team.user.full_name
+        %td= team.adjutant_1
+        %td= team.adjutant_2
+        %td= team.chapter
+        %td= team.banner
+        %td= team.date_of_creation
+        %td= team.ceremonial
         %td= link_to 'Show', [:admin, team]
         %td= link_to 'Edit', edit_admin_team_path(team)
         %td= link_to 'Destroy', [:admin, team], method: :delete, data: { confirm: 'Are you sure?' }
 %br
-  = link_to 'New Team', new_admin_team_path

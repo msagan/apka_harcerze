@@ -41,6 +41,26 @@
       .col-sm-4
         = f.text_field :address_2, class: 'form-control'
     .form-group.col-sm-12
+      = f.label :date_of_admission, class: "col-sm-2 control-label"
+      .col-sm-4
+        = f.text_field :date_of_admission, class: 'form-control datetimepicker'
+    .form-group.col-sm-12
+      = f.label :date_of_leave, class: "col-sm-2 control-label"
+      .col-sm-4
+        = f.text_field :date_of_leave, class: 'form-control datetimepicker'
+    .form-group.col-sm-12
+      = f.label :phone_number, class: "col-sm-2 control-label"
+      .col-sm-4
+        = f.text_field :phone_number, class: 'form-control'
+    .form-group.col-sm-12
+      = f.label :parent_1, class: "col-sm-2 control-label"
+      .col-sm-4
+        = f.text_field :parent_1, class: 'form-control'
+    .form-group.col-sm-12
+      = f.label :parent_2, class: "col-sm-2 control-label"
+      .col-sm-4
+        = f.text_field :parent_2, class: 'form-control'
+    .form-group.col-sm-12
       = f.label :school, class: "col-sm-2 control-label"
       .col-sm-4
         = f.text_field :school, class: 'form-control'
@@ -52,6 +72,10 @@
       = f.label :parental_agreement, class: "col-sm-2 control-label"
       .col-sm-4
         = f.check_box :parental_agreement
+    .form-group.col-sm-12
+      = f.label :scouts_mark, class: "col-sm-2 control-label"
+      .col-sm-4
+        = f.check_box :scouts_mark
     .form-group.col-sm-12
       = f.label :medical_info, class: "col-sm-2 control-label"
       .col-sm-4

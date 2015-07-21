@@ -33,7 +33,7 @@ class TeamsController < ApplicationController
 
   def edit_scout
     @user = User.find(params[:id])
-    
+
   end
 
   def update_scout
@@ -52,12 +52,13 @@ class TeamsController < ApplicationController
   end
 
   def team_params
-    params.require(:team).permit(:name, :history, :situation_description)
+    params.require(:team).permit(:name, :history, :situation_description, :base, :adjutant_1, :adjutant_2, :banner, :chapter, :date_of_creation, :ceremonial)
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :email, :last_name, :stars, :description, :pesel, :address_1, :address_2, :school, :school_class, :parental_agreement, :medical_info, :team_id)
+    params.require(:user).permit(:first_name, :email, :last_name, :stars, :description, :pesel, :address_1, :address_2, :school, :school_class, :parental_agreement, :medical_info, :team_id, :scouts_mark, :date_of_admission, :date_of_leave, :phone_number, :parent_1, :parent_2)
   end
+
   private
 
   def make_sure_team_is_mine
