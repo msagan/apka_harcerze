@@ -65,7 +65,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :description, badge_ids: [], custom_task_ids: [], :scouts_mark, :date_of_admission, :date_of_leave, :phone_number, :parent_1, :parent_2)
+    params.require(:user).permit(:first_name, :last_name, :description, :scouts_mark, :date_of_admission, :date_of_leave, :phone_number, :parent_1, :parent_2, badge_ids: [], custom_task_ids: [])
   end
 
   def trial_params
