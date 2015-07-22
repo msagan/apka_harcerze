@@ -22,9 +22,13 @@ class UsersController < ApplicationController
   def finish_trial
     @trial = Trial.find(params[:id])
     user = @trial.user
-    user.update(stars: user.stars + 1)
-    @trial.update(completed: true)
-    redirect_to team_path(@trial.user.team)
+    if user.scouts_mark?
+      user.update(stars: user.stars + 1)
+      @trial.update(completed: true)
+      redirect_to team_path(@trial.user.team), notice: 'Zakończono próbę!'
+    else
+      redirect_to team_path(trial.user.team), alert: 'Nie można przyznać gwiazdki zuchowi bez znaczka!'
+    end
   end
 
   def edit_scout
