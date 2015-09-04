@@ -54,7 +54,7 @@ class PlansController < ApplicationController
   def finish_up
     @meeting = Meeting.find(params[:id])
     @meeting.summed_up = true
-    @meeting.user_ids = plan[:user_ids]
+    @meeting.user_ids = plan_params[:user_ids]
     @meeting.save
     users = User.find(params[:plan][:user_ids])
     brs = PlanPoint.where(id: params[:plan][:plan_point_ids]).pluck(:badge_requirement_id)
