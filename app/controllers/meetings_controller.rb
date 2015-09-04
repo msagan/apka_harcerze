@@ -7,7 +7,7 @@ class MeetingsController < ApplicationController
 
   def sum_up
     @meeting = Meeting.find(params[:id])
-    @scouts = @meeting.cycle.team.scouts
+    @scouts = @meeting.cycle.year_plan.team.scouts
   end
 
   def new
