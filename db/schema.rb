@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150721204203) do
+ActiveRecord::Schema.define(version: 20150904112616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,14 @@ ActiveRecord::Schema.define(version: 20150721204203) do
     t.integer  "emblem_file_size"
     t.datetime "emblem_updated_at"
   end
+
+  create_table "badges_cycles", force: true do |t|
+    t.integer "badge_id"
+    t.integer "cycle_id"
+  end
+
+  add_index "badges_cycles", ["badge_id"], name: "index_badges_cycles_on_badge_id", using: :btree
+  add_index "badges_cycles", ["cycle_id"], name: "index_badges_cycles_on_cycle_id", using: :btree
 
   create_table "badges_to_trials", force: true do |t|
     t.integer "badge_id"

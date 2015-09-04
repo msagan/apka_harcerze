@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
   root to: "home#index"
   devise_for :users, controllers: {registrations: 'registrations'}
-  resources :teams, only: [:show, :index]
+  resources :teams, only: [:show, :index, :new, :create]
   resources :cycles, only: [:show, :index, :destroy]
   resources :year_plans
   resources :plans, only: [:show, :destroy]

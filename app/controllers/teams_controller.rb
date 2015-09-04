@@ -8,6 +8,21 @@ class TeamsController < ApplicationController
     @teams = current_user.lead_teams
   end
 
+  def new
+    @team = Team.new
+  end
+
+  def create
+    p team_params
+    @team = Team.new(team_params)
+    @team.user = current_user
+    if @team.save
+      redirect_to root_path
+    else
+      render :new 
+    end
+  end
+
   def show
     @team = current_user.lead_teams.find(params[:id])
     @users = @team.scouts

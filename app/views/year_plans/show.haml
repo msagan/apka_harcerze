@@ -14,14 +14,12 @@
       %th Data końca
       %th Akcje
   %tbody
-    -@teams.each do |team|
-      -team.cycles.each do |cycle|
-        %tr{id: "j-#{cycle.id}"}
-          %td=cycle.name
-          %td=cycle.team.name
-          %td=cycle.start_date
-          %td=cycle.stop_date
-          %td
-            = link_to 'Pokaż spotkania', cycle_path(cycle), class: 'btn-sm btn-primary'
-            = link_to 'Edytuj', edit_cycle_path(cycle), class: 'btn-sm btn-primary'
-            = link_to 'Usuń', cycle_path(cycle), method: :delete, confirm: 'Na pewno? (Tej operacji nie można cofnąć!)', class: 'btn-sm btn-danger'
+    -@year_plan.cycles.each do |cycle|
+      %tr{id: "j-#{cycle.id}"}
+        %td=cycle.name
+        %td=cycle.start_date
+        %td=cycle.stop_date
+        %td
+          = link_to 'Pokaż spotkania', cycle_path(cycle), class: 'btn-sm btn-primary'
+          = link_to 'Edytuj', edit_cycle_path(cycle), class: 'btn-sm btn-primary'
+          = link_to 'Usuń', cycle_path(cycle), method: :delete, confirm: 'Na pewno? (Tej operacji nie można cofnąć!)', class: 'btn-sm btn-danger'

@@ -9,10 +9,6 @@
       .col-sm-6
         = f.text_field :title, class: "form-control", required: true
     .form-group.col-sm-12.margin-left-md
-      = f.label 'Drużyna', class: 'pull-left'
-      .col-sm-6
-        =select("year_plan", "team_id", @teams.all.collect {|t| [ t.name, t.id ] }, { include_blank: true, class: "pull-left" })
-    .form-group.col-sm-12.margin-left-md
       .col-sm-6
         -@badges.each do |badge|
           .col-sm-2

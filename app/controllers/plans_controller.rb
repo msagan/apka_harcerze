@@ -8,7 +8,7 @@ class PlansController < ApplicationController
   def new
     @meeting = Meeting.find(params[:id])
     @plan = Plan.new
-    @badges = @meeting.cycle.year_plan.badges
+    @badges = @meeting.cycle.badges
     @badge_requirements = []
     @badges.each do |b|
       @badge_requirements += b.badge_requirements.collect{|b| [b.description, b.id]}
@@ -28,7 +28,7 @@ class PlansController < ApplicationController
   def edit
     @plan = Plan.find(params[:id])
     @meeting = @plan.meeting
-    @badges = @meeting.cycle.year_plan.badges
+    @badges = @meeting.cycle.badges
     @badge_requirements = []
     @badges.each do |b|
       @badge_requirements += b.badge_requirements.collect{|b| [b.description, b.id]}

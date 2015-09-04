@@ -11,7 +11,9 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :meetings
   has_and_belongs_to_many :badge_requirements
   has_many :custom_tasks
-  
+  attr_accessor :signing_in
+  validate :email, :phone_number, :parent_1, :parent_2, :school_class, :pesel, :stars, :first_name, :last_name, presence: true, if: :should_validate
+
   def badges_names
     self.badges.pluck(:name)
   end
@@ -38,6 +40,10 @@ class User < ActiveRecord::Base
       end
     end
     hash
+  end
+
+  def should_validate
+    signing_in 
   end
 
   def full_name

@@ -17,7 +17,9 @@ class YearPlansController < ApplicationController
   end
 
   def create
-    if @year_plan = YearPlan.create(year_plan_params)
+    @year_plan = YearPlan.new(year_plan_params)
+    @year_plan.team_id = current_user.lead_teams.first.id
+    if @year_plan.save
       redirect_to year_plans_path, notice: "Cykl dodany"
     else
       redirect_to year_plans_path
@@ -40,12 +42,12 @@ class YearPlansController < ApplicationController
   end
 
   def destroy
-    YearPYearPlanlan.find(params[:id]).destroy
+    YearPlan.find(params[:id]).destroy
     redirect_to year_plans_path
   end
 
   def year_plan_params
-    params.require(:year_plan).permit(:title, :team_id, badge_ids:[])
+    params.require(:year_plan).permit(:title, badge_ids:[])
   end
 
 

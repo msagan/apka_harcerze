@@ -12,6 +12,7 @@ class Badge < ActiveRecord::Base
   has_many :rank_requirements_to_badges
   has_many :rank_requirements, through: :rank_requirements_to_badges
   has_and_belongs_to_many :year_plans
+  has_and_belongs_to_many :cycles
   scope :colored, ->(color) { where(:color => color)}
 
   def self.get_from_file!

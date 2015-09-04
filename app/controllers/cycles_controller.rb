@@ -12,6 +12,7 @@ class CyclesController < ApplicationController
   def new
     @year_plan = YearPlan.find(params[:id])
     @cycle = Cycle.new
+    @badges = @year_plan.badges
   end
 
   def create
@@ -25,11 +26,13 @@ class CyclesController < ApplicationController
 
   def edit
     @cycle = Cycle.find(params[:id])
+    @year_plan = @cycle.year_plan
+    @badges = @year_plan.badges
   end
 
   def update
-    @year_plan = YearPlan.find(params[:id])
     @cycle = Cycle.find(params[:id])
+    @year_plan = @cycle.year_plan
     if @cycle.update(cycle_params)
       redirect_to year_plan_path(@year_plan), notice: "Cykl dodany"
     else
@@ -43,7 +46,7 @@ class CyclesController < ApplicationController
   end
 
   def cycle_params
-    params.require(:cycle).permit(:name, :team_id, :start_date, :stop_date)
+    params.require(:cycle).permit(:name, :team_id, :start_date, :stop_date, badge_ids:[])
   end
 
 
