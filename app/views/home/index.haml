@@ -1,7 +1,9 @@
-%p
-  =link_to 'Stwórz drużynę', new_team_path
-%p
-  =link_to 'Stwórz plan roczny dla mojej gromady', new_year_plan_path
-%p
-  -if current_user.lead_teams.count > 0
-    =link_to 'Zarządzaj zuchami w mojej gromadzie', team_path(current_user.lead_teams.first)
+-if user_signed_in?
+  -if current_user.lead_teams.count > 0    
+    %p
+      =link_to 'Zarządzaj zuchami w mojej gromadzie', team_path(current_user.lead_teams.first)
+    %p
+      =link_to 'Stwórz plan roczny dla mojej gromady', new_year_plan_path
+  -else
+    %p
+      =link_to 'Stwórz drużynę', new_team_path  
