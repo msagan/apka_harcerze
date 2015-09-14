@@ -13,7 +13,6 @@ class TeamsController < ApplicationController
   end
 
   def create
-    p team_params
     @team = Team.new(team_params)
     @team.user = current_user
     if @team.save
@@ -30,6 +29,7 @@ class TeamsController < ApplicationController
   end
 
   def add_scout
+    @badges = Badge.all
     @team = Team.find(params[:id])
     @user = User.new
   end
@@ -37,6 +37,8 @@ class TeamsController < ApplicationController
   def create_scout
     @team = Team.find(params[:user][:team_id])
     @user = User.new(user_params)
+    @user.signing_in = false
+    @badges = Badge.all
     @user.password = 'lolopolo'
     if @user.save
       redirect_to team_path(@team), notice: 'User stworzony'
@@ -48,11 +50,14 @@ class TeamsController < ApplicationController
 
   def edit_scout
     @user = User.find(params[:id])
-
+    @user.signing_in = false
+    @badges = Badge.all
   end
 
   def update_scout
     @user = User.find(params[:id])
+    @user.signing_in = false
+    @badges = Badge.all
     if @user.update(user_params)
       redirect_to team_edit_scout_path(@user), notice: 'Zuch zaktualizowany'
     else
@@ -71,7 +76,7 @@ class TeamsController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :email, :last_name, :stars, :description, :pesel, :address_1, :address_2, :school, :school_class, :parental_agreement, :medical_info, :team_id, :scouts_mark, :date_of_admission, :date_of_leave, :phone_number, :parent_1, :parent_2)
+    params.require(:user).permit(:first_name, :email, :last_name, :stars, :description, :pesel, :address_1, :address_2, :school, :school_class, :parental_agreement, :medical_info, :team_id, :scouts_mark, :date_of_admission, :date_of_leave, :phone_number, :parent_1, :parent_2, badge_ids: [])
   end
 
   private

@@ -1,52 +1,55 @@
-= form_for([@team]) do |f|
-  - if @team.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@team.errors.count, "error")
-        prohibited this team from being saved:
-      %ul
-        - @team.errors.full_messages.each do |msg|
-          %li= msg
-  .field
-    = f.label 'Nazwa'
-    %br
-      = f.text_field :name
-  .field
-    = f.label 'Historia'
-    %br
-      = f.text_area :history
-  .field
-    = f.label 'Opis sytuacyjny'
-    %br
-      = f.text_area :situation_description
-  .field
-    = f.label "Miejsce działania"
-    %br
-      = f.text_field :base
-  .field
-    = f.label "Przyboczny 1"
-    %br
-      = f.text_field :adjutant_1
-  .field
-    = f.label "Przyboczny 2"
-    %br
-      = f.text_field :adjutant_2
-  .field
-    = f.label "Hufiec"
-    %br
-      = f.text_field :chapter
-  .field
-    = f.label "Chorągiew"
-    %br
-      = f.text_field :banner
-  .field
-    = f.label "Data powołania"
-    %br
-      = f.text_field :date_of_creation, class: 'datetimepicker'
-  .field
-    = f.label "Obrzędowość"
-    %br
-      = f.text_area :ceremonial
+.container-fluid
+  .col-md-6
+    = form_for([@team]) do |f|
+      - if @team.errors.any?
+        #error_explanation
+          %h2
+            = pluralize(@team.errors.count, "error")
+            prohibited this team from being saved:
+          %ul
+            - @team.errors.full_messages.each do |msg|
+              %li= msg
+      .form-inputs.form-horizontal
+        .form-group.col-sm-12
+          = f.label 'Nazwa', class: "col-sm-2 control-label"
+          .col-sm-7
+            = f.text_field :name, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label 'Historia', class: "col-sm-2 control-label"
+          .col-sm-7
+            = f.text_area :history, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label 'Opis sytuacyjny', class: "col-sm-2 control-label"
+          .col-sm-7
+            = f.text_area :situation_description, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label "Miejsce działania", class: "col-sm-2 control-label"
+          .col-sm-7
+            = f.text_field :base, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label "Przyboczny 1", class: "col-sm-2 control-label"
+          .col-sm-7
+            = f.text_field :adjutant_1, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label "Przyboczny 2", class: "col-sm-2 control-label"
+          .col-sm-7
+            = f.text_field :adjutant_2, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label "Hufiec", class: "col-sm-2 control-label"
+          .col-sm-7
+            = f.text_field :chapter, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label "Chorągiew", class: "col-sm-2 control-label"
+          .col-sm-7
+            = f.text_field :banner, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label "Data powołania", class: "col-sm-2 control-label"
+          .col-sm-7
+            = f.text_field :date_of_creation, class: 'datetimepicker'
+        .form-group.col-sm-12
+          = f.label "Obrzędowość", class: "col-sm-2 control-label"
+          .col-sm-7
+            = f.text_area :ceremonial, class: 'form-control'
 
-  .actions
-    = f.submit
+      .actions
+        = f.submit

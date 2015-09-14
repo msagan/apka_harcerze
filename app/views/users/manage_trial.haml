@@ -34,7 +34,7 @@
       .col-md-5
         %h2
           Zaliczone wymagania
-        %h4 Zgobyte odznaki
+        %h4 Zdobyte odznaki
         -@trial.rank.rank_requirements.each do |rr|
           -rr.badges.each do |b|
             -if @user.has_badge? b

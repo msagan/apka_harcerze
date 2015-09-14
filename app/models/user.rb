@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable
   belongs_to :team, class_name: "Team"
   has_many :lead_teams, class_name: "Team"
   has_many :badge_trials
@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   end
 
   def should_validate
-    signing_in 
+    self.signing_in
   end
 
   def full_name

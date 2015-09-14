@@ -1,5 +1,4 @@
 .container-fluid
-  .col-md-5
   %h2 Dane osobowe
   = form_for(:user, url: create_scout_path(@team)) do |f|
     - if @user.errors.any?
@@ -10,79 +9,86 @@
         %ul
           - @user.errors.full_messages.each do |msg|
             %li= msg
-    .form-inputs.form-horizontal
-      .form-group.col-sm-12
-        = f.label 'Imię', class: "col-sm-2 control-label"
-        .col-sm-4
-          = f.text_field :first_name, class: 'form-control'
-      .form-group.col-sm-12
-        = f.label 'Nazwisko', class: "col-sm-2 control-label"
-        .col-sm-4
-          = f.text_field :last_name, class: 'form-control'
-      .form-group.col-sm-12
-        = f.label :email, class: "col-sm-2 control-label"
-        .col-sm-4
-          = f.text_field :email, class: 'form-control'
-      .form-group.col-sm-12
-        = f.label 'Liczba gwiazdek', class: "col-sm-2 control-label"
-        .col-sm-4
-          = f.number_field :stars, class: 'form-control'
-      .form-group.col-sm-12
-        = f.label 'Informacje ogólne', class: "col-sm-2 control-label"
-        .col-sm-4
-          = f.text_area :description, class: 'form-control'
-      .form-group.col-sm-12
-        = f.label :pesel, class: "col-sm-2 control-label"
-        .col-sm-4
-          = f.number_field :pesel, class: 'form-control'
-      .form-group.col-sm-12
-        = f.label 'Adres 1', class: "col-sm-2 control-label"
-        .col-sm-4
-          = f.text_field :address_1, class: 'form-control'
-      .form-group.col-sm-12
-        = f.label 'Adres 2', class: "col-sm-2 control-label"
-        .col-sm-4
-          = f.text_field :address_2, class: 'form-control'
-      .form-group.col-sm-12
-        = f.label 'Data przyjęcia', class: "col-sm-2 control-label"
-        .col-sm-4
-          = f.text_field :date_of_admission, class: 'form-control datetimepicker'
-      .form-group.col-sm-12
-        = f.label 'Data oddelegowania', class: "col-sm-2 control-label"
-        .col-sm-4
-          = f.text_field :date_of_leave, class: 'form-control datetimepicker'
-      .form-group.col-sm-12
-        = f.label 'Numer kontaktowy', class: "col-sm-2 control-label"
-        .col-sm-4
-          = f.text_field :phone_number, class: 'form-control'
-      .form-group.col-sm-12
-        = f.label 'Rodzic 1', class: "col-sm-2 control-label"
-        .col-sm-4
-          = f.text_field :parent_1, class: 'form-control'
-      .form-group.col-sm-12
-        = f.label 'Rodzic 2', class: "col-sm-2 control-label"
-        .col-sm-4
-          = f.text_field :parent_2, class: 'form-control'
-      .form-group.col-sm-12
-        = f.label 'Szkoła', class: "col-sm-2 control-label"
-        .col-sm-4
-          = f.text_field :school, class: 'form-control'
-      .form-group.col-sm-12
-        = f.label 'Klasa', class: "col-sm-2 control-label"
-        .col-sm-4
-          = f.text_field :school_class, class: 'form-control'
-      .form-group.col-sm-12
-        = f.label 'Zgoda rodziców', class: "col-sm-2 control-label"
-        .col-sm-4
-          = f.check_box :parental_agreement
-      .form-group.col-sm-12
-        = f.label 'Znaczek zucha', class: "col-sm-2 control-label"
-        .col-sm-4
-          = f.check_box :scouts_mark
-      .form-group.col-sm-12
-        = f.label 'Informacje medyczne', class: "col-sm-2 control-label"
-        .col-sm-4
-          = f.text_area :medical_info, class: 'form-control'
-      =f.hidden_field :team_id, value: @team.id
-      .actions
-        = f.submit 'Zapisz zucha'
+    .col-md-5
+      .form-inputs.form-horizontal
+        .form-group.col-sm-12
+          = f.label 'Imię', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.text_field :first_name, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label 'Nazwisko', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.text_field :last_name, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label :email, class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.text_field :email, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label 'Liczba gwiazdek', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.number_field :stars, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label 'Informacje ogólne', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.text_area :description, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label :pesel, class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.number_field :pesel, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label 'Adres 1', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.text_field :address_1, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label 'Adres 2', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.text_field :address_2, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label 'Data przyjęcia', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.text_field :date_of_admission, class: 'form-control datetimepicker'
+        .form-group.col-sm-12
+          = f.label 'Data oddelegowania', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.text_field :date_of_leave, class: 'form-control datetimepicker'
+        .form-group.col-sm-12
+          = f.label 'Numer kontaktowy', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.text_field :phone_number, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label 'Rodzic 1', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.text_field :parent_1, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label 'Rodzic 2', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.text_field :parent_2, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label 'Szkoła', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.text_field :school, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label 'Klasa', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.text_field :school_class, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label 'Zgoda rodziców', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.check_box :parental_agreement
+        .form-group.col-sm-12
+          = f.label 'Znaczek zucha', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.check_box :scouts_mark
+        .form-group.col-sm-12
+          = f.label 'Informacje medyczne', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.text_area :medical_info, class: 'form-control'
+        =f.hidden_field :team_id, value: @team.id
+    .col-md-7
+      %ul.list-group
+        -@badges.each do |badge|
+          .col-sm-2
+            = f.label badge.name
+            = f.check_box :badge_ids, { :multiple => true, class: 'form-control' }, badge.id, nil
+    .actions
+      = f.submit 'Zapisz zucha'
