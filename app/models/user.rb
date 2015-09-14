@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
 
   def is_done_with_trial?
     # (self.trials.last.badge_ids - self.badge_ids).empty?
-    (self.trials.last.badge_ids - self.badge_ids).empty? && (self.trials.last.custom_tasks - self.custom_tasks).empty?
+    (self.trials.incomplete.last.badge_ids - self.badge_ids).empty? && (self.trials.incomplete.last.custom_tasks - self.custom_tasks).empty?
   end
 
   def attended_meetings
