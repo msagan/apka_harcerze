@@ -6,8 +6,8 @@
         Wymagania
       -@trial.rank.rank_requirements.each do |rr|
         .col-sm-2.col-xs-1{class: "bgn-#{rr.color}"}
-        .col-sm-10
-          =label_tag rr, rr.description, id: "rank_requirement_id_#{rr.id}"
+        .col-sm-10.drop{id: "rank_requirement_id_#{rr.id}"}
+          =label_tag rr, rr.description
           =form_for(rr, url: update_badges_path(rr)) do |f|
             =hidden_field :rank_requirement, :id, :value => rr.id
             =f.submit "Aktualizuj"
@@ -35,33 +35,51 @@
           %h3 Odznaki
           / =collection_check_boxes(:trial, :badge_ids, Badge.all, :id, :name)
           -@badges.each do |badge|
-            .form-group
-              .col-sm-8
-                =f.label badge.name, class: "control-label", id: "label_#{badge.id}"
-              .col-sm-3
-                =check_box("rank_requirement", "badge_ids", {:multiple => true}, badge.id, nil)
-                .col-xs-1.flt-rght{class: "bgn-#{badge.color}"}
+            .item-draggable
+              .form-group
+                .col-sm-8
+                  =f.label badge.name, class: "control-label", id: "label_#{badge.id}"
+                .col-sm-3
+                  =hidden_field_tag "rank_requirement[badge_ids][]", badge.id, multiple: true
+                  .col-xs-1.flt-rght{class: "bgn-#{badge.color}"}
         .col-md-2
           =f.submit 'Rozpocznij próbę', class: 'btn btn-success'
 
 :javascript
+  
   $(document).ready(function(){
-    $("[id*='rank_requirement_id']").click(function(){
-      $('.marked').parent().parent().children().appendTo($($(this).parent().children("[id*='edit_rank_requirement']")));
-      $('.marked').removeClass('marked');
-      if( $(this).parent().children("[id*='edit_rank_requirement']").length > 0 )
-        {
-          $(this).parent().children("[id*='edit_rank_requirement']").submit();
+    $("[id*='rank_requirement_id']").droppable({
+        hoverClass: "drop-hover",
+        drop: function(event, ui) {
+          console.log($(this));
+          $(this).children('form').append(ui.helper);
+          $(this).find('form').submit();
         }
-    });
+      });
 
-    $("[id*='rank_requirement_badge']").click(function(){
-      if( $(this).hasClass('marked') ) {
-        $(this).removeClass('marked');
-      }
-      else{
-        $(this).addClass('marked');
-      }
+    $(".item-draggable").draggable({
+      revert: true
     });
 
   });
+
+  // $(document).ready(function(){
+  //   $("[id*='rank_requirement_id']").click(function(){
+  //     $('.marked').parent().parent().children().appendTo($($(this).parent().children("[id*='edit_rank_requirement']")));
+  //     $('.marked').removeClass('marked');
+  //     if( $(this).parent().children("[id*='edit_rank_requirement']").length > 0 )
+  //       {
+  //         $(this).parent().children("[id*='edit_rank_requirement']").submit();
+  //       }
+  //   });
+
+  //   $("[id*='rank_requirement_badge']").click(function(){
+  //     if( $(this).hasClass('marked') ) {
+  //       $(this).removeClass('marked');
+  //     }
+  //     else{
+  //       $(this).addClass('marked');
+  //     }
+  //   });
+
+  // });

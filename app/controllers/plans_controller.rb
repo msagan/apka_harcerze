@@ -17,8 +17,9 @@ class PlansController < ApplicationController
 
   def create
     @meeting = Meeting.find(params[:id])
-    @meeting.plan = Plan.create(plan_params)
-    if @meeting.save
+    @plan = Plan.new(plan_params)
+    @plan.meeting = @meeting
+    if @plan.save
       redirect_to cycle_path(@meeting.cycle), notice: "Spotkanie dodane"
     else
       redirect_to cycle_path(@meeting.cycle)

@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   has_many :custom_tasks
   attr_accessor :signing_in
   validate :email, :phone_number, :parent_1, :parent_2, :school_class, :pesel, :stars, :first_name, :last_name, presence: true, if: :should_validate
-
+  validate :stars, numericality: { greater_than_or_equal_to: 0, lesser_than_or_equal_to: 3 }
   def badges_names
     self.badges.pluck(:name)
   end

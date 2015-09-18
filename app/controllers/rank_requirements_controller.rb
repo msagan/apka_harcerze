@@ -4,6 +4,7 @@ class RankRequirementsController < ApplicationController
   before_action :authenticate_user!
 
   def update_badges
+    p params
     rr = RankRequirement.find(params[:id])
     rr.rank.trial.badge_ids += rank_requirement_params[:badge_ids]
     rr.rank.save

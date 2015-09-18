@@ -26,7 +26,7 @@
         .form-group.col-sm-12
           = f.label 'Liczba gwiazdek', class: "col-sm-2 control-label"
           .col-sm-4
-            = f.number_field :stars, class: 'form-control'
+            = f.number_field :stars, class: 'form-control', step: 1, min: 0, max: 3
         .form-group.col-sm-12
           = f.label 'Informacje ogólne', class: "col-sm-2 control-label"
           .col-sm-4

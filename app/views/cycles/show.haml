@@ -25,7 +25,7 @@
               Spotkanie podsumowane!
             -else
               =link_to 'Edytuj plan spotkania', edit_plan_path(meeting.plan.id), class: 'btn-sm btn-primary'
-              =link_to 'Usuń plan spotkania', destroy_plan_path(meeting.plan.id), method: :delete, class: 'btn-sm btn-danger'
+              =link_to 'Usuń plan spotkania', destroy_plan_path(meeting.plan.id), method: :delete, class: 'btn-sm btn-danger', data: {confirm: 'Na pewno? (Tej operacji nie można cofnąć!)'}
               = link_to 'Podsumuj spotkanie', sum_up_meeting_path(meeting), class: 'btn-sm btn-success'
           -else
             =link_to 'Stwórz plan spotkania', new_plan_path(meeting), class: 'btn-sm btn-success'
