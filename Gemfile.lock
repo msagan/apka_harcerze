@@ -31,6 +31,7 @@ GEM
     bcrypt (3.1.10)
     bootstrap3-datetimepicker-rails (4.7.14)
       momentjs-rails (>= 2.8.1)
+    breadcrumbs_on_rails (2.3.1)
     builder (3.2.2)
     capistrano (3.4.0)
       i18n
@@ -192,6 +193,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap3-datetimepicker-rails (~> 4.7.14)
+  breadcrumbs_on_rails
   capistrano (~> 3.4.0)
   capistrano-bundler (~> 1.1.2)
   capistrano-rails (~> 1.1)

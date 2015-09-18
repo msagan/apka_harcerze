@@ -7,12 +7,17 @@ class CyclesController < ApplicationController
 
   def show
     @cycle = Cycle.find(params[:id])
+    add_breadcrumb "Plany", :year_plans_path
+    add_breadcrumb "Cykle", year_plan_path(@cycle.year_plan)
+    add_breadcrumb 'Spotkania', cycles_path(@cycle)
   end
 
-  def new
+  def new    
     @year_plan = YearPlan.find(params[:id])
     @cycle = Cycle.new
     @badges = @year_plan.badges
+    add_breadcrumb "Plany", :year_plans_path
+    add_breadcrumb "Cykle", new_cycle_path(@year_plan)
   end
 
   def create

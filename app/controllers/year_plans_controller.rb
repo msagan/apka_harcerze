@@ -3,11 +3,14 @@ class YearPlansController < ApplicationController
 
   def index
     @teams = current_user.lead_teams
+    add_breadcrumb "Plany", :year_plans_path
   end
 
   def show
     @teams = current_user.lead_teams
     @year_plan = YearPlan.find(params[:id])
+    add_breadcrumb "Plany", :year_plans_path
+    add_breadcrumb "Cykle", year_plans_path(@year_plan)
   end
 
   def new

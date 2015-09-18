@@ -13,6 +13,10 @@ class PlansController < ApplicationController
     @badges.each do |b|
       @badge_requirements += b.badge_requirements.collect{|b| [b.description, b.id]}
     end
+    add_breadcrumb "Plany", :year_plans_path
+    add_breadcrumb "Cykle", year_plan_path(@meeting.cycle.year_plan)
+    add_breadcrumb 'Spotkania', cycle_path(@meeting.cycle)
+    add_breadcrumb 'Nowe spotkane', new_meeting_path(@meeting.cycle)
   end
 
   def create

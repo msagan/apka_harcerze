@@ -13,6 +13,10 @@ class MeetingsController < ApplicationController
   def new
     @cycle = Cycle.find(params[:id])
     @meeting = Meeting.new
+    add_breadcrumb "Plany", :year_plans_path
+    add_breadcrumb "Cykle", year_plan_path(@cycle.year_plan)
+    add_breadcrumb 'Spotkania', cycle_path(@cycle)
+    add_breadcrumb 'Nowe spotkane', new_meeting_path(@cycle)
   end
 
   def create
