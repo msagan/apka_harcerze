@@ -1,7 +1,7 @@
 # config valid only for Capistrano 3.1
 lock '3.4.0'
 
-set :repo_url, 'git@github.com:msagan/apka_harcerze.git'
+set :repo_url, 'git@github.com:msagan/apka_zuchy.git'
 
 set :rvm_type, :system
 set :rvm_ruby_version, '2.1.4'
