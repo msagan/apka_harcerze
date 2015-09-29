@@ -25,6 +25,10 @@ class User < ActiveRecord::Base
     self.save
   end
 
+  def set_archived_false
+    self.archived=false
+  end
+
   def badges_names
     self.badges.pluck(:name)
   end

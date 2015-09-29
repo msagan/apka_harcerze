@@ -86,7 +86,9 @@ class TeamsController < ApplicationController
 
   def create_scout
     @team = Team.find(params[:user][:team_id])
+    @team_groups = @team.team_groups.pluck(:name, :id)
     @user = User.new(user_params)
+    @user.set_archived_false
     @user.signing_in = false
     @badges = Badge.all
     @user.password = 'lolopolo'
@@ -131,7 +133,7 @@ class TeamsController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :description, :scouts_mark, :date_of_admission, :date_of_leave, :phone_number, :parent_1, :parent_2, :parent_1_phone, :parent_1_email, :parent_2_email, :parent_2_phone, :team_group_id, :birth_date, badge_ids: [], custom_task_ids: [])
+    params.require(:user).permit(:first_name, :team_id, :last_name, :description, :scouts_mark, :date_of_admission, :date_of_leave, :phone_number, :parent_1, :parent_2, :parent_1_phone, :parent_1_email, :parent_2_email, :parent_2_phone, :team_group_id, :birth_date, badge_ids: [], custom_task_ids: [])
   end
 
   private
