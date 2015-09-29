@@ -14,52 +14,96 @@
                 %li= msg
         .form-inputs.form-horizontal
           .form-group.col-sm-12
-            = f.label 'Imię', class: "col-sm-2 control-label"
-            .col-sm-7
+            = f.label 'Imię*', class: "col-sm-4 control-label"
+            .col-sm-6
               = f.text_field :first_name, class: 'form-control'
           .form-group.col-sm-12
-            = f.label 'Nazwisko', class: "col-sm-2 control-label"
-            .col-sm-7
+            = f.label 'Nazwisko*', class: "col-sm-4 control-label"
+            .col-sm-6
               = f.text_field :last_name, class: 'form-control'
           .form-group.col-sm-12
-            = f.label :email, class: "col-sm-2 control-label"
-            .col-sm-7
+            = f.label :email, class: "col-sm-4 control-label"
+            .col-sm-6
               = f.text_field :email, class: 'form-control'
           .form-group.col-sm-12
-            = f.label 'Liczba gwiazdek', class: "col-sm-2 control-label"
-            .col-sm-7
-              .form-control= @user.stars
+            = f.label 'Liczba gwiazdek*', class: "col-sm-4 control-label"
+            .col-sm-6
+              = f.number_field :stars, class: 'form-control', step: 1, min: 0, max: 3
           .form-group.col-sm-12
-            = f.label 'Opis', class: "col-sm-2 control-label"
-            .col-sm-7
+            = f.label 'Informacje ogólne', class: "col-sm-4 control-label"
+            .col-sm-6
               = f.text_area :description, class: 'form-control'
           .form-group.col-sm-12
-            = f.label 'Pesel', class: "col-sm-2 control-label"
-            .col-sm-7
+            = f.label 'Pesel*', class: "col-sm-4 control-label"
+            .col-sm-6
               = f.number_field :pesel, class: 'form-control'
           .form-group.col-sm-12
-            = f.label 'Adres 1', class: "col-sm-2 control-label"
-            .col-sm-7
+            = f.label 'Adres 1', class: "col-sm-4 control-label"
+            .col-sm-6
               = f.text_field :address_1, class: 'form-control'
           .form-group.col-sm-12
-            = f.label 'Adres 2', class: "col-sm-2 control-label"
-            .col-sm-7
+            = f.label 'Adres 2', class: "col-sm-4 control-label"
+            .col-sm-6
               = f.text_field :address_2, class: 'form-control'
           .form-group.col-sm-12
-            = f.label 'Szkoła', class: "col-sm-2 control-label"
-            .col-sm-7
+            = f.label 'Data urodzenia', class: "col-sm-4 control-label"
+            .col-sm-6
+              = f.text_field :birth_date, class: 'form-control datetimepicker'
+          .form-group.col-sm-12
+            = f.label 'Data przyjęcia', class: "col-sm-4 control-label"
+            .col-sm-6
+              = f.text_field :date_of_admission, class: 'form-control datetimepicker'
+          .form-group.col-sm-12
+            = f.label 'Szóstka', class: 'col-sm-4 control-label'
+            .col-sm-6
+              = select("user", "team_group_id", @team_groups, { include_blank: true }, class: 'form-control')
+          .form-group.col-sm-12
+            = f.label 'Data oddelegowania', class: "col-sm-4 control-label"
+            .col-sm-6
+              = f.text_field :date_of_leave, class: 'form-control datetimepicker'
+          .form-group.col-sm-12
+            = f.label 'Rodzic 1', class: "col-sm-4 control-label"
+            .col-sm-6
+              = f.text_field :parent_1, class: 'form-control'
+          .form-group.col-sm-12
+            = f.label 'Numer kontaktowy do pierwszego rodzica*', class: "col-sm-4 control-label"
+            .col-sm-6
+              = f.text_field :parent_1_phone, class: 'form-control'
+          .form-group.col-sm-12
+            = f.label 'Adres email pierwszego rodzica*', class: "col-sm-4 control-label"
+            .col-sm-6
+              = f.text_field :parent_1_email, class: 'form-control'
+          .form-group.col-sm-12
+            = f.label 'Rodzic 2', class: "col-sm-4 control-label"
+            .col-sm-6
+              = f.text_field :parent_2, class: 'form-control'
+          .form-group.col-sm-12
+            = f.label 'Numer kontaktowy do drugiego rodzica', class: "col-sm-4 control-label"
+            .col-sm-6
+              = f.text_field :parent_2_phone, class: 'form-control'
+          .form-group.col-sm-12
+            = f.label 'Adres email drugiego rodzica*', class: "col-sm-4 control-label"
+            .col-sm-6
+              = f.text_field :parent_2_email, class: 'form-control'
+          .form-group.col-sm-12
+            = f.label 'Szkoła', class: "col-sm-4 control-label"
+            .col-sm-6
               = f.text_field :school, class: 'form-control'
           .form-group.col-sm-12
-            = f.label 'Klasa', class: "col-sm-2 control-label"
-            .col-sm-7
+            = f.label 'Klasa', class: "col-sm-4 control-label"
+            .col-sm-6
               = f.text_field :school_class, class: 'form-control'
           .form-group.col-sm-12
-            = f.label 'Zgoda rodzicielska', class: "col-sm-2 control-label"
-            .col-sm-7
+            = f.label 'Zgoda rodziców', class: "col-sm-4 control-label"
+            .col-sm-6
               = f.check_box :parental_agreement
           .form-group.col-sm-12
-            = f.label 'Informacje medyczne', class: "col-sm-2 control-label"
-            .col-sm-7
+            = f.label 'Znaczek zucha', class: "col-sm-4 control-label"
+            .col-sm-6
+              = f.check_box :scouts_mark
+          .form-group.col-sm-12
+            = f.label 'Informacje medyczne', class: "col-sm-4 control-label"
+            .col-sm-6
               = f.text_area :medical_info, class: 'form-control'
     .col-md-4
       %button.btn{"aria-controls" => '#attendance', "aria-expanded" => "false", "data-target" => '#attendance', "data-toggle" => "collapse", :type => "button"}
@@ -70,13 +114,21 @@
             %p
               ="#{m.name} #{m.start_date.to_formatted_s(:db)} - #{m.stop_date.to_formatted_s(:db)}"
     .col-md-2
-      %button.btn{"aria-controls" => '#badges', "aria-expanded" => "false", "data-target" => '#badges', "data-toggle" => "collapse", :type => "button"}
+      %button.btn{"aria-controls" => '#incomplete_badges', "aria-expanded" => "false", "data-target" => '#incomplete_badges', "data-toggle" => "collapse", :type => "button"}
         %b Zdobywane odznaki
-      .collapse{id: 'badges'}
+      .collapse{id: 'incomplete_badges'}
         -@user.incomplete_badges.each do |b|
           .col-sm-12
             %p
               =b[0].name + "#{b[1]}/#{b[0].requirement_count}"
+      %button.btn{"aria-controls" => '#badges', "aria-expanded" => "false", "data-target" => '#badges', "data-toggle" => "collapse", :type => "button"}
+        %b Zdobyte odznaki
+      .collapse{id: 'badges'}
+        -@user.badges.each do |b|
+          .col-sm-12
+            %p
+              =b.name
+
 
     .col-md-1
       = f.submit 'Zapisz zucha', class: 'btn btn-primary'

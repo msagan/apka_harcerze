@@ -11,9 +11,20 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :meetings
   has_and_belongs_to_many :badge_requirements
   has_many :custom_tasks
+  belongs_to :team_group
   attr_accessor :signing_in
-  validate :email, :phone_number, :parent_1, :parent_2, :school_class, :pesel, :stars, :first_name, :last_name, presence: true, if: :should_validate
+  validate :parent_1_phone, :parent_1, :parent_2, :school_class, :pesel, :stars, :first_name, :last_name, presence: true, if: :should_validate
   validate :stars, numericality: { greater_than_or_equal_to: 0, lesser_than_or_equal_to: 3 }
+
+  scope :inactive, -> { where(archived: true) }
+  scope :active, -> { where(archived: false) }
+
+  def archive!
+    self.archived = true
+    self.date_of_leave = DateTime.now
+    self.save
+  end
+
   def badges_names
     self.badges.pluck(:name)
   end
@@ -28,6 +39,10 @@ class User < ActiveRecord::Base
 
   def has_incomplete_trials?
     self.trials.incomplete.count > 0 && self.trials.count > 0
+  end
+
+  def team_group_name
+    team_group.present? ? team_group.name : ' '
   end
 
   def incomplete_badges

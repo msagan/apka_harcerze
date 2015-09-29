@@ -9,10 +9,14 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
   root to: "home#index"
   devise_for :users, controllers: {registrations: 'registrations'}
-  resources :teams, only: [:show, :index, :new, :create]
+  resources :teams, except: [:destroy]
   resources :cycles, only: [:show, :index, :destroy]
   resources :year_plans
   resources :plans, only: [:show, :destroy]
+
+  get 'user/archive/:id', to: 'users#archive', as: :archive
+  get 'team/archive/:id', to: 'teams#archive', as: :team_archive
+
 
   get 'meetings/sum_up/:id', to: 'meetings#sum_up', as: :sum_up_meeting
   patch 'plans/finish_up/:id', to: 'plans#finish_up', as: :finish_meeting_up
@@ -27,6 +31,11 @@ Rails.application.routes.draw do
   post 'team/create_scout/:id', to: 'teams#create_scout', as: :create_scout
   get 'team/edit_scout/:id', to: 'teams#edit_scout', as: :team_edit_scout
   patch 'team/update_scout/:id', to: 'teams#update_scout', as: :team_update_scout
+
+  get 'team/add_team_group/:id', to: 'teams#add_team_group', as: :add_team_group
+  post 'team/create_team_group/:id', to: 'teams#create_team_group', as: :create_team_group
+  get 'team/edit_team_group/:id', to: 'teams#edit_team_group', as: :edit_team_group
+  patch 'team/update_team_group/:id', to: 'teams#update_team_group', as: :update_team_group
 
   get 'scouts/edit/:id', to: 'users#edit_scout', as: :edit_scout
   get 'meetings/edit/:id', to: 'meetings#edit', as: :edit_meeting

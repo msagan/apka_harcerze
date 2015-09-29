@@ -12,5 +12,24 @@
         %td= team.name
         %td= team.history
         %td= team.situation_description
-        %td= link_to 'Pokaż', team_path(team)
+        %td
+          = link_to 'Pokaż', team_path(team)
+          = link_to 'Edytuj', edit_team_path(team)
 %br
+-@teams.each do |team|
+  =link_to 'Dodaj szóstkę', add_team_group_path(team)
+  %table.team_groups_table{cellpadding: "0", cellspacing:"0", border: "0", class: "datatable table table-responsive table-striped table-bordered"}
+    %thead
+      %tr
+        %th Nazwa
+        %th Zuchy
+        %th Akcje
+    %tbody
+      - team.team_groups.each do |tg|
+        %tr{id: "j-#{tg.id}"}
+          %td= tg.name
+          %td
+            - tg.users.each do |u|
+              =u.full_name
+          %td=link_to 'Edytuj szóstkę', edit_team_group_path(tg)
+  %br

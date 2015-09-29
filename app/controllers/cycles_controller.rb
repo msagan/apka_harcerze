@@ -17,7 +17,8 @@ class CyclesController < ApplicationController
     @cycle = Cycle.new
     @badges = @year_plan.badges
     add_breadcrumb "Plany", :year_plans_path
-    add_breadcrumb "Cykle", new_cycle_path(@year_plan)
+    add_breadcrumb "Cykle", cycles_path
+    add_breadcrumb "Nowy cykl", new_cycle_path(@year_plan)
   end
 
   def create

@@ -12,11 +12,11 @@
     .col-md-5
       .form-inputs.form-horizontal
         .form-group.col-sm-12
-          = f.label 'Imię', class: "col-sm-2 control-label"
+          = f.label 'Imię*', class: "col-sm-2 control-label"
           .col-sm-4
             = f.text_field :first_name, class: 'form-control'
         .form-group.col-sm-12
-          = f.label 'Nazwisko', class: "col-sm-2 control-label"
+          = f.label 'Nazwisko*', class: "col-sm-2 control-label"
           .col-sm-4
             = f.text_field :last_name, class: 'form-control'
         .form-group.col-sm-12
@@ -24,7 +24,7 @@
           .col-sm-4
             = f.text_field :email, class: 'form-control'
         .form-group.col-sm-12
-          = f.label 'Liczba gwiazdek', class: "col-sm-2 control-label"
+          = f.label 'Liczba gwiazdek*', class: "col-sm-2 control-label"
           .col-sm-4
             = f.number_field :stars, class: 'form-control', step: 1, min: 0, max: 3
         .form-group.col-sm-12
@@ -32,7 +32,7 @@
           .col-sm-4
             = f.text_area :description, class: 'form-control'
         .form-group.col-sm-12
-          = f.label :pesel, class: "col-sm-2 control-label"
+          = f.label 'Pesel*', class: "col-sm-2 control-label"
           .col-sm-4
             = f.number_field :pesel, class: 'form-control'
         .form-group.col-sm-12
@@ -44,25 +44,45 @@
           .col-sm-4
             = f.text_field :address_2, class: 'form-control'
         .form-group.col-sm-12
+          = f.label 'Data urodzenia', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.text_field :birth_date, class: 'form-control datetimepicker'
+        .form-group.col-sm-12
           = f.label 'Data przyjęcia', class: "col-sm-2 control-label"
           .col-sm-4
             = f.text_field :date_of_admission, class: 'form-control datetimepicker'
+        .form-group.col-sm-12
+          = f.label 'Szóstka', class: 'col-sm-2 control-label'
+          .col-sm-4
+            = select("user", "team_group_id", @team_groups, { include_blank: true })
         .form-group.col-sm-12
           = f.label 'Data oddelegowania', class: "col-sm-2 control-label"
           .col-sm-4
             = f.text_field :date_of_leave, class: 'form-control datetimepicker'
         .form-group.col-sm-12
-          = f.label 'Numer kontaktowy', class: "col-sm-2 control-label"
-          .col-sm-4
-            = f.text_field :phone_number, class: 'form-control'
-        .form-group.col-sm-12
           = f.label 'Rodzic 1', class: "col-sm-2 control-label"
           .col-sm-4
             = f.text_field :parent_1, class: 'form-control'
         .form-group.col-sm-12
+          = f.label 'Numer kontaktowy do pierwszego rodzica*', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.text_field :parent_1_phone, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label 'Adres email pierwszego rodzica*', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.text_field :parent_1_email, class: 'form-control'
+        .form-group.col-sm-12
           = f.label 'Rodzic 2', class: "col-sm-2 control-label"
           .col-sm-4
             = f.text_field :parent_2, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label 'Numer kontaktowy do drugiego rodzica', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.text_field :parent_2_phone, class: 'form-control'
+        .form-group.col-sm-12
+          = f.label 'Adres email drugiego rodzica*', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.text_field :parent_2_email, class: 'form-control'
         .form-group.col-sm-12
           = f.label 'Szkoła', class: "col-sm-2 control-label"
           .col-sm-4
@@ -83,6 +103,7 @@
           = f.label 'Informacje medyczne', class: "col-sm-2 control-label"
           .col-sm-4
             = f.text_area :medical_info, class: 'form-control'
+
         =f.hidden_field :team_id, value: @team.id
     .col-md-7
       %ul.list-group

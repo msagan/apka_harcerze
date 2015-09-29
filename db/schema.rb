@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150904112616) do
+ActiveRecord::Schema.define(version: 20150929165847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,6 +178,15 @@ ActiveRecord::Schema.define(version: 20150904112616) do
 
   add_index "ranks", ["trial_id"], name: "index_ranks_on_trial_id", using: :btree
 
+  create_table "team_groups", force: true do |t|
+    t.integer  "team_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "team_groups", ["team_id"], name: "index_team_groups_on_team_id", using: :btree
+
   create_table "teams", force: true do |t|
     t.string   "name"
     t.text     "history"
@@ -206,7 +215,7 @@ ActiveRecord::Schema.define(version: 20150904112616) do
   add_index "trials", ["user_id"], name: "index_trials_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "email",                  default: "",    null: false
+    t.string   "email",                  default: ""
     t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -235,13 +244,19 @@ ActiveRecord::Schema.define(version: 20150904112616) do
     t.boolean  "scouts_mark"
     t.date     "date_of_admission"
     t.date     "date_of_leave"
-    t.string   "phone_number"
     t.string   "parent_1"
     t.string   "parent_2"
+    t.boolean  "archived"
+    t.integer  "parent_1_phone"
+    t.integer  "parent_2_phone"
+    t.datetime "birth_date"
+    t.string   "parent_1_email"
+    t.string   "parent_2_email"
+    t.integer  "team_group_id"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["team_group_id"], name: "index_users_on_team_group_id", using: :btree
   add_index "users", ["team_id"], name: "index_users_on_team_id", using: :btree
 
   create_table "year_plans", force: true do |t|

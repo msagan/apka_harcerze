@@ -1,12 +1,14 @@
 %h1 Moje zuchy
 .container-fluid
   =link_to 'Dodaj zucha', add_scout_path(@team.id), class: 'btn btn-primary'
+  =link_to 'Archiwum zuchów', team_archive_path(@team.id), class: 'btn btn-primary'
   %table#users_table{cellpadding: "0", cellspacing:"0", border: "0", class: "datatable table table-striped table-bordered"}
     %thead
       %tr
         %th Imię
         %th Nazwisko
         %th Email
+        %th Szóstka
         %th Gwiazdki
         %th Odznaki
         %th Opis
@@ -26,6 +28,7 @@
           %td= user.first_name
           %td= user.last_name
           %td= user.email
+          %th= user.team_group_name
           %td= user.stars
           %td
             -user.badges_names.each do |name|
@@ -51,4 +54,5 @@
               -else
                 =link_to 'Rozpocznij próbę na następną gwiazdkę', user_start_trial_path(user.id)
           %td
-            =link_to 'Edytuj zucha', team_edit_scout_path(user.id)
+            =link_to 'Edytuj zucha', team_edit_scout_path(user.id), class: 'btn btn-primary'
+            =link_to 'Archiwizuj zucha', archive_path(user), class: 'btn btn-danger'

@@ -19,6 +19,6 @@
           %td=year_plan.team.name
           %td=year_plan.badges.pluck(:name)
           %td
-            = link_to 'Pokaż cyckle', year_plan_path(year_plan), class: 'btn-sm btn-primary'
+            = link_to 'Pokaż cykle', year_plan_path(year_plan), class: 'btn-sm btn-primary'
             = link_to 'Edytuj', edit_year_plan_path(year_plan), class: 'btn-sm btn-primary'
             = link_to 'Usuń', year_plan_path(year_plan), method: :delete, data: {confirm: 'Na pewno? (Tej operacji nie można cofnąć!)'}, class: 'btn-sm btn-danger'

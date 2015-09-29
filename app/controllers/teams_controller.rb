@@ -22,15 +22,65 @@ class TeamsController < ApplicationController
     end
   end
 
+  def edit
+    @team = Team.find(params[:id])
+  end
+
+  def update
+    @team = Team.find(params[:id])
+    if @team.update(team_params)
+      redirect_to root_path
+    else
+      render :new 
+    end
+  end
+
   def show
     @team = current_user.lead_teams.find(params[:id])
-    @users = @team.scouts
+    @users = @team.scouts.active
     render :template => 'users/index'
   end
+
+  def add_team_group
+    @team = Team.find(params[:id])
+    @team_group = TeamGroup.new
+  end
+
+  def create_team_group
+    @team = Team.find(params[:team_group][:team_id])
+    @team_group = TeamGroup.new(team_group_params)
+    if @team_group.save
+      redirect_to teams_path, notice: 'Szóstka stworzona'
+    else
+      render :add_team_group, alert: 'Nie udało się!'
+    end
+
+  end
+
+  def archive
+    @team = Team.find(params[:id])
+    @users = @team.scouts.inactive
+    render :template => 'users/index'
+  end
+
+  def edit_team_group
+    @team_group = TeamGroup.find(params[:id])
+  end
+
+  def update_team_group
+    @team_group = TeamGroup.find(params[:id])
+    if @team_group.update(team_group_params)
+      redirect_to teams_path, notice: 'Szóstka zaktualizowana'
+    else
+      redirect_to teams_path, alert: 'Szóstka nie zaktualizowana'
+    end
+  end
+
 
   def add_scout
     @badges = Badge.all
     @team = Team.find(params[:id])
+    @team_groups = @team.team_groups.pluck(:name, :id)
     @user = User.new
   end
 
@@ -51,6 +101,7 @@ class TeamsController < ApplicationController
   def edit_scout
     @user = User.find(params[:id])
     @user.signing_in = false
+    @team_groups = @user.team.team_groups.pluck(:name, :id)
     @badges = Badge.all
   end
 
@@ -71,12 +122,16 @@ class TeamsController < ApplicationController
     @user.trials << Trial.new(rank: Rank.find_by(level: @user.stars+1))
   end
 
+  def team_group_params
+    params.require(:team_group).permit(:name, :team_id)
+  end
+
   def team_params
     params.require(:team).permit(:name, :history, :situation_description, :base, :adjutant_1, :adjutant_2, :banner, :chapter, :date_of_creation, :ceremonial)
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :email, :last_name, :stars, :description, :pesel, :address_1, :address_2, :school, :school_class, :parental_agreement, :medical_info, :team_id, :scouts_mark, :date_of_admission, :date_of_leave, :phone_number, :parent_1, :parent_2, badge_ids: [])
+    params.require(:user).permit(:first_name, :last_name, :description, :scouts_mark, :date_of_admission, :date_of_leave, :phone_number, :parent_1, :parent_2, :parent_1_phone, :parent_1_email, :parent_2_email, :parent_2_phone, :team_group_id, :birth_date, badge_ids: [], custom_task_ids: [])
   end
 
   private

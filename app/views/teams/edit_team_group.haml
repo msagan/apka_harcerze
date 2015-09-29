@@ -1,0 +1,19 @@
+.container-fluid
+  %h2 Dane osobowe
+  = form_for(:team_group, url: update_team_group_path(@team_group), method: :patch) do |f|
+    - if @team_group.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@team_group.errors.count, "error")
+          prohibited this team_group from being saved:
+        %ul
+          - @team_group.errors.full_messages.each do |msg|
+            %li= msg
+    .col-md-5
+      .form-inputs.form-horizontal
+        .form-group.col-sm-12
+          = f.label 'Nazwa', class: "col-sm-2 control-label"
+          .col-sm-4
+            = f.text_field :name, class: 'form-control'
+    .actions
+      = f.submit 'Zapisz szóstkę'
