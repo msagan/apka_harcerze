@@ -16,12 +16,19 @@ class User < ActiveRecord::Base
   validate :parent_1_phone, :parent_1, :parent_2, :school_class, :pesel, :stars, :first_name, :last_name, presence: true, if: :should_validate
   validate :stars, numericality: { greater_than_or_equal_to: 0, lesser_than_or_equal_to: 3 }
 
+  REASONS_OF_LEAVE= ['Inne', 'Przejście do drużyny', 'Rezygnacja z zuchów', 'Za mało czasu']
+
   scope :inactive, -> { where(archived: true) }
   scope :active, -> { where(archived: false) }
 
   def archive!
     self.archived = true
     self.date_of_leave = DateTime.now
+    self.save
+  end
+
+  def unarchive!
+    self.archived = false
     self.save
   end
 

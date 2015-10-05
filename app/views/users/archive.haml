@@ -1,0 +1,33 @@
+.container-fluid
+  %h2 Archiwizuj zucha
+  = form_for(:user, url: archive_scout_path(@user)) do |f|
+    - if @user.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@user.errors.count, "error")
+          prohibited this user from being saved:
+        %ul
+          - @user.errors.full_messages.each do |msg|
+            %li= msg
+    .col-md-8
+      .form-inputs.form-horizontal
+        .form-group.col-sm-12
+          = f.label 'Powód odejścia*', class: "col-sm-2 control-label"
+          .col-sm-4
+            = select :user, :leave_reason, User::REASONS_OF_LEAVE, selected: User::REASONS_OF_LEAVE.last, class: 'form-control'
+          .col-sm-8.additional-info.hidden
+            = text_field_tag :additional_leave_info, nil, class: 'form-control'
+    .actions
+      = f.submit 'Archiwizuj'
+
+:javascript
+  $(document).ready(function(){
+    $('#user_leave_reason').change(function(){
+      if( $('#user_leave_reason').val() == 'Inne' ){
+        $('.additional-info').removeClass('hidden');
+      }
+      else{
+        $('.additional-info').addClass('hidden');
+      }
+    });
+  });

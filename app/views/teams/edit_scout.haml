@@ -1,6 +1,6 @@
 = form_for(@user, url: team_update_scout_path(@user)) do |f|
   .container-fluid
-    .col-md-4
+    .col-md-6
       %button.btn{"aria-controls" => '#personal', "aria-expanded" => "false", "data-target" => '#personal', "data-toggle" => "collapse", :type => "button"}
         %b Dane osobowe
       .collapse{id: 'personal'}
@@ -128,7 +128,14 @@
           .col-sm-12
             %p
               =b.name
-
-
+    .col-md-12
+      %button.btn{"aria-controls" => '#add-badges', "aria-expanded" => "false", "data-target" => '#add-badges', "data-toggle" => "collapse", :type => "button"}
+        %b Dodaj odznakę
+      .collapse{id: 'add-badges'}
+        %ul.list-group
+          -@badges.each do |badge|
+            .col-sm-2
+              = f.label badge.name
+              = f.check_box :badge_ids, { :multiple => true, class: 'form-control' }, badge.id, nil
     .col-md-1
       = f.submit 'Zapisz zucha', class: 'btn btn-primary'

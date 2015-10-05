@@ -1,7 +1,10 @@
 %h1 Moje zuchy
 .container-fluid
   =link_to 'Dodaj zucha', add_scout_path(@team.id), class: 'btn btn-primary'
-  =link_to 'Archiwum zuchów', team_archive_path(@team.id), class: 'btn btn-primary'
+  -if @users.count > 0 && @users.first.archived?
+    =link_to 'Aktywne zuchy', team_path(@team.id), class: 'btn btn-primary'
+  -if @users.count > 0 && !@users.first.archived?
+    =link_to 'Archiwum zuchów', team_archive_path(@team.id), class: 'btn btn-primary'
   %table#users_table{cellpadding: "0", cellspacing:"0", border: "0", class: "datatable table table-striped table-bordered"}
     %thead
       %tr
@@ -13,13 +16,13 @@
         %th Odznaki
         %th Opis
         %th Pesel
-        %th Adres 1
-        %th Adres 2
         %th Szkoła
         %th Klasa
         %th Zgoda rodziców
         %th Informacje medyczne
         %th Gromada
+        %th Data odejścia
+        %th Powód odejścia
         %th
         %th
     %tbody
@@ -35,8 +38,6 @@
               =name
           %td= user.description
           %td= user.pesel
-          %td= user.address_1
-          %td= user.address_2
           %td= user.school
           %td= user.school_class
           %td= user.parental_agreement
@@ -44,6 +45,8 @@
           %td
             -if user.team.present?
               = user.team.name
+          %td= user.date_of_leave
+          %td= user.leave_reason
           %td
             -if user.stars < 3 && user.scouts_mark
               -if user.has_incomplete_trials?
@@ -55,4 +58,7 @@
                 =link_to 'Rozpocznij próbę na następną gwiazdkę', user_start_trial_path(user.id)
           %td
             =link_to 'Edytuj zucha', team_edit_scout_path(user.id), class: 'btn btn-primary'
-            =link_to 'Archiwizuj zucha', archive_path(user), class: 'btn btn-danger'
+            -if user.archived?
+              =link_to 'Przywróć zucha do służby', unarchive_path(user), class: 'btn btn-success'
+            -else
+              =link_to 'Archiwizuj zucha', archive_path(user), class: 'btn btn-danger'

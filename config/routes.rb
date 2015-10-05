@@ -14,9 +14,12 @@ Rails.application.routes.draw do
   resources :year_plans
   resources :plans, only: [:show, :destroy]
 
+
+
   get 'user/archive/:id', to: 'users#archive', as: :archive
   get 'team/archive/:id', to: 'teams#archive', as: :team_archive
-
+  get 'user/unarchive/:id', to: 'users#unarchive', as: :unarchive
+  post 'user/move_to_archive/:id', to: 'users#finish_archiving', as: :archive_scout
 
   get 'meetings/sum_up/:id', to: 'meetings#sum_up', as: :sum_up_meeting
   patch 'plans/finish_up/:id', to: 'plans#finish_up', as: :finish_meeting_up
