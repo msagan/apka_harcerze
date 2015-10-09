@@ -7,7 +7,7 @@
       -@trial.rank.rank_requirements.each do |rr|
         .col-sm-2.col-xs-1{class: "bgn-#{rr.color}"}
         .col-sm-10.drop{id: "rank_requirement_id_#{rr.id}"}
-          =label_tag rr, rr.description
+          =label_tag rr, rr.description, id: rr.id, class: 'item-draggable'
           =form_for(rr, url: update_badges_path(rr)) do |f|
             =hidden_field :rank_requirement, :id, :value => rr.id
             =f.submit "Aktualizuj"
@@ -17,7 +17,7 @@
                   =f.label badge.name, class: "control-label", id: "label_#{badge.id}"
                 .col-sm-3
                   =hidden_field_tag "rank_requirement[badge_ids][]", ''
-                  =check_box("rank_requirement", "badge_ids", {:multiple => true, checked: true}, badge.id, nil)
+                =check_box("rank_requirement", "badge_ids", {:multiple => true, checked: true}, badge.id, nil)
     .col-md-8
       =form_for(@trial, url: update_trial_path(@trial), format: :json) do |f|
         =hidden_field :trial, :id, :value => @trial.id
@@ -31,11 +31,11 @@
                   = ff.text_field :name, class: 'form-control'
                   = ff.label 'Opis'
                   = ff.text_field :description, class: 'form-control'
-                  - ff.object.badges.each do |b|
+                  - ff.object.rank_requirements.each do |b|
                     .col-sm-12
-                      =ff.check_box(:badge_ids, {:multiple => true, checked: true, class: 'col-sm-2'}, b.id, nil)
+                      =ff.check_box(:rank_requirement_ids, {:multiple => true, checked: true, class: 'col-sm-2'}, b.id, nil)
                       .col-sm-8
-                        ="#{b.name}"
+                        ="#{b.description}"
               = ff.remove_nested_fields_link 'Usuń zadanie'
           = f.add_nested_fields_link :custom_tasks, 'Dodaj zadanie indywidualne'
         .col-md-5
@@ -64,14 +64,14 @@
       });
 
     $('.droppable-container').droppable({
+      hoverClass: "drop-hover",
       drop: function(event, ui) {
-        console.log('lol');
-        element = [ui.helper[0].children[0].children[1].getElementsByTagName('input')[0].value, ui.helper.text()];
+        element = [ui.helper[0].id, ui.helper.text()];
         var id = $(this).find('.form-control').attr('name')
         id = id.slice(0, id.indexOf("name"));
         var checkbox = document.createElement('input');
         checkbox.type = "checkbox";
-        checkbox.name = id + 'badge_ids][]';
+        checkbox.name = id + 'rank_requirement_ids][]';
         checkbox.value = element[0];
         checkbox.id = id + 'badge_id_' + element[0];
         checkbox.checked = 'checked'
@@ -90,6 +90,7 @@
 
     $(document).on("fields_added.nested_form_fields", function(event, param){
       $('.droppable-container').last().droppable({
+        hoverClass: 'drop-hover',
         drop: function(event, ui) {
           element = [ui.helper[0].children[0].children[1].getElementsByTagName('input')[0].value, ui.helper.text()];
           var id = $(this).find('.form-control').attr('name')

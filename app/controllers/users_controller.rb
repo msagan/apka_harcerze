@@ -93,7 +93,7 @@ class UsersController < ApplicationController
   end
 
   def trial_params
-    params.require(:trial).permit(:rank, :badges, custom_tasks_attributes: [:id, :name, :description, :_destroy, badge_ids:[]], badge_ids: [])
+    params.require(:trial).permit(:rank, :badges, custom_tasks_attributes: [:id, :name, :description, :_destroy, rank_requirement_ids:[]], badge_ids: [])
   end
 
   private

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151009131249) do
+ActiveRecord::Schema.define(version: 20151009171217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,14 @@ ActiveRecord::Schema.define(version: 20151009131249) do
   add_index "custom_tasks", ["badge_id"], name: "index_custom_tasks_on_badge_id", using: :btree
   add_index "custom_tasks", ["trial_id"], name: "index_custom_tasks_on_trial_id", using: :btree
   add_index "custom_tasks", ["user_id"], name: "index_custom_tasks_on_user_id", using: :btree
+
+  create_table "custom_tasks_rank_requirements", force: true do |t|
+    t.integer "rank_requirement_id"
+    t.integer "custom_task_id"
+  end
+
+  add_index "custom_tasks_rank_requirements", ["custom_task_id"], name: "index_custom_tasks_rank_requirements_on_custom_task_id", using: :btree
+  add_index "custom_tasks_rank_requirements", ["rank_requirement_id"], name: "index_custom_tasks_rank_requirements_on_rank_requirement_id", using: :btree
 
   create_table "cycles", force: true do |t|
     t.string   "name"
