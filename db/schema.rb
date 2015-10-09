@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151009085531) do
+ActiveRecord::Schema.define(version: 20151009131249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,13 @@ ActiveRecord::Schema.define(version: 20151009085531) do
     t.datetime "emblem_updated_at"
   end
 
+  create_table "badges_custom_tasks", force: true do |t|
+    t.integer "badge_id"
+    t.integer "custom_task_id"
+  end
+
+  add_index "badges_custom_tasks", ["custom_task_id"], name: "index_badges_custom_tasks_on_custom_task_id", using: :btree
+
   create_table "badges_cycles", force: true do |t|
     t.integer "badge_id"
     t.integer "cycle_id"
@@ -95,8 +102,10 @@ ActiveRecord::Schema.define(version: 20151009085531) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "badge_id"
   end
 
+  add_index "custom_tasks", ["badge_id"], name: "index_custom_tasks_on_badge_id", using: :btree
   add_index "custom_tasks", ["trial_id"], name: "index_custom_tasks_on_trial_id", using: :btree
   add_index "custom_tasks", ["user_id"], name: "index_custom_tasks_on_user_id", using: :btree
 

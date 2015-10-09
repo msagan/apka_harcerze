@@ -25,10 +25,17 @@
           %h3 Zadania indywidualne
           %li.list-group-item
             = f.nested_fields_for :custom_tasks do |ff|
-              = ff.label 'Nazwa'
-              = ff.text_field :name, class: 'form-control'
-              = ff.label 'Opis'
-              = ff.text_field :description, class: 'form-control'
+              .droppable-container
+                .custom_task_container
+                  = ff.label 'Nazwa'
+                  = ff.text_field :name, class: 'form-control'
+                  = ff.label 'Opis'
+                  = ff.text_field :description, class: 'form-control'
+                  - ff.object.badges.each do |b|
+                    .col-sm-12
+                      =ff.check_box(:badge_ids, {:multiple => true, checked: true, class: 'col-sm-2'}, b.id, nil)
+                      .col-sm-8
+                        ="#{b.name}"
               = ff.remove_nested_fields_link 'Usuń zadanie'
           = f.add_nested_fields_link :custom_tasks, 'Dodaj zadanie indywidualne'
         .col-md-5
@@ -51,11 +58,61 @@
     $("[id*='rank_requirement_id']").droppable({
         hoverClass: "drop-hover",
         drop: function(event, ui) {
-          console.log($(this));
           $(this).children('form').append(ui.helper);
           $(this).find('form').submit();
         }
       });
+
+    $('.droppable-container').droppable({
+      drop: function(event, ui) {
+        console.log('lol');
+        element = [ui.helper[0].children[0].children[1].getElementsByTagName('input')[0].value, ui.helper.text()];
+        var id = $(this).find('.form-control').attr('name')
+        id = id.slice(0, id.indexOf("name"));
+        var checkbox = document.createElement('input');
+        checkbox.type = "checkbox";
+        checkbox.name = id + 'badge_ids][]';
+        checkbox.value = element[0];
+        checkbox.id = id + 'badge_id_' + element[0];
+        checkbox.checked = 'checked'
+        var label = document.createElement('label')
+        label.htmlFor = element[0];
+        label.appendChild(document.createTextNode(element[1]));
+
+        container = $(this).find('.custom_task_container').last();
+        container.append("<div class='lol'></div>")
+        container = $(this).find('.lol').last();
+        container.append(checkbox);
+        container.append(label);
+      }
+    });
+
+
+    $(document).on("fields_added.nested_form_fields", function(event, param){
+      $('.droppable-container').last().droppable({
+        drop: function(event, ui) {
+          element = [ui.helper[0].children[0].children[1].getElementsByTagName('input')[0].value, ui.helper.text()];
+          var id = $(this).find('.form-control').attr('name')
+          id = id.slice(0, id.indexOf("name"));
+          var checkbox = document.createElement('input');
+          checkbox.type = "checkbox";
+          checkbox.name = id + 'badge_ids][]';
+          checkbox.value = element[0];
+          checkbox.id = id + 'badge_id_' + element[0];
+          checkbox.checked = 'checked'
+          var label = document.createElement('label')
+          label.htmlFor = element[0];
+          label.appendChild(document.createTextNode(element[1]));
+
+          container = $(this).find('.custom_task_container').last();
+          container.append("<div class='lol'></div>")
+          container = $(this).find('.lol').last();
+          container.append(checkbox);
+          container.append(label);
+        }
+      });
+    });
+
 
     $(".item-draggable").draggable({
       revert: true
