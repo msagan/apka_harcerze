@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151005172346) do
+ActiveRecord::Schema.define(version: 20151009085531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(version: 20151005172346) do
   end
 
   add_index "badge_requirements", ["badge_id"], name: "index_badge_requirements_on_badge_id", using: :btree
+
+  create_table "badge_requirements_plan_points", force: true do |t|
+    t.integer "badge_requirement_id"
+    t.integer "plan_point_id"
+  end
+
+  add_index "badge_requirements_plan_points", ["badge_requirement_id"], name: "index_badge_requirements_plan_points_on_badge_requirement_id", using: :btree
+  add_index "badge_requirements_plan_points", ["plan_point_id"], name: "index_badge_requirements_plan_points_on_plan_point_id", using: :btree
 
   create_table "badge_requirements_users", force: true do |t|
     t.integer "badge_requirement_id"

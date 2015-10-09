@@ -64,6 +64,11 @@ class UsersController < ApplicationController
     @user = @trial.user
   end
 
+  def edit_trial_requirements
+    @trial = Trial.find(params[:id])
+    @user = @trial.user    
+  end
+
   def manage_trial
     @trial = Trial.find(params[:id])
     @user = @trial.user

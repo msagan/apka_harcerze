@@ -29,13 +29,13 @@
               .col-sm-6
                 = ff.text_field :person_responsible, class: 'form-control'
             .form-group.col-sm-12
-              = ff.label 'Realizowany punkt: ', class: "col-sm-2 control-label"
+              = ff.label 'Realizowane punkty: ', class: "col-sm-2 control-label"
               .col-sm-6
-                -if ff.object.id && @pp = PlanPoint.find(ff.object.id)
-                  = ff.select :badge_requirement_id, {@pp.badge_requirement_text => @pp.badge_requirement_id, 'Nic' => nil}, {}, {class: 'form-control select-box'}
-
-                -else
-                  = ff.select :badge_requirement_id, '-', class: 'form-control select-box'
+            -ff.object.badge_requirements.each do |br|
+              .form-group.col-sm-12
+                =ff.check_box(:badge_requirement_ids, {:multiple => true, checked: true, class: 'col-sm-2'}, br.id, nil)
+                .col-sm-8
+                  ="#{br.description}"
             = ff.remove_nested_fields_link 'Usuń punkt planu'
         = f.add_nested_fields_link :plan_points, 'Dodaj punkt planu', class: 'droppable'
       .form-actions
@@ -59,11 +59,26 @@
     $('li').droppable({
         drop: function(event, ui) {
           element = [ui.helper.attr('id'), ui.helper.text()];
-          $(this).find('select').append($('<option/>', { 
-            value: element[0],
-            text : element[1]
-          }));
-          $(this).find('select').val(element[0]);
+          var id = $(this).find('.form-control').attr('name')
+          id = id.slice(0, id.indexOf("task_name"));
+
+          var checkbox = document.createElement('input');
+          checkbox.type = "checkbox";
+          checkbox.name = id + 'badge_requirement_ids[]';
+          checkbox.value = element[0];
+          checkbox.id = id + 'badge_requirement_id_' + element[0];
+          checkbox.checked = 'checked'
+          var label = document.createElement('label')
+
+          label.htmlFor = element[0];
+          label.appendChild(document.createTextNode(element[1]));
+
+          container = $(this).find('.form-group.col-sm-12').last();
+          container.after("<div class='form-group col-sm-12'></div>")
+          container = $(this).find('.form-group.col-sm-12').last();
+          container.append(checkbox);
+          container.append(label);
+
         }
       });
     $(".drag").draggable({
@@ -73,11 +88,25 @@
       $('.drop').find('li').last().droppable({
         drop: function(event, ui) {
           element = [ui.helper.attr('id'), ui.helper.text()];
-          $(this).find('select').append($('<option/>', { 
-            value: element[0],
-            text : element[1]
-          }));
-          $(this).find('select').val(element[0]);
+          var id = $(this).find('.form-control').attr('name')
+          id = id.slice(0, id.indexOf("task_name"));
+
+          var checkbox = document.createElement('input');
+          checkbox.type = "checkbox";
+          checkbox.name = id + 'badge_requirement_ids[]';
+          checkbox.value = element[0];
+          checkbox.id = id + 'badge_requirement_id_' + element[0];
+          checkbox.checked = 'checked'
+          var label = document.createElement('label')
+
+          label.htmlFor = element[0];
+          label.appendChild(document.createTextNode(element[1]));
+
+          container = $(this).find('.form-group.col-sm-12').last();
+          container.after("<div class='form-group col-sm-12'></div>")
+          container = $(this).find('.form-group.col-sm-12').last();
+          container.append(checkbox);
+          container.append(label);
         }
       });
     });

@@ -61,21 +61,19 @@ class PlansController < ApplicationController
     @meeting.summed_up = true
     @meeting.user_ids = plan_params[:user_ids]
     @meeting.save
-    users = User.find(params[:plan][:user_ids])
-    brs = PlanPoint.where(id: params[:plan][:plan_point_ids]).pluck(:badge_requirement_id)
-    users.each do |u|
-      u.badge_requirement_ids = u.badge_requirement_ids | brs
-      u.save
+    users = User.where(id: params[:plan][:user_ids])
+    params[:plan][:users].each do |u|
+      user = User.find(u[0])
+      PlanPoint.where(id: u[1]['plan_points']).each do |pp|
+        user.badge_requirements << pp.badge_requirements
+      end
+      user.save
     end
     redirect_to root_path, notice: 'Podsumowane!'
   end
 
-
-
   def plan_params
-    params.require(:plan).permit(:name, :start_date, :stop_date, user_ids: [], plan_point_ids:[], plan_points_attributes: [:id, :task_name, :task_time, :task_info, :badge_requirement_id, :materials_needed, :person_responsible, :_destroy])
-
-
+    params.require(:plan).permit(:name, :start_date, :stop_date, user_ids: [], plan_point_ids:[], plan_points_attributes: [:id, :task_name, :task_time, :task_info, :materials_needed, :person_responsible, :_destroy, badge_requirement_ids:[] ], users: [plan_points: []])
   end
 
 

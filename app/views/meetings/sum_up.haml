@@ -1,22 +1,43 @@
-.container-fluid
-  =form_for @meeting, url: finish_meeting_up_path(@meeting) do |f|
-    .form-inputs.form-horizontal.col-md-5
-      %h2 Lista obecności
-      -@scouts.each do |s|
-        .form-group.col-sm-12
-          .col-xs-6.pull-left
-            = f.label "#{s.full_name}", class: 'control-label'
-          .col-xs-1.pull-left
-            = check_box("plan", "user_ids", {:multiple => true}, s.id, nil)
-    .form-inputs.form-horizontal.col-md-5
-      %h2 Zakończone zadania
-      -@meeting.plan.plan_points.each do |pp|
-        .form-group.col-sm-12
-          .col-xs-6.pull-left
-            = f.label "#{pp.task_name}", class: 'control-label'
-            -if pp.badge_requirement.present?
-              %p="(Dotyczy zadania: #{pp.badge_requirement.description})"
-          .col-xs-1.pull-left
-            = check_box('plan', 'plan_point_ids', {:multiple => true}, pp.id, nil)
-    .col-md-2
+/ .container-fluid
+/   =form_for @meeting, url: finish_meeting_up_path(@meeting) do |f|
+/     .form-inputs.form-horizontal.col-md-5
+/       %h2 Lista obecności
+/       -@scouts.each do |s|
+/         .form-group.col-sm-12
+/           .col-xs-6.pull-left
+/             = f.label "#{s.full_name}", class: 'control-label'
+/           .col-xs-1.pull-left
+/             = check_box("plan", "user_ids", {:multiple => true}, s.id, nil)
+/     .form-inputs.form-horizontal.col-md-5
+/       %h2 Zakończone zadania
+/       -@meeting.plan.plan_points.each do |pp|
+/         .form-group.col-sm-12
+/           .col-xs-6.pull-left
+/             = f.label "#{pp.task_name}", class: 'control-label'
+/             -if pp.badge_requirement.present?
+/               %p="(Dotyczy zadania: #{pp.badge_requirement.description})"
+/           .col-xs-1.pull-left
+/             = check_box('plan', 'plan_point_ids', {:multiple => true}, pp.id, nil)
+/     .col-md-2
+/       =f.submit 'Zakończ podsumowanie', class: 'btn btn-success'
+
+
+
+.containder-fluid
+  %table#sum_up_table{cellpadding: "0", cellspacing:"0", border: "0", class: "datatable table table-striped table-bordered"}
+    =form_for @meeting, url: finish_meeting_up_path(@meeting) do |f|
+      %thead
+        %tr
+          %th Imię i nazwisko
+          %th Obecny
+          -@meeting.plan.plan_points.each do |pp|
+            %th="Wykonał zadanie #{pp.task_name}"
+      %tbody
+        -@scouts.each do |s|
+          %tr
+            %td= s.full_name
+            %td= check_box("plan", "user_ids", {:multiple => true}, s.id, nil)
+            -@meeting.plan.plan_points.each do |pp|
+              %td= check_box("plan", "users[#{s.id}][plan_points]", {:multiple => true}, pp.id, false)
       =f.submit 'Zakończ podsumowanie', class: 'btn btn-success'
+

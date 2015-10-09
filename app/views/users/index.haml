@@ -50,6 +50,7 @@
           %td
             -if user.stars < 3 && user.scouts_mark
               -if user.has_incomplete_trials?
+                =link_to 'Edytuj wymagania próby', edit_trial_path(user.trials.last.id)
                 -if user.is_done_with_trial?
                   =link_to 'Zamknij próbę', finish_trial_path(user.trials.last.id)
                 -else

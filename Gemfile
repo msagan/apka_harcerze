@@ -24,6 +24,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'thin'
+gem 'pry'
 gem 'nested_form_fields'
 gem 'jquery-ui-rails'
 gem 'capistrano', '~> 3.4.0'
@@ -54,4 +55,3 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
