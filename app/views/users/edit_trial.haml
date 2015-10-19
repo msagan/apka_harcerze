@@ -92,12 +92,12 @@
       $('.droppable-container').last().droppable({
         hoverClass: 'drop-hover',
         drop: function(event, ui) {
-          element = [ui.helper[0].children[0].children[1].getElementsByTagName('input')[0].value, ui.helper.text()];
+          element = [ui.helper[0].id, ui.helper.text()];
           var id = $(this).find('.form-control').attr('name')
           id = id.slice(0, id.indexOf("name"));
           var checkbox = document.createElement('input');
           checkbox.type = "checkbox";
-          checkbox.name = id + 'badge_ids][]';
+          checkbox.name = id + 'rank_requirement_ids][]';
           checkbox.value = element[0];
           checkbox.id = id + 'badge_id_' + element[0];
           checkbox.checked = 'checked'
