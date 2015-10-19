@@ -31,6 +31,7 @@
                   = ff.text_field :name, class: 'form-control'
                   = ff.label 'Opis'
                   = ff.text_field :description, class: 'form-control'
+                  = ff.label 'Wymagania spełniane przez to zadanie: (przeciągnij i upuść wymagania na to pole)'
                   - ff.object.rank_requirements.each do |b|
                     .col-sm-12
                       =ff.check_box(:rank_requirement_ids, {:multiple => true, checked: true, class: 'col-sm-2'}, b.id, nil)
@@ -116,7 +117,8 @@
 
 
     $(".item-draggable").draggable({
-      revert: true
+      revert: true,
+      zIndex: 50000
     });
 
   });
