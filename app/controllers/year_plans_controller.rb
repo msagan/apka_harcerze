@@ -15,7 +15,7 @@ class YearPlansController < ApplicationController
 
   def new
     @teams = current_user.lead_teams
-    @badges = Badge.all
+    @badges = @teams.first.get_team_badges
     @year_plan = YearPlan.new
   end
 
@@ -30,7 +30,7 @@ class YearPlansController < ApplicationController
   end
 
   def edit
-    @badges = Badge.all
+    @badges = @teams.first.get_team_badges
     @teams = current_user.lead_teams
     @year_plan = YearPlan.find(params[:id])
   end

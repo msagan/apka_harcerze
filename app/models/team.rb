@@ -6,5 +6,7 @@ class Team < ActiveRecord::Base
   has_many :team_groups
   validate :name, :base, :chapter, :banner, :ceremonial, :date_of_creation
 
-
+  def get_team_badges
+    Badge.where(id: self.scouts.includes(trials: :badges_to_trials).pluck(:'badges_to_trials.badge_id') )
+  end
 end
