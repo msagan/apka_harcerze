@@ -14,6 +14,8 @@ class YearPlansController < ApplicationController
   end
 
   def new
+    add_breadcrumb "Plany", :year_plans_path
+    add_breadcrumb "Nowy plan", year_plans_path(@year_plan)
     @teams = current_user.lead_teams
     @badges = @teams.first.get_team_badges
     @year_plan = YearPlan.new

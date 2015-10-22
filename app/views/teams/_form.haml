@@ -37,11 +37,11 @@
         .form-group.col-sm-12
           = f.label "Hufiec", class: "col-sm-2 control-label"
           .col-sm-7
-            = f.text_field :chapter, class: 'form-control'
+            = f.select :chapter, HUFCE.keys, class: 'form-control'
         .form-group.col-sm-12
           = f.label "Chorągiew", class: "col-sm-2 control-label"
           .col-sm-7
-            = f.text_field :banner, class: 'form-control'
+            = f.select :banner, HUFCE["Chorągiew Harcerzy Ziemi Opolskiej"], class: 'form-control'
         .form-group.col-sm-12
           = f.label "Data powołania", class: "col-sm-2 control-label"
           .col-sm-7
@@ -53,3 +53,21 @@
 
       .actions
         = f.submit
+:javascript
+  $('document').ready(function(){
+    field = $('#team_chapter');
+    select = $('#team_banner');
+    select.empty();
+    if(field.length > 0){
+      field.change(function(){
+        select.empty();
+        options = gon.chapters[field[0].value];
+        $.each(options, function(index, option) {
+          $option = $("<option></option>")
+            .attr("value", option)
+            .text(option);
+          select.append($option);
+        });
+      });
+    }
+  });

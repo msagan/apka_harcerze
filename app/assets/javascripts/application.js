@@ -20,4 +20,5 @@
 //= require jquery.datetimepicker
 //= require jquery-ui/draggable
 //= require jquery-ui/droppable
+//= require select
 //= require_tree .

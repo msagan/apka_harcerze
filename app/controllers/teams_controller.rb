@@ -5,10 +5,14 @@ class TeamsController < ApplicationController
   before_action :make_sure_team_is_mine, only: [:show]
 
   def index
+    add_breadcrumb "Drużyna", :teams_path
     @teams = current_user.lead_teams
   end
 
   def new
+    add_breadcrumb "Drużyny", :teams_path
+    add_breadcrumb "Nowa drużyna", :new_team_path
+    gon.chapters = HUFCE
     @team = Team.new
   end
 
@@ -24,6 +28,9 @@ class TeamsController < ApplicationController
 
   def edit
     @team = Team.find(params[:id])
+    gon.chapters = HUFCE
+    add_breadcrumb "Drużyny", :teams_path
+    add_breadcrumb "Edycja drużyny drużyna", edit_team_path(@team)
   end
 
   def update
@@ -38,12 +45,16 @@ class TeamsController < ApplicationController
   def show
     @team = current_user.lead_teams.find(params[:id])
     @users = @team.scouts.active
+    add_breadcrumb "Drużyny", :teams_path
+    add_breadcrumb "Zuchy", :teams_path
     render :template => 'users/index'
   end
 
   def add_team_group
     @team = Team.find(params[:id])
     @team_group = TeamGroup.new
+    add_breadcrumb "Drużyny", :teams_path
+    add_breadcrumb "Dodaj szóstkę", add_team_group_path(@team)
   end
 
   def create_team_group
@@ -60,11 +71,15 @@ class TeamsController < ApplicationController
   def archive
     @team = Team.find(params[:id])
     @users = @team.scouts.inactive
+    add_breadcrumb "Drużyny", :teams_path
+    add_breadcrumb "Archiwum drużyny", edit_team_path(@team)
     render :template => 'users/index'
   end
 
   def edit_team_group
     @team_group = TeamGroup.find(params[:id])
+    add_breadcrumb "Drużyny", :teams_path
+    add_breadcrumb "Edycja szóstki", add_scout(@team)
   end
 
   def update_team_group
@@ -82,6 +97,8 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:id])
     @team_groups = @team.team_groups.pluck(:name, :id)
     @user = User.new
+    add_breadcrumb "Drużyny", :teams_path
+    add_breadcrumb "Dodaj zucha", add_scout_path(@team)
   end
 
   def create_scout
@@ -105,6 +122,8 @@ class TeamsController < ApplicationController
     @user.signing_in = false
     @team_groups = @user.team.team_groups.pluck(:name, :id)
     @badges = Badge.all
+    add_breadcrumb "Drużyny", :teams_path
+    add_breadcrumb "Edycja zucha", edit_scout_path(@user)
   end
 
   def update_scout

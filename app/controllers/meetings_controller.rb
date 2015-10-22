@@ -30,6 +30,11 @@ class MeetingsController < ApplicationController
 
   def edit
     @meeting = Meeting.find(params[:id])
+    @cycle = @meeting.cycle
+    add_breadcrumb "Plany", :year_plans_path
+    add_breadcrumb "Cykle", year_plan_path(@cycle.year_plan)
+    add_breadcrumb 'Spotkania', cycle_path(@cycle)
+    add_breadcrumb 'Edytuj spotkane', new_meeting_path(@cycle)
   end
 
   def update

@@ -37,6 +37,7 @@
                       =ff.check_box(:rank_requirement_ids, {:multiple => true, checked: true, class: 'col-sm-2'}, b.id, nil)
                       .col-sm-8
                         ="#{b.description}"
+                  %button#save Zapisz
               = ff.remove_nested_fields_link 'Usuń zadanie'
           = f.add_nested_fields_link :custom_tasks, 'Dodaj zadanie indywidualne'
         .col-md-5
