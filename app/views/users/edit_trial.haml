@@ -52,7 +52,7 @@
                   =hidden_field_tag "rank_requirement[badge_ids][]", badge.id, multiple: true
                   .col-xs-1.flt-rght{class: "bgn-#{badge.color}"}
         .col-md-2
-          =f.submit 'Rozpocznij próbę', class: 'btn btn-success'
+          =link_to 'Rozpocznij próbę', manage_trial_path, class: 'btn btn-success'
 
 :javascript
   

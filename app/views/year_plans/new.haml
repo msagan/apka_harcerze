@@ -12,8 +12,8 @@
       .col-sm-6
         -@badges.each do |badge|
           .col-sm-2
-            = f.label badge.name
-            = f.check_box :badge_ids, { :multiple => true, class: 'form-control' }, badge.id, nil
+            = f.label "#{badge[0].name} (zdobywa: #{badge[1]})"
+            = f.check_box :badge_ids, { :multiple => true, class: 'form-control' }, badge[0].id, nil
     .form-actions
       .form-group
         .col-sm-2.col-md-offset-3

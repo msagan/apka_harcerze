@@ -49,7 +49,8 @@ class Badge < ActiveRecord::Base
     self.badge_requirements.collect{|b| [b.id, b.description]}
   end
 
-  def badges_teams
+  def team_trial_count(team)
+    self.badges_to_trials.joins(trial: :user).where(trials: {user_id: team.scout_ids}).count
   end
 
   #TODO do przepisania, za długo

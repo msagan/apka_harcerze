@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   def update_trial
     @trial = Trial.find(params[:id])
     @trial.update(trial_params)
-    redirect_to manage_trial_path(@trial)
+    redirect_to edit_trial_path(@trial)
   end
 
   def finish_trial
