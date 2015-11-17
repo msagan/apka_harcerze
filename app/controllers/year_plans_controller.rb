@@ -18,6 +18,7 @@ class YearPlansController < ApplicationController
     add_breadcrumb "Nowy plan", year_plans_path(@year_plan)
     @teams = current_user.lead_teams
     @badges = @teams.first.get_team_badges
+    # @badges = @badges.sort_by{|item| [ item[0].color ]}
     @year_plan = YearPlan.new
   end
 

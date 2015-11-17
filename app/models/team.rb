@@ -7,7 +7,12 @@ class Team < ActiveRecord::Base
   validate :name, :base, :chapter, :banner, :ceremonial, :date_of_creation
 
   def get_team_badges
-    badges = Badge.where(id: self.scouts.includes(trials: :badges_to_trials).pluck(:'badges_to_trials.badge_id') ).map{ |b| [b, b.team_trial_count(self)] }
-    badges.sort_by{|b|b[1]}.reverse
+    # badges = Badge.where(id: self.scouts.includes(trials: :badges_to_trials).pluck(:'badges_to_trials.badge_id') ).map{ |b| [b, b.team_trial_count(self)] }
+    badges = Badge.where(id: self.scouts.includes(trials: :badges_to_trials).pluck(:'badges_to_trials.badge_id') ).group_by(&:color)
+    badges.each do |badge|
+      badge[1].map!{ |b| [b, b.team_trial_count(self)] }
+      badge[1].sort_by{ |b| b.reverse }
+    end
+    # badges.sort_by{|b| b[1]}.reverse
   end
 end
