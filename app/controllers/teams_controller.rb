@@ -79,7 +79,7 @@ class TeamsController < ApplicationController
   def edit_team_group
     @team_group = TeamGroup.find(params[:id])
     add_breadcrumb "Drużyny", :teams_path
-    add_breadcrumb "Edycja szóstki", add_scout(@team)
+    add_breadcrumb "Edycja szóstki", edit_team_group_path(@team_group)
   end
 
   def update_team_group
