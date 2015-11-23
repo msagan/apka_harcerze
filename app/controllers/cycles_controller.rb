@@ -15,7 +15,7 @@ class CyclesController < ApplicationController
   def new    
     @year_plan = YearPlan.find(params[:id])
     @cycle = Cycle.new
-    @badges = @year_plan.badges
+    @badges = @year_plan.plan_badges
     add_breadcrumb "Plany", :year_plans_path
     add_breadcrumb "Cykle", cycles_path(@year_plan)
     add_breadcrumb "Nowy cykl", new_cycle_path(@year_plan)
@@ -33,7 +33,7 @@ class CyclesController < ApplicationController
   def edit
     @cycle = Cycle.find(params[:id])
     @year_plan = @cycle.year_plan
-    @badges = @year_plan.badges
+    @badges = @year_plan.plan_badges
     add_breadcrumb "Plany", :year_plans_path
     add_breadcrumb "Cykle", cycles_path(@year_plan)
     add_breadcrumb "Edytuj cykl", new_cycle_path(@year_plan)

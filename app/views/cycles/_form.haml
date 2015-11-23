@@ -12,12 +12,15 @@
       = f.label 'Data końca', class: "col-sm-2 control-label"
       .col-sm-6
         = f.datetime_field :stop_date, class: "form-control datetimepicker", required: true
-    .form-group.col-sm-12.margin-left-md
-      .col-sm-6
-        -@badges.each do |badge|
-          .col-sm-2
-            = f.label badge.name
-            = f.check_box :badge_ids, { :multiple => true, class: 'form-control' }, badge.id, nil
+    .form-group.col-sm-6.margin-left-md
+      -@badges.keys.each do |color|
+        .col-xs-1{class: "bgn-#{color}"}
+        %br/
+        %ul.list-group
+          -@badges[color].each do |badge|
+            %li.list-group-item
+              = f.label "#{badge[0].name} (zdobywa: #{badge[1]})"
+              = f.check_box :badge_ids, { :multiple => true }, badge[0].id, nil
     .form-actions
       .form-group
         .col-sm-2.col-md-offset-3
