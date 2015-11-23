@@ -56,7 +56,7 @@
             .item-draggable
               .form-group
                 .col-sm-8
-                  =link_to badge.name,'#' ,class: "control-label",data: {toggle: "collapse", target: "#badge_#{badge.id}"},  id: "label_#{badge.id}"
+                  =link_to badge.name, '#', class: "control-label", data: {toggle: "collapse", target: "#badge_#{badge.id}"},  id: "label_#{badge.id}"
                   .col-xs-12.collapse{id: "badge_#{badge.id}"}
                     -badge.badge_requirements.reverse.each do |br|
                       %p= br.description
@@ -78,7 +78,7 @@
               if (r == true) {
                   $(this).children('form').append(ui.helper);
               } else {
-                  console.log('canceled');
+                  return false;
               }
           }
           else{

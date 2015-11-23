@@ -52,6 +52,18 @@ body{
 .flt-rght{
   float: right;
 }
+.inline{
+  display: inline-block;
+}
+.flt-none{
+  float: none;
+}
 .margin-left-md{
   margin-left: 155px !important;
+}
+.item{
+  height: auto;
+}
+.mrgn-xs{
+  margin-top: 11px;
 }

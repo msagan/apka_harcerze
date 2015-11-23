@@ -5,20 +5,29 @@
       .col-md-5
         %h2 
           Pozostałe wymagania
-          %h4 Odznaki do zdobycia
+        %h4 Odznaki do zdobycia
+        #accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
           -@trial.rank.rank_requirements.each do |rr|
             -rr.badges.each do |b|
               -unless @user.has_badge? b
-                .form-group
-                  .col-xs-1{class: "bgn-#{b.color}"}
-                  .col-sm-6
-                    = b.name
-                  .col-sm-2
-                    =check_box("user", "badge_ids", {:multiple => true}, b.id, nil)
-                %br
+                .panel.panel-default
+                  .form-group
+                    .col-sm-1{class: "bgn-#{b.color} mrgn-xs"}
+                    .panel-heading{:role => "tab", id: "#{b.id}"}
+                      %h4.panel-title
+                        .inline.flt-rght
+                          = check_box("user", "badge_ids", {:multiple => true}, b.id, nil)
+                        %a{"aria-controls" => "badge_#{b.id}", "aria-expanded" => "true", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#badge_#{b.id}", :role => "button"}
+                          = b.name
+                    .panel-collapse.collapse{"aria-labelledby" => "#{b.id}", :role => "tabpanel", id: "badge_#{b.id}"}
+                      .panel-body
+                        .col-xs-12
+                          %p= rr.description
               -else
                 =f.hidden_field 'badge_ids', multiple: true, value: b.id
-          %h4 Zadania indywidualne do wykonania
+        %br/
+        %h4 
+          Zadania indywidualne do wykonania
           -@trial.custom_tasks.each do |t|
             -unless @user.has_task? t
               .form-group
@@ -28,7 +37,7 @@
                   = t.description
                 .col-sm-2
                   =check_box("user", "custom_task_ids", {:multiple => true}, t.id, nil)
-              %br
+              %br/
             -else
               =f.hidden_field 'custom_task_ids',multiple: true, value: t.id
       .col-md-5
@@ -41,7 +50,7 @@
               .col-xs-1{class: "bgn-#{b.color}"}
               .col-sm-10
                 = b.name
-            %br
+            %br/
         %h4 Wykonane zadania
         -@trial.custom_tasks.each do |t|
           -if @user.has_task? t
@@ -49,6 +58,6 @@
               = t.name
             .col-sm-10
               = t.description
-          %br
+          %br/
       .col-md-2
         =f.submit 'Zalicz zadania', class: 'btn btn-success'
