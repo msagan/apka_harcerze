@@ -17,8 +17,9 @@
     -@year_plan.cycles.each do |cycle|
       %tr{id: "j-#{cycle.id}"}
         %td=cycle.name
-        %td=cycle.start_date
-        %td=cycle.stop_date
+        %td=cycle.year_plan.team.name
+        %td=cycle.start_date.try(:to_date)
+        %td=cycle.stop_date.try(:to_date)
         %td
           = link_to 'Pokaż spotkania', cycle_path(cycle), class: 'btn-sm btn-primary'
           = link_to 'Edytuj', edit_cycle_path(cycle), class: 'btn-sm btn-primary'
