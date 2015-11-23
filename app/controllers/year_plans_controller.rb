@@ -33,8 +33,8 @@ class YearPlansController < ApplicationController
   end
 
   def edit
-    @badges = @teams.first.get_team_badges
     @teams = current_user.lead_teams
+    @badges = @teams.first.get_team_badges
     @year_plan = YearPlan.find(params[:id])
   end
 

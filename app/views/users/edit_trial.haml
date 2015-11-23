@@ -4,7 +4,7 @@
     .col-md-4
       %h2 
         Wymagania
-      -@trial.rank.rank_requirements.each do |rr|
+      -@trial.rank.rank_requirements.order(id: :asc).each do |rr|
         .col-sm-2.col-xs-1{class: "bgn-#{rr.color}"}
         .col-sm-10.drop{id: "rank_requirement_id_#{rr.id}"}
           =label_tag rr, rr.description, id: rr.id, class: 'item-draggable'
