@@ -19,6 +19,7 @@
         %th Szóstka
         %th Gwiazdki
         %th Odznaki
+        %th Procentowe ukończenie próby
         %th Opis
         %th Pesel
         %th Szkoła
@@ -38,9 +39,24 @@
           %td= user.email
           %th= user.team_group_name
           %td= user.stars
-          %td
+          %td 
             -user.badges_names.each do |name|
               =name
+          %td
+            -unless user.trials.empty?
+              -completion_percentage = user.trials.last.completion_percentage
+              -color = 'blue'
+              -if completion_percentage < 25
+                -color = 'green'
+              -elsif completion_percentage < 50
+                -color = 'yellow'
+              -elsif completion_percentage < 75
+                -color = 'orange'
+              -else
+                -color = 'red'
+              %strong{style: "color: #{color}"}=user.trials.last.completion_percentage
+            -else
+              -
           %td= user.description
           %td= user.pesel
           %td= user.school

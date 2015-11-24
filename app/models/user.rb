@@ -81,6 +81,16 @@ class User < ActiveRecord::Base
     (self.trials.incomplete.last.badge_ids - self.badge_ids).empty? && (self.trials.incomplete.last.custom_tasks - self.custom_tasks).empty?
   end
 
+  def completed_badges_from_trial_count(trial_id)
+    trial = Trial.find(trial_id)
+    badge_ids = trial.badge_ids
+    self.badges.where(id: badge_ids).count
+  end
+
+  def completed_tasks_from_trial_count(trial_id)
+    self.custom_tasks.where(trial_id: trial_id).count
+  end
+
   def attended_meetings
     @meetings = Meeting.all.select { |m| m.user_ids.include? id }
   end
