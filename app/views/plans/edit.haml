@@ -4,38 +4,37 @@
 
 = form_for @plan, url: update_plan_path(@plan) do |f|
   .col-md-6
-    .form-inputs.form-horizontal
+    .form-inputs.form-vertical
       .drop
         = f.nested_fields_for :plan_points do |ff|
           %li.list-group-item
-            .form-group.col-sm-12
-              = ff.label 'Nazwa', class: "col-sm-2 control-label"
-              .col-sm-6
+            .form-group.col-sm-6
+              = ff.label 'Nazwa', class: "col-sm-4 control-label"
+              .col-sm-8
                 = ff.text_field :task_name, class: 'form-control'
-            .form-group.col-sm-12
-              = ff.label 'Opis', class: "col-sm-2 control-label"
-              .col-sm-6
+            .form-group.col-sm-6
+              = ff.label 'Opis', class: "col-sm-4 control-label"
+              .col-sm-8
                 = ff.text_field :task_info, class: 'form-control'
-            .form-group.col-sm-12
-              = ff.label 'Czas operacyjny', class: "col-sm-2 control-label"
-              .col-sm-6
+            .form-group.col-sm-6
+              = ff.label 'Czas operacyjny', class: "col-sm-4 control-label"
+              .col-sm-8
                 = ff.text_field :task_time, class: 'form-control'
-            .form-group.col-sm-12
-              = ff.label 'Potrzebne materiały', class: "col-sm-2 control-label"
-              .col-sm-6
+            .form-group.col-sm-6
+              = ff.label 'Potrzebne materiały', class: "col-sm-4 control-label"
+              .col-sm-8
                 = ff.text_area :materials_needed, class: 'form-control'
-            .form-group.col-sm-12
-              = ff.label 'Osoba odpowiedzialna: ', class: "col-sm-2 control-label"
-              .col-sm-6
+            .form-group.col-sm-6
+              = ff.label 'Osoba odpowiedzialna: ', class: "col-sm-4 control-label"
+              .col-sm-8
                 = ff.text_field :person_responsible, class: 'form-control'
-            .form-group.col-sm-12
-              = ff.label 'Realizowane punkty: ', class: "col-sm-2 control-label"
-              .col-sm-6
+            .form-group.col-sm-6
+              = ff.label 'Realizowane punkty: ', class: "col-sm-4 control-label"
+              .col-sm-8
             -ff.object.badge_requirements.each do |br|
-              .form-group.col-sm-12
-                =ff.check_box(:badge_requirement_ids, {:multiple => true, checked: true, class: 'col-sm-2'}, br.id, nil)
-                .col-sm-8
-                  ="#{br.description}"
+              .col-sm-6
+                =ff.check_box(:badge_requirement_ids, {:multiple => true, checked: true}, br.id, nil)
+                ="#{br.description}"
             = ff.remove_nested_fields_link 'Usuń punkt planu'
         = f.add_nested_fields_link :plan_points, 'Dodaj punkt planu', class: 'droppable'
       .form-actions
@@ -73,9 +72,9 @@
           label.htmlFor = element[0];
           label.appendChild(document.createTextNode(element[1]));
 
-          container = $(this).find('.form-group.col-sm-12').last();
-          container.after("<div class='form-group col-sm-12'></div>")
-          container = $(this).find('.form-group.col-sm-12').last();
+          container = $(this).find('.form-group.col-sm-6').last();
+          container.after("<div class='form-group col-sm-6'></div>")
+          container = $(this).find('.form-group.col-sm-6').last();
           container.append(checkbox);
           container.append(label);
 
@@ -102,9 +101,9 @@
           label.htmlFor = element[0];
           label.appendChild(document.createTextNode(element[1]));
 
-          container = $(this).find('.form-group.col-sm-12').last();
-          container.after("<div class='form-group col-sm-12'></div>")
-          container = $(this).find('.form-group.col-sm-12').last();
+          container = $(this).find('.form-group.col-sm-6').last();
+          container.after("<div class='form-group col-sm-6'></div>")
+          container = $(this).find('.form-group.col-sm-6').last();
           container.append(checkbox);
           container.append(label);
         }
