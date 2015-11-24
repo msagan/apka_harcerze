@@ -52,7 +52,7 @@
             %button.btn{"aria-controls" => "badge#{badge.id}", "aria-expanded" => "false", "data-target" => "#badge#{badge.id}", "data-toggle" => "collapse", :type => "button", class: "bgn-#{badge.color}-color"}
               %b= badge.name
             .collapse{id: "badge#{badge.id}"}
-              -badge.badge_requirements.each do |br|
+              -badge.badge_requirements.reverse.each do |br|
                 =label_tag br, br.description, id: "#{br.id}", class: 'drag'
 :javascript
   $(document).ready(function(){
