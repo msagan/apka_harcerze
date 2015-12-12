@@ -7,7 +7,7 @@
 .container-fluid
   -if @users.count > 0 && @users.first.archived?
     =link_to 'Aktywne zuchy', team_path(@team.id), class: 'btn btn-primary'
-  -if @users.count > 0 && !@users.first.archived?
+  -if @users.count == 0 || ( @users.count > 0 && !@users.first.archived? )
     =link_to 'Dodaj zucha', add_scout_path(@team.id), class: 'btn btn-primary'
     =link_to 'Archiwum zuchów', team_archive_path(@team.id), class: 'btn btn-primary'
   %table#users_table{cellpadding: "0", cellspacing:"0", border: "0", class: "datatable table table-striped table-bordered"}
