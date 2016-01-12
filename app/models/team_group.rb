@@ -4,7 +4,7 @@ class TeamGroup < ActiveRecord::Base
 
   def user_full_names
     tabs = []
-    users.each do |u|
+    users.active.each do |u|
       tabs << u.full_name
     end
     tabs.join(', ')

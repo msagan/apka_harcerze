@@ -91,6 +91,10 @@ class TeamsController < ApplicationController
     end
   end
 
+  def delete_team_group
+    TeamGroup.find(params[:id]).destroy
+    redirect_to teams_path, notice: 'Szóstka usunięta'
+  end
 
   def add_scout
     @badges = Badge.all

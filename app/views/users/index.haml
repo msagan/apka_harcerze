@@ -13,20 +13,14 @@
   %table#users_table{cellpadding: "0", cellspacing:"0", border: "0", class: "datatable table table-striped table-bordered"}
     %thead
       %tr
-        %th Imię
-        %th Nazwisko
-        %th Email
+        %th Imię i nazwisko
         %th Szóstka
         %th Gwiazdki
         %th Odznaki
         %th Procentowe ukończenie próby
-        %th Opis
-        %th Pesel
         %th Szkoła
         %th Klasa
         %th Zgoda rodziców
-        %th Informacje medyczne
-        %th Gromada
         %th Data odejścia
         %th Powód odejścia
         %th
@@ -34,14 +28,10 @@
     %tbody
       - @users.each do |user|
         %tr{id: "j-#{user.id}"}
-          %td= user.first_name
-          %td= user.last_name
-          %td= user.email
+          %td= user.full_name
           %th= user.team_group_name
           %td= user.stars
-          %td 
-            -user.badges_names.each do |name|
-              =name
+          %td= user.badges.count
           %td
             -unless user.trials.empty?
               -completion_percentage = user.trials.last.completion_percentage
@@ -57,15 +47,9 @@
               %strong{style: "color: #{color}"}=user.trials.last.completion_percentage
             -else
               -
-          %td= user.description
-          %td= user.pesel
           %td= user.school
           %td= user.school_class
           %td= user.parental_agreement
-          %td= user.medical_info
-          %td
-            -if user.team.present?
-              = user.team.name
           %td= user.date_of_leave
           %td= user.leave_reason
           %td

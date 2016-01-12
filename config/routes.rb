@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   post 'team/create_team_group/:id', to: 'teams#create_team_group', as: :create_team_group
   get 'team/edit_team_group/:id', to: 'teams#edit_team_group', as: :edit_team_group
   patch 'team/update_team_group/:id', to: 'teams#update_team_group', as: :update_team_group
+  delete 'team/team_group/:id', to: 'teams#delete_team_group', as: :delete_team_group
 
   get 'scouts/edit/:id', to: 'users#edit_scout', as: :edit_scout
   get 'meetings/edit/:id', to: 'meetings#edit', as: :edit_meeting

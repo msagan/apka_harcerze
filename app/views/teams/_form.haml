@@ -41,7 +41,7 @@
         .form-group.col-sm-12
           = f.label "Hufiec", class: "col-sm-2 control-label"
           .col-sm-7
-            = f.select :banner, HUFCE["Chorągiew Harcerzy Ziemi Opolskiej"], class: 'form-control'
+            = f.select :banner, HUFCE["Chorągiew Harcerzy Ziemi Opolskiej"], selected: @team.banner, class: 'form-control'
         .form-group.col-sm-12
           = f.label "Data powołania", class: "col-sm-2 control-label"
           .col-sm-7
@@ -57,7 +57,6 @@
   $('document').ready(function(){
     field = $('#team_chapter');
     select = $('#team_banner');
-    select.empty();
     if(field.length > 0){
       field.change(function(){
         select.empty();

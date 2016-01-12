@@ -3,15 +3,11 @@
   %thead
     %tr
       %th Nazwa
-      %th Historia
-      %th Opis sytuacyjny
       %th
   %tbody
-    - @teams.each do |team|
+    - @teams.order(:name).each do |team|
       %tr{id: "j-#{team.id}"}
         %td= team.name
-        %td= team.history
-        %td= team.situation_description
         %td
           = link_to 'Lista zuchów', team_path(team)
           = link_to 'Edytuj', edit_team_path(team)
@@ -30,5 +26,7 @@
           %td= tg.name
           %td
             = tg.user_full_names
-          %td=link_to 'Edytuj szóstkę', edit_team_group_path(tg)
+          %td
+            =link_to 'Edytuj szóstkę', edit_team_group_path(tg)
+            =link_to 'Usuń szóstkę', delete_team_group_path(tg), method: :delete
   %br

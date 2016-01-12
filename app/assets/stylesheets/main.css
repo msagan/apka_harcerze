@@ -49,6 +49,9 @@
 body{
   background-color: #f5f3f1 !important;
 }
+.sidebar{
+  position: relative;
+}
 .flt-rght{
   float: right;
 }

@@ -5,64 +5,67 @@
       %h2 
         Wymagania
       -@trial.rank.rank_requirements.order(id: :asc).each do |rr|
-        .col-sm-2.col-xs-1{class: "bgn-#{rr.color}"}
-        .col-sm-10.drop{id: "rank_requirement_id_#{rr.id}"}
-          =label_tag rr, rr.description, id: rr.id, class: 'item-draggable'
-          =form_for(rr, url: update_badges_path(rr)) do |f|
-            =hidden_field :rank_requirement, :id, :value => rr.id
-            =f.submit "Aktualizuj"
-            %br/
-            %b Odznaki
-            - rr.badges.each do |badge|
-              .form-group
-                .col-sm-8
-                  =f.label badge.name, class: "control-label", id: "label_#{badge.id}"
-                .col-sm-3
-                  =hidden_field_tag "rank_requirement[badge_ids][]", ''
-                .col-xs-1.flt-rght{class: "bgn-#{badge.color}"}
-                =check_box("rank_requirement", "badge_ids", {:multiple => true, checked: true}, badge.id, nil)
-            %b Zadania ind.
-            - rr.custom_tasks.each do |custom_task|
-              .form-group
-                .col-sm-8
-                  = f.label custom_task.name
-    .col-md-8
-      =form_for(@trial, url: update_trial_path(@trial), format: :json) do |f|
-        =hidden_field :trial, :id, :value => @trial.id
-        .col-md-5
-          %h3 Zadania indywidualne
-          %li.list-group-item
-            = f.nested_fields_for :custom_tasks do |ff|
-              .droppable-container
-                .custom_task_container
-                  = ff.label 'Nazwa'
-                  = ff.text_field :name, class: 'form-control'
-                  = ff.label 'Opis'
-                  = ff.text_field :description, class: 'form-control'
-                  = ff.label 'Wymagania spełniane przez to zadanie: (przeciągnij i upuść wymagania na to pole)'
-                  - ff.object.rank_requirements.each do |b|
-                    .col-sm-12
-                      =ff.check_box(:rank_requirement_ids, {:multiple => true, checked: true, class: "col-sm-2"}, b.id, nil)
-                      .col-sm-8
-                        ="#{b.description}"
-                      .col-xs-1.flt-rght{class: "bgn-#{b.color}"}
-                  %button#save Zapisz
-              = ff.remove_nested_fields_link 'Usuń zadanie'
-          = f.add_nested_fields_link :custom_tasks, 'Dodaj zadanie indywidualne'
-        .col-md-5
-          %h3 Odznaki
-          / =collection_check_boxes(:trial, :badge_ids, Badge.all, :id, :name)
-          -@badges.each do |badge|
-            .item-draggable
-              .form-group
-                .col-sm-8
-                  =link_to badge.name, '#', class: "control-label", data: {toggle: "collapse", target: "#badge_#{badge.id}"},  id: "label_#{badge.id}"
-                  .col-xs-12.collapse{id: "badge_#{badge.id}"}
-                    -badge.badge_requirements.reverse.each do |br|
-                      %p= br.description
-                .col-sm-3
-                  =hidden_field_tag "rank_requirement[badge_ids][]", badge.id, multiple: true
+        .sidebar
+          .col-sm-2.col-xs-1{class: "bgn-#{rr.color}"}
+          .col-sm-10.drop{id: "rank_requirement_id_#{rr.id}"}
+            =label_tag rr, rr.description, id: rr.id, class: 'item-draggable'
+            =form_for(rr, url: update_badges_path(rr)) do |f|
+              =hidden_field :rank_requirement, :id, :value => rr.id
+              =f.submit "Aktualizuj"
+              %br/
+              %b Odznaki
+              - rr.badges.each do |badge|
+                .form-group
+                  .col-sm-8
+                    =f.label badge.name, class: "control-label", id: "label_#{badge.id}"
+                  .col-sm-3
+                    =hidden_field_tag "rank_requirement[badge_ids][]", ''
                   .col-xs-1.flt-rght{class: "bgn-#{badge.color}"}
+                  =check_box("rank_requirement", "badge_ids", {:multiple => true, checked: true}, badge.id, nil)
+              %b Zadania ind.
+              - rr.custom_tasks.each do |custom_task|
+                .form-group
+                  .col-sm-8
+                    = f.label custom_task.name
+    .col-md-8
+      .sidebar
+        =form_for(@trial, url: update_trial_path(@trial), format: :json) do |f|
+          =hidden_field :trial, :id, :value => @trial.id
+          .col-md-5
+            %h3 Zadania indywidualne
+            %li.list-group-item
+              = f.nested_fields_for :custom_tasks do |ff|
+                .droppable-container
+                  .custom_task_container
+                    = ff.label 'Nazwa'
+                    = ff.text_field :name, class: 'form-control'
+                    = ff.label 'Opis'
+                    = ff.text_field :description, class: 'form-control'
+                    = ff.label 'Wymagania spełniane przez to zadanie: (przeciągnij i upuść wymagania na to pole)'
+                    - ff.object.rank_requirements.each do |b|
+                      .col-sm-12
+                        =ff.check_box(:rank_requirement_ids, {:multiple => true, checked: true, class: "col-sm-2"}, b.id, nil)
+                        .col-sm-8
+                          ="#{b.description}"
+                        .col-xs-1.flt-rght{class: "bgn-#{b.color}"}
+                    %button#save Zapisz
+                = ff.remove_nested_fields_link 'Usuń zadanie'
+            = f.add_nested_fields_link :custom_tasks, 'Dodaj zadanie indywidualne'
+        .col-md-5
+          .sidebar
+            %h3 Odznaki
+            / =collection_check_boxes(:trial, :badge_ids, Badge.all, :id, :name)
+            -@badges.each do |badge|
+              .item-draggable
+                .form-group
+                  .col-sm-8
+                    =link_to badge.name, '#', class: "control-label", data: {toggle: "collapse", target: "#badge_#{badge.id}"},  id: "label_#{badge.id}"
+                    .col-xs-12.collapse{id: "badge_#{badge.id}"}
+                      -badge.badge_requirements.reverse.each do |br|
+                        %p= br.description
+                  .col-sm-3
+                    =hidden_field_tag "rank_requirement[badge_ids][]", badge.id, multiple: true
+                    .col-xs-1.flt-rght{class: "bgn-#{badge.color}"}
         .col-md-2
           =link_to 'Rozpocznij próbę', manage_trial_path, class: 'btn btn-success'
 

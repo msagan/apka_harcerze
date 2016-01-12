@@ -29,6 +29,8 @@ class User < ActiveRecord::Base
 
   def unarchive!
     self.archived = false
+    self.date_of_leave = nil
+    self.leave_reason = nil
     self.save
   end
 
@@ -73,7 +75,7 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    first_name + " " + last_name
+    "#{first_name} #{last_name}"
   end
 
   def is_done_with_trial?
