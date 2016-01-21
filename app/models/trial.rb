@@ -11,7 +11,11 @@ class Trial < ActiveRecord::Base
   def completion_percentage
     completed_badges = self.user.completed_badges_from_trial_count(self.id)
     completed_tasks = self.user.completed_tasks_from_trial_count(self.id)
-    ( ( (completed_badges + completed_tasks).to_f / (self.task_count).to_f ) * 100 ).to_i
+    if self.task_count == 0
+      0
+    else
+      ( ( (completed_badges + completed_tasks).to_f / (self.task_count).to_f ) * 100 ).to_i
+    end
   end
 
   def task_count
