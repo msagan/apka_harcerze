@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include ActiveModel::Validations
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -13,9 +14,8 @@ class User < ActiveRecord::Base
   has_many :custom_tasks
   belongs_to :team_group
   attr_accessor :signing_in
+  validates_with UserValidator
   validate :parent_1_phone, :parent_1, :parent_2, :school_class, :pesel, :stars, :first_name, :last_name, presence: true, if: :should_validate
-  validate :email, presence: true, uniqueness: true, if: :should_validate
-  validate :email, uniqueness: true, allow_blank: true, if: :shouldnt_validate
   validate :stars, numericality: { greater_than_or_equal_to: 0, lesser_than_or_equal_to: 3 }
 
   REASONS_OF_LEAVE= ['Inne', 'Przejście do drużyny', 'Rezygnacja z zuchów', 'Za mało czasu']

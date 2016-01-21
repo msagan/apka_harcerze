@@ -50,6 +50,14 @@ class TeamsController < ApplicationController
     render :template => 'users/index'
   end
 
+  def sort_by
+    @team = current_user.lead_teams.find(params[:id])
+    @users = @team.scouts.active.order(params[:sort])
+    add_breadcrumb "Drużyny", :teams_path
+    add_breadcrumb "Zuchy", :teams_path
+    render :template => 'users/index'
+  end
+
   def add_team_group
     @team = Team.find(params[:id])
     @team_group = TeamGroup.new

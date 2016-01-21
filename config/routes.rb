@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :plans, only: [:show, :destroy]
 
 
-
+  get 'team/sort/:id', to: 'teams#sort_by', as: :sort_by
   get 'user/archive/:id', to: 'users#archive', as: :archive
   get 'team/archive/:id', to: 'teams#archive', as: :team_archive
   get 'user/unarchive/:id', to: 'users#unarchive', as: :unarchive
