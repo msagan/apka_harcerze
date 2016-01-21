@@ -26,6 +26,10 @@
             .col-sm-6
               = f.number_field :stars, class: 'form-control', step: 1, min: 0, max: 3
           .form-group.col-sm-12
+            = f.label 'Znaczek zucha', class: "col-sm-2 control-label"
+            .col-sm-6
+              = f.check_box :scouts_mark
+          .form-group.col-sm-12
             = f.label 'Chusta', class: "col-sm-4 control-label"
             .col-sm-6
               = f.check_box :shawl
