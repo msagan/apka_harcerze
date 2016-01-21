@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   belongs_to :team_group
   attr_accessor :signing_in
   validate :parent_1_phone, :parent_1, :parent_2, :school_class, :pesel, :stars, :first_name, :last_name, presence: true, if: :should_validate
+  validate :email, presence: true, uniqueness: true, if: :should_validate
+  validate :email, uniqueness: true, allow_blank: true, if: :shouldnt_validate
   validate :stars, numericality: { greater_than_or_equal_to: 0, lesser_than_or_equal_to: 3 }
 
   REASONS_OF_LEAVE= ['Inne', 'Przejście do drużyny', 'Rezygnacja z zuchów', 'Za mało czasu']
@@ -72,6 +74,10 @@ class User < ActiveRecord::Base
 
   def should_validate
     self.signing_in
+  end
+
+  def shouldnt_validate
+    !self.signing_in
   end
 
   def full_name

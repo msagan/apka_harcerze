@@ -4,7 +4,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource(sign_up_params)
-    resource.signing_in = false
+    resource.signing_in = true
     resource.save
     yield resource if block_given?
     if resource.persisted?

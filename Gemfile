@@ -33,6 +33,8 @@ gem 'capistrano-bundler', '~> 1.1.2'
 gem 'capistrano-rvm'
 gem 'capistrano-rails', '~> 1.1'
 gem "breadcrumbs_on_rails"
+gem 'ckeditor'
+gem "font-awesome-rails"
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
 gem 'haml'
@@ -41,6 +43,7 @@ gem 'railroady'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.7.14'
 gem 'jquery-datetimepicker-rails'
+gem 'bootstrap-datepicker-rails'
 
 group :production do
   gem 'unicorn'

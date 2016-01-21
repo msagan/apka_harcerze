@@ -10,45 +10,41 @@
             - @team.errors.full_messages.each do |msg|
               %li= msg
       .form-inputs.form-horizontal
-        .form-group.col-sm-12
+        .form-group.col-md-12
           = f.label 'Nazwa', class: "col-sm-2 control-label"
-          .col-sm-7
+          .col-md-10
             = f.text_field :name, class: 'form-control'
-        .form-group.col-sm-12
+        .form-group.col-md-12
           = f.label 'Historia', class: "col-sm-2 control-label"
-          .col-sm-7
-            = f.text_area :history, class: 'form-control'
-        .form-group.col-sm-12
-          = f.label 'Opis sytuacyjny', class: "col-sm-2 control-label"
-          .col-sm-7
-            = f.text_area :situation_description, class: 'form-control'
-        .form-group.col-sm-12
+          .col-md-10
+            = f.cktext_area :history, class: 'form-control'
+        .form-group.col-md-12
           = f.label "Miejsce działania", class: "col-sm-2 control-label"
-          .col-sm-7
+          .col-md-10
             = f.text_field :base, class: 'form-control'
-        .form-group.col-sm-12
+        .form-group.col-md-12
           = f.label "Przyboczny 1", class: "col-sm-2 control-label"
-          .col-sm-7
+          .col-md-10
             = f.text_field :adjutant_1, class: 'form-control'
-        .form-group.col-sm-12
+        .form-group.col-md-12
           = f.label "Przyboczny 2", class: "col-sm-2 control-label"
-          .col-sm-7
+          .col-md-10
             = f.text_field :adjutant_2, class: 'form-control'
-        .form-group.col-sm-12
+        .form-group.col-md-12
           = f.label "Chorągiew", class: "col-sm-2 control-label"
-          .col-sm-7
+          .col-md-10
             = f.select :chapter, HUFCE.keys, class: 'form-control'
-        .form-group.col-sm-12
+        .form-group.col-md-12
           = f.label "Hufiec", class: "col-sm-2 control-label"
-          .col-sm-7
-            = f.select :banner, HUFCE["Chorągiew Harcerzy Ziemi Opolskiej"], selected: @team.banner, class: 'form-control'
-        .form-group.col-sm-12
+          .col-md-10
+            = f.select :banner, HUFCE["#{@team.chapter}"], selected: @team.banner, class: 'form-control'
+        .form-group.col-md-12
           = f.label "Data powołania", class: "col-sm-2 control-label"
-          .col-sm-7
+          .col-md-10
             = f.text_field :date_of_creation, class: 'datetimepicker'
-        .form-group.col-sm-12
+        .form-group.col-md-12
           = f.label "Obrzędowość", class: "col-sm-2 control-label"
-          .col-sm-7
+          .col-md-10
             = f.text_area :ceremonial, class: 'form-control'
 
       .actions

@@ -53,7 +53,7 @@ class YearPlansController < ApplicationController
   end
 
   def year_plan_params
-    params.require(:year_plan).permit(:title, badge_ids:[])
+    params.require(:year_plan).permit(:title, :situation_description, badge_ids:[])
   end
 
 

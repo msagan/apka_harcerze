@@ -21,4 +21,6 @@
 //= require jquery-ui/draggable
 //= require jquery-ui/droppable
 //= require select
+//= require ckeditor/init
+//= require bootstrap-datepicker
 //= require_tree .

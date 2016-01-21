@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151009171217) do
+ActiveRecord::Schema.define(version: 20160121185629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,22 @@ ActiveRecord::Schema.define(version: 20151009171217) do
 
   add_index "badges_year_plans", ["badge_id"], name: "index_badges_year_plans_on_badge_id", using: :btree
   add_index "badges_year_plans", ["year_plan_id"], name: "index_badges_year_plans_on_year_plan_id", using: :btree
+
+  create_table "ckeditor_assets", force: true do |t|
+    t.string   "data_file_name",               null: false
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.integer  "assetable_id"
+    t.string   "assetable_type",    limit: 30
+    t.string   "type",              limit: 30
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
+  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
 
   create_table "custom_tasks", force: true do |t|
     t.string   "name"
@@ -279,6 +295,7 @@ ActiveRecord::Schema.define(version: 20151009171217) do
     t.string   "parent_2_email"
     t.integer  "team_group_id"
     t.string   "leave_reason"
+    t.boolean  "shawl"
   end
 
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
@@ -290,6 +307,7 @@ ActiveRecord::Schema.define(version: 20151009171217) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "situation_description"
   end
 
   add_index "year_plans", ["team_id"], name: "index_year_plans_on_team_id", using: :btree

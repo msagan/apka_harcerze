@@ -22,13 +22,13 @@
             .col-sm-6
               = f.text_field :last_name, class: 'form-control'
           .form-group.col-sm-12
-            = f.label :email, class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.text_field :email, class: 'form-control'
-          .form-group.col-sm-12
             = f.label 'Liczba gwiazdek*', class: "col-sm-4 control-label"
             .col-sm-6
               = f.number_field :stars, class: 'form-control', step: 1, min: 0, max: 3
+          .form-group.col-sm-12
+            = f.label 'Chusta', class: "col-sm-4 control-label"
+            .col-sm-6
+              = f.check_box :shawl
           .form-group.col-sm-12
             = f.label 'Informacje ogólne', class: "col-sm-4 control-label"
             .col-sm-6
@@ -48,11 +48,11 @@
           .form-group.col-sm-12
             = f.label 'Data urodzenia', class: "col-sm-4 control-label"
             .col-sm-6
-              = f.date_field :birth_date, class: 'form-control datepicker'
+              = f.text_field :birth_date, class: 'form-control datepicker'
           .form-group.col-sm-12
             = f.label 'Data przyjęcia', class: "col-sm-4 control-label"
             .col-sm-6
-              = f.date_field :date_of_admission, class: 'form-control datepicker'
+              = f.text_field :date_of_admission, class: 'form-control datepicker'
           .form-group.col-sm-12
             = f.label 'Szóstka', class: 'col-sm-4 control-label'
             .col-sm-6
@@ -60,7 +60,7 @@
           .form-group.col-sm-12
             = f.label 'Data oddelegowania', class: "col-sm-4 control-label"
             .col-sm-6
-              = f.date_field :date_of_leave, class: 'form-control datepicker'
+              = f.text_field :date_of_leave, class: 'form-control datepicker'
           .form-group.col-sm-12
             = f.label 'Rodzic 1', class: "col-sm-4 control-label"
             .col-sm-6
@@ -97,10 +97,6 @@
             = f.label 'Zgoda rodziców', class: "col-sm-4 control-label"
             .col-sm-6
               = f.check_box :parental_agreement
-          .form-group.col-sm-12
-            = f.label 'Znaczek zucha', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.check_box :scouts_mark
           .form-group.col-sm-12
             = f.label 'Informacje medyczne', class: "col-sm-4 control-label"
             .col-sm-6

@@ -41,9 +41,11 @@
 }
 .bgn-blue-color{
   background-color: blue;
+  color: white;
 }
 .bgn-green-color{
   background-color: green;
+  color: white;
 }
 
 body{
@@ -72,4 +74,16 @@ body{
 }
 .mrgn-btm-md{
   margin-bottom: 50px;
+}
+.fa.fa-trash-o input[type=checkbox]{
+  visibility: hidden;
+}
+.fa-trash-o:before {
+     /*visibility: visible;*/
+}
+.fa-trash-o:checked:before {
+    /*content: "\e006";*/
+}
+input[type=checkbox].fa-trash-o{
+     /*visibility: hidden;        */
 }

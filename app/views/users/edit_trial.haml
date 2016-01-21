@@ -21,7 +21,8 @@
                   .col-sm-3
                     =hidden_field_tag "rank_requirement[badge_ids][]", ''
                   .col-xs-1.flt-rght{class: "bgn-#{badge.color}"}
-                  =check_box("rank_requirement", "badge_ids", {:multiple => true, checked: true}, badge.id, nil)
+                  .fa.fa-trash-o.submit_on_click
+                    =check_box("rank_requirement", "badge_ids", {:multiple => true, checked: true}, badge.id, nil)
               %b Zadania ind.
               - rr.custom_tasks.each do |custom_task|
                 .form-group
@@ -112,6 +113,7 @@
         container = $(this).find('.lol').last();
         container.append(checkbox);
         container.append(label);
+        $(this).find('button')[0].click();
       }
     });
 
@@ -138,6 +140,7 @@
           container = $(this).find('.lol').last();
           container.append(checkbox);
           container.append(label);
+          $(this).find('button')[0].click();
         }
       });
     });
@@ -146,6 +149,12 @@
     $(".item-draggable").draggable({
       revert: true,
       zIndex: 50000
+    });
+
+    $('.submit_on_click').click(function(){
+      checkbox = $(this).children()[0];
+      checkbox.removeAttribute('checked');
+      $(this).parent().parent().submit();
     });
 
   });

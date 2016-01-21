@@ -7,6 +7,12 @@
       = f.label 'Tytuł', class: "col-sm-2 control-label"
       .col-sm-6
         = f.text_field :title, class: "form-control", required: true
+    .form-group.col-md-12
+      = f.label 'Opis sytuacyjny', class: "col-sm-2 control-label"
+      .col-md-10
+        = f.cktext_area :situation_description, class: 'form-control'
+    .form-group.col-md-12
+      %button.check_all Zaznacz wszystkie sprawności
     .form-group.col-sm-6.margin-left-md
       -@badges.keys.each do |color|
         .col-xs-1{class: "bgn-#{color}"}
@@ -14,7 +20,7 @@
         %ul.list-group
           -@badges[color].each do |badge|
             %li.list-group-item
-              = f.label "#{badge[0].name} (zdobywa: #{badge[1]})"
+              = f.label "#{badge[0].name} (zdobywa: #{badge[1]})", class: "bgn-#{color}-color"
               = f.check_box :badge_ids, { :multiple => true }, badge[0].id, nil
     .form-actions
       .form-group

@@ -29,6 +29,8 @@ GEM
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.10)
+    bootstrap-datepicker-rails (1.5.0)
+      railties (>= 3.0)
     bootstrap3-datetimepicker-rails (4.7.14)
       momentjs-rails (>= 2.8.1)
     breadcrumbs_on_rails (2.3.1)
@@ -46,6 +48,9 @@ GEM
     capistrano-rvm (0.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
+    ckeditor (4.1.6)
+      cocaine
+      orm_adapter (~> 0.5.0)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.5)
@@ -71,6 +76,8 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.7)
     execjs (2.3.0)
+    font-awesome-rails (4.1.0.0)
+      railties (>= 3.2, < 5.0)
     gon (6.0.1)
       actionpack (>= 3.0)
       json
@@ -205,14 +212,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap-datepicker-rails
   bootstrap3-datetimepicker-rails (~> 4.7.14)
   breadcrumbs_on_rails
   capistrano (~> 3.4.0)
   capistrano-bundler (~> 1.1.2)
   capistrano-rails (~> 1.1)
   capistrano-rvm
+  ckeditor
   coffee-rails (~> 4.0.0)
   devise
+  font-awesome-rails
   gon
   haml
   jbuilder (~> 2.0)
