@@ -165,7 +165,7 @@ class TeamsController < ApplicationController
 
   def user_params
     params.require(:user).permit(:first_name, :team_id, :last_name, :description, :scouts_mark, :shawl, :pesel,
-    :address_1, :address_2, :stars,
+    :address_1, :address_2, :stars, :parental_agreement,
     :date_of_admission, :date_of_leave, :phone_number, :parent_1, :parent_2, :parent_1_phone, :parent_1_email,
     :parent_2_email, :parent_2_phone, :team_group_id, :birth_date, badge_ids: [], custom_task_ids: [])
   end
