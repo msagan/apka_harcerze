@@ -11,11 +11,11 @@
     .form-group.col-sm-12
       = f.label 'Data początku', class: "col-sm-2 control-label"
       .col-sm-6
-        = f.date_field :start_date, class: "form-control datepicker", required: true
+        = f.text_field :start_date, class: "form-control datepicker", required: true
     .form-group.col-sm-12
       = f.label 'Data końca', class: "col-sm-2 control-label"
       .col-sm-6
-        = f.date_field :stop_date, class: "form-control datepicker", required: true
+        = f.text_field :stop_date, class: "form-control datepicker", required: true
     .form-group.col-sm-6.margin-left-md
       -@badges.keys.each do |color|
         .col-xs-1{class: "bgn-#{color}"}
