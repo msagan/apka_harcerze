@@ -13,6 +13,8 @@ class Team < ActiveRecord::Base
       badge[1].map!{ |b| [b, b.team_trial_count(self)] }
       badge[1].sort_by{ |b| b.reverse }
     end
-    # badges.sort_by{|b| b[1]}.reverse
+    badges.each do |arr|
+      arr[1].sort! {|a,b| b[1] <=> a[1]}
+    end
   end
 end

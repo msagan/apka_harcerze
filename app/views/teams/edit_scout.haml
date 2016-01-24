@@ -118,7 +118,7 @@
           .col-sm-12 Brak danych
     .col-md-2
       %button.btn{"aria-controls" => '#incomplete_badges', "aria-expanded" => "false", "data-target" => '#incomplete_badges', "data-toggle" => "collapse", :type => "button"}
-        %b Zdobywane sprawności
+        %b Zdobywane odznaki
       .collapse{id: 'incomplete_badges'}
         -if @user.incomplete_badges.present?
           -@user.incomplete_badges.each do |b|
@@ -128,7 +128,7 @@
         -else
           .col-sm-12 Brak danych
       %button.btn{"aria-controls" => '#badges', "aria-expanded" => "false", "data-target" => '#badges', "data-toggle" => "collapse", :type => "button"}
-        %b Zdobyte sprawności
+        %b Zdobyte odznaki
       .collapse{id: 'badges'}
         -if @user.badges.present?
           -@user.badges.each do |b|
@@ -139,7 +139,7 @@
           .col-sm-12 Brak danych
     .col-md-12
       %button.btn{"aria-controls" => '#add-badges', "aria-expanded" => "false", "data-target" => '#add-badges', "data-toggle" => "collapse", :type => "button"}
-        %b Dodaj sprawność
+        %b Dodaj odznakę
       .collapse{id: 'add-badges'}
         %ul.list-group
           -@badges.each do |badge|

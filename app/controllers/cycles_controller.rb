@@ -9,7 +9,7 @@ class CyclesController < ApplicationController
     @cycle = Cycle.find(params[:id])
     add_breadcrumb "Plany", :year_plans_path
     add_breadcrumb "Cykle", year_plan_path(@cycle.year_plan)
-    add_breadcrumb 'Spotkania', cycles_path(@cycle)
+    add_breadcrumb 'Zbiórki', cycles_path(@cycle)
   end
 
   def new    
@@ -55,7 +55,7 @@ class CyclesController < ApplicationController
   end
 
   def cycle_params
-    params.require(:cycle).permit(:name, :team_id, :start_date, :stop_date, badge_ids:[])
+    params.require(:cycle).permit(:name, :team_id, :start_date, :stop_date, :ceremonial, badge_ids:[])
   end
 
 

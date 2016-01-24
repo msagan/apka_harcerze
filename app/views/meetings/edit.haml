@@ -5,7 +5,7 @@
 = form_for @meeting, url: update_meeting_path(@meeting) do |f|
   .form-inputs.form-horizontal
     .form-group.col-sm-12
-      = f.label 'Nazwa spotkania', class: "col-sm-2 control-label"
+      = f.label 'Nazwa zbiórki', class: "col-sm-2 control-label"
       .col-sm-6
         = f.text_field :name, class: "form-control", required: true
     .form-group.col-sm-12

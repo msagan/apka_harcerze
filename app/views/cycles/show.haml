@@ -1,7 +1,7 @@
 %h3
-  Lista spotkań w cyklu
+  Lista zbiórek w cyklu
 
-= link_to 'Dodaj spotkanie', new_meeting_path(@cycle), class: 'btn btn-primary'
+= link_to 'Dodaj zbiórkę', new_meeting_path(@cycle), class: 'btn btn-primary'
 
 %br
 %br
@@ -19,16 +19,16 @@
         %td=meeting.start_date
         %td=meeting.stop_date
         %td
-          = link_to 'Edytuj spotkanie', edit_meeting_path(meeting), class: 'btn-sm btn-primary'
+          = link_to 'Edytuj zbiórkę', edit_meeting_path(meeting), class: 'btn-sm btn-primary'
           -if meeting.plan.present?
             -if meeting.summed_up?
-              Spotkanie podsumowane!
+              Zbiórka podsumowana!
             -else
-              =link_to 'Edytuj plan spotkania', edit_plan_path(meeting.plan.id), class: 'btn-sm btn-primary'
-              =link_to 'Usuń plan spotkania', destroy_plan_path(meeting.plan.id), method: :delete, class: 'btn-sm btn-danger', data: {confirm: 'Na pewno? (Tej operacji nie można cofnąć!)'}
-              = link_to 'Podsumuj spotkanie', sum_up_meeting_path(meeting), class: 'btn-sm btn-success'
+              =link_to 'Edytuj plan zbiórki', edit_plan_path(meeting.plan.id), class: 'btn-sm btn-primary'
+              =link_to 'Usuń plan zbiórki', destroy_plan_path(meeting.plan.id), method: :delete, class: 'btn-sm btn-danger', data: {confirm: 'Na pewno? (Tej operacji nie można cofnąć!)'}
+              = link_to 'Podsumuj zbiórkę', sum_up_meeting_path(meeting), class: 'btn-sm btn-success'
           -else
-            =link_to 'Stwórz plan spotkania', new_plan_path(meeting), class: 'btn-sm btn-success'
+            =link_to 'Stwórz plan zbiórki', new_plan_path(meeting), class: 'btn-sm btn-success'
           
           / = link_to 'Usuń', destroy_meeting_path(meeting), method: :delete, confirm: 'Na pewno? (Tej operacji nie można cofnąć!)', class: 'btn-sm btn-danger'
 

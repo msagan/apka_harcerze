@@ -34,6 +34,9 @@ class UsersController < ApplicationController
 
   def update_trial
     @trial = Trial.find(params[:id])
+    @trial.custom_tasks.each do |ct|
+      ct.rank_requirement_ids = []
+    end
     @trial.update(trial_params)
     redirect_to edit_trial_path(@trial)
   end

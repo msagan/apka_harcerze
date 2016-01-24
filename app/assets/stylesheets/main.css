@@ -79,6 +79,12 @@ body{
 .fa.fa-trash-o input[type=checkbox]{
   visibility: hidden;
 }
+.submit_on_click
+{ 
+  cursor: pointer;
+  cursor: hand; 
+}
+
 .fa-trash-o:before {
      /*visibility: visible;*/
 }

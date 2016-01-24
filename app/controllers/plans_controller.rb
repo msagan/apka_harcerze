@@ -15,8 +15,8 @@ class PlansController < ApplicationController
     end
     add_breadcrumb "Plany", :year_plans_path
     add_breadcrumb "Cykle", year_plan_path(@meeting.cycle.year_plan)
-    add_breadcrumb 'Spotkania', cycle_path(@meeting.cycle)
-    add_breadcrumb 'Nowe spotkane', new_meeting_path(@meeting.cycle)
+    add_breadcrumb 'Zbiórki', cycle_path(@meeting.cycle)
+    add_breadcrumb 'Nowa zbiórka', new_meeting_path(@meeting.cycle)
   end
 
   def create
@@ -24,7 +24,7 @@ class PlansController < ApplicationController
     @plan = Plan.new(plan_params)
     @plan.meeting = @meeting
     if @plan.save
-      redirect_to cycle_path(@meeting.cycle), notice: "Spotkanie dodane"
+      redirect_to cycle_path(@meeting.cycle), notice: "Zbiórka dodana"
     else
       redirect_to cycle_path(@meeting.cycle)
     end
@@ -43,7 +43,7 @@ class PlansController < ApplicationController
   def update
     @plan = Plan.find(params[:id])
     if @plan.update(plan_params)
-      redirect_to cycle_path(@plan.meeting.cycle), notice: "Spotkanie zmienione"
+      redirect_to cycle_path(@plan.meeting.cycle), notice: "Zbiórka zmieniona"
     else
       redirect_to cycle_path(@plan.meeting.cycle)
     end

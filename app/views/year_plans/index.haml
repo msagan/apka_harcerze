@@ -8,15 +8,13 @@
   %thead
     %tr
       %th Tytuł
-      %th Gromada
-      %th Sprawności do zdobycia
+      %th Odznaki do zdobycia
       %th Akcje
   %tbody
     -@teams.each do |team|
       -team.year_plans.each do |year_plan|
         %tr{id: "j-#{year_plan.id}"}
           %td=year_plan.title
-          %td=year_plan.team.name
           %td=year_plan.badges.pluck(:name)
           %td
             = link_to 'Pokaż cykle', year_plan_path(year_plan), class: 'btn-sm btn-primary'

@@ -15,14 +15,14 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.new
     add_breadcrumb "Plany", :year_plans_path
     add_breadcrumb "Cykle", year_plan_path(@cycle.year_plan)
-    add_breadcrumb 'Spotkania', cycle_path(@cycle)
-    add_breadcrumb 'Nowe spotkane', new_meeting_path(@cycle)
+    add_breadcrumb 'Zbiórki', cycle_path(@cycle)
+    add_breadcrumb 'Nowa zbiórka', new_meeting_path(@cycle)
   end
 
   def create
     @cycle = Cycle.find(params[:id])
     if @cycle.meetings << Meeting.create(meeting_params)
-      redirect_to cycle_path(@cycle), notice: "Spotkanie dodane"
+      redirect_to cycle_path(@cycle), notice: "Zbiórka dodana"
     else
       redirect_to cycle_path(@cycle)
     end
@@ -33,14 +33,14 @@ class MeetingsController < ApplicationController
     @cycle = @meeting.cycle
     add_breadcrumb "Plany", :year_plans_path
     add_breadcrumb "Cykle", year_plan_path(@cycle.year_plan)
-    add_breadcrumb 'Spotkania', cycle_path(@cycle)
-    add_breadcrumb 'Edytuj spotkane', new_meeting_path(@cycle)
+    add_breadcrumb 'Zbiórki', cycle_path(@cycle)
+    add_breadcrumb 'Edytuj zbiórkę', new_meeting_path(@cycle)
   end
 
   def update
     @meeting = Meeting.find(params[:id])
     if @meeting.update(meeting_params)
-      redirect_to cycle_path(@meeting.cycle), notice: "Spotkanie zmienione"
+      redirect_to cycle_path(@meeting.cycle), notice: "Zbiórka zmieniona"
     else
       redirect_to cycle_path(@meeting.cycle)
     end

@@ -4,5 +4,5 @@ class CustomTask < ActiveRecord::Base
   belongs_to :trial
   has_and_belongs_to_many :rank_requirements
   validates :name, :description, presence: true
-
+  default_scope { order('created_at ASC') }
 end
