@@ -7,7 +7,7 @@
       -@trial.rank.rank_requirements.order(id: :asc).group_by(&:color).each do |color|
         #req_accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
           %a{class: "btn btn-primary bgn-#{color[0]}-color", "aria-controls" => "req_#{color[0]}", "aria-expanded" => "true", "data-parent" => "#req_accordion", "data-toggle" => "collapse", :href => "#req_#{color[0]}", :role => "button"}
-            = color[0]
+            = (t "pl_colors.#{color[0]}").capitalize
         .panel-collapse.collapse{"aria-labelledby" => "req_#{color[0]}", :role => "tabpanel", id: "req_#{color[0]}"}
           .panel-body
             -color[1].each do |rr|
@@ -69,7 +69,7 @@
             -@badges.each do |color|
               #badge_accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
                 %a{class: "btn btn-primary bgn-#{color[0]}-color", "aria-controls" => "badge_#{color[0]}", "aria-expanded" => "true", "data-parent" => "#badge_accordion", "data-toggle" => "collapse", :href => "#badge_#{color[0]}", :role => "button"}
-                  = color[0]
+                  = (t "pl_colors.#{color[0]}").capitalize
                 .panel-collapse.collapse{"aria-labelledby" => "badge_#{color[0]}", :role => "tabpanel", id: "badge_#{color[0]}"}
                   .panel-body
                     -color[1].each do |badge|

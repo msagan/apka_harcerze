@@ -27,3 +27,9 @@ en:
     fioletowy: "purple"
     zielony: "green"
     niebieski: "blue"
+  pl_colors:
+    red: 'czerwony'
+    yellow: 'żółty'
+    purple: 'fioletowy'
+    green: 'zielony'
+    blue: 'niebieski'
