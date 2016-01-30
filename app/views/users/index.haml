@@ -15,14 +15,17 @@
       %tr
         %th=link_to 'Imię i nazwisko', sort_by_path(@team.id, sort: 'first_name')
         %th=link_to 'Szóstka'
-        %th=link_to 'Gwiazdki', sort_by_path(@team.id, sort: 'stars')
-        %th=link_to 'Odznaki'
+        %th=link_to 'Email do rodziców', sort_by_path(@team.id, sort: 'parent_email')
+        %th=link_to 'Telefon do rodziców', sort_by_path(@team.id, sort: 'parent_phone')
+        %th=link_to 'Ilość sprawności'
         %th=link_to 'Procentowe ukończenie próby'
         %th=link_to 'Szkoła', sort_by_path(@team.id, sort: 'school')
         %th=link_to 'Klasa', sort_by_path(@team.id, sort: 'school_class')
         %th=link_to 'Zgoda rodziców', sort_by_path(@team.id, sort: 'parental_agreement')
-        %th=link_to 'Data odejścia', sort_by_path(@team.id, sort: 'date_of_leave')
-        %th=link_to 'Powód odejścia', sort_by_path(@team.id, sort: 'leave_reason')
+        %th=link_to 'Data urodzenia'
+        -if request.path.include? 'archive'
+          %th=link_to 'Data odejścia', sort_by_path(@team.id, sort: 'date_of_leave')
+          %th=link_to 'Powód odejścia', sort_by_path(@team.id, sort: 'leave_reason')
         %th
         %th
     %tbody
@@ -30,7 +33,8 @@
         %tr{id: "j-#{user.id}"}
           %td= user.full_name
           %th= user.team_group_name
-          %td= user.stars
+          %th= user.parent_1_email
+          %th= user.parent_1_phone
           %td= user.badges.count
           %td
             -unless user.trials.empty?
@@ -50,8 +54,10 @@
           %td= user.school
           %td= user.school_class
           %td= user.parental_agreement
-          %td= user.date_of_leave
-          %td= user.leave_reason
+          %td= user.birth_date.strftime("%d-%m-%Y") if user.birth_date.present?
+          -if request.path.include? 'archive'
+            %td= user.date_of_leave
+            %td= user.leave_reason
           %td
             -if user.stars < 3 && user.scouts_mark
               -if user.has_incomplete_trials?

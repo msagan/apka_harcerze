@@ -38,7 +38,7 @@
               %li.list-group-item
                 = f.nested_fields_for :custom_tasks do |ff|
                   %a{"aria-controls" => "task_#{ff.object.id}", "aria-expanded" => "true", "data-parent" => "#task_accordion", "data-toggle" => "collapse", :href => "#task_#{ff.object.id}", :role => "button"}
-                    Rozwiń
+                    = "#{ff.object.name.present? ? ff.object.name : ''} - Rozwiń"
                   .panel-collapse.collapse{"aria-labelledby" => "#{ff.object.id}", :role => "tabpanel", id: "task_#{ff.object.id}"}
                     .panel-body
                       .droppable-container

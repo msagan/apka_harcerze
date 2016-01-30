@@ -6,38 +6,43 @@
   .col-md-6
     .form-inputs.form-horizontal
       .drop
-        = f.nested_fields_for :plan_points do |ff|
-          %li.list-group-item
-            .form-group.col-sm-12
-              = ff.label 'Nazwa', class: "col-sm-2 control-label"
-              .col-sm-6
-                = ff.text_field :task_name, class: 'form-control'
-            .form-group.col-sm-12
-              = ff.label 'Opis', class: "col-sm-2 control-label"
-              .col-sm-6
-                = ff.text_field :task_info, class: 'form-control'
-            .form-group.col-sm-12
-              = ff.label 'Czas operacyjny', class: "col-sm-2 control-label"
-              .col-sm-6
-                = ff.text_field :task_time, class: 'form-control'
-            .form-group.col-sm-12
-              = ff.label 'Potrzebne materiały', class: "col-sm-2 control-label"
-              .col-sm-6
-                = ff.text_area :materials_needed, class: 'form-control'
-            .form-group.col-sm-12
-              = ff.label 'Osoba odpowiedzialna: ', class: "col-sm-2 control-label"
-              .col-sm-6
-                = ff.text_field :person_responsible, class: 'form-control'
-            .form-group.col-sm-12
-              = ff.label 'Realizowane punkty: ', class: "col-sm-2 control-label"
-              .col-sm-6
-            -ff.object.badge_requirements.each do |br|
-              .form-group.col-sm-12
-                =ff.check_box(:badge_requirement_ids, {:multiple => true, checked: true, class: 'col-sm-2'}, br.id, nil)
-                .col-sm-8
-                  ="#{br.description}"
-            = ff.remove_nested_fields_link 'Usuń punkt planu'
-        = f.add_nested_fields_link :plan_points, 'Dodaj punkt planu', class: 'droppable'
+        #task_accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
+          = f.nested_fields_for :plan_points do |ff|
+            %a{"aria-controls" => "task_#{ff.object.id}", "aria-expanded" => "true", "data-parent" => "#task_accordion", "data-toggle" => "collapse", :href => "#task_#{ff.object.id}", :role => "button"}
+              = "#{ff.object.task_name.present? ? ff.object.task_name : ''} Rozwiń"
+            %li.list-group-item
+              .panel-collapse.collapse{"aria-labelledby" => "#{ff.object.id}", :role => "tabpanel", id: "task_#{ff.object.id}"}
+                .panel-body
+                  .form-group.col-sm-12
+                    = ff.label 'Nazwa', class: "col-sm-2 control-label"
+                    .col-sm-6
+                      = ff.text_field :task_name, class: 'form-control'
+                  .form-group.col-sm-12
+                    = ff.label 'Opis', class: "col-sm-2 control-label"
+                    .col-sm-6
+                      = ff.text_field :task_info, class: 'form-control'
+                  .form-group.col-sm-12
+                    = ff.label 'Czas operacyjny', class: "col-sm-2 control-label"
+                    .col-sm-6
+                      = ff.text_field :task_time, class: 'form-control'
+                  .form-group.col-sm-12
+                    = ff.label 'Potrzebne materiały', class: "col-sm-2 control-label"
+                    .col-sm-6
+                      = ff.text_area :materials_needed, class: 'form-control'
+                  .form-group.col-sm-12
+                    = ff.label 'Osoba odpowiedzialna: ', class: "col-sm-2 control-label"
+                    .col-sm-6
+                      = ff.text_field :person_responsible, class: 'form-control'
+                  .form-group.col-sm-12
+                    = ff.label 'Realizowane punkty: ', class: "col-sm-2 control-label"
+                    .col-sm-6
+                  -ff.object.badge_requirements.each do |br|
+                    .form-group.col-sm-12
+                      =ff.check_box(:badge_requirement_ids, {:multiple => true, checked: true, class: 'col-sm-2'}, br.id, nil)
+                      .col-sm-8
+                        ="#{br.description}"
+                  = ff.remove_nested_fields_link 'Usuń punkt planu'
+          = f.add_nested_fields_link :plan_points, 'Dodaj punkt planu', class: 'droppable'
       .form-actions
         .form-group
           .col-sm-2.col-md-offset-3
