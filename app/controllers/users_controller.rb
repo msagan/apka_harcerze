@@ -30,6 +30,9 @@ class UsersController < ApplicationController
     @colors = ['czerwony', 'zolty', 'zielony', 'fioletowy', 'niebieski']
     @trial = Trial.find(params[:id])
     @badges = Badge.all
+    add_breadcrumb "Drużyny", :teams_path
+    add_breadcrumb "Lista zuchów", team_path(@trial.user.team)
+    add_breadcrumb "Próba na gwiazdkę"
   end
 
   def update_trial
@@ -69,12 +72,17 @@ class UsersController < ApplicationController
 
   def edit_trial_requirements
     @trial = Trial.find(params[:id])
-    @user = @trial.user    
+    @user = @trial.user
+    add_breadcrumb "Drużyny", :teams_path
+    add_breadcrumb "Lista zuchów", teams_path(@user.team)
   end
 
   def manage_trial
     @trial = Trial.find(params[:id])
     @user = @trial.user
+    add_breadcrumb "Drużyny", :teams_path
+    add_breadcrumb "Lista zuchów", team_path(@trial.user.team)
+    add_breadcrumb "Próba na gwiazdkę"
   end
 
   def progress_trial

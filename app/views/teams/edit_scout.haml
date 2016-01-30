@@ -1,114 +1,120 @@
+%ul.nav.nav-tabs{:role => "tablist"}
+  %li.active{:role => "presentation"}
+    %a{"aria-controls" => "personal_data", "data-toggle" => "tab", :href => "#personal_data", :role => "tab"} Dane osobowe
+  %li{:role => "presentation"}
+    %a{"aria-controls" => "badges", "data-toggle" => "tab", :href => "#badges", :role => "tab"} Sprawności
+  %li{:role => "presentation"}
+    %a{"aria-controls" => "presence", "data-toggle" => "tab", :href => "#presence", :role => "tab"} Obecność na zbiórkach
 = form_for(@user, url: team_update_scout_path(@user)) do |f|
-  .container-fluid
-    .col-md-6
-      %button.btn{"aria-controls" => '#personal', "aria-expanded" => "false", "data-target" => '#personal', "data-toggle" => "collapse", :type => "button"}
-        %b Dane osobowe
-      .collapse{id: 'personal'}
-        - if @user.errors.any?
-          #error_explanation
-            %h2
-              = pluralize(@user.errors.count, "error")
-              prohibited this user from being saved:
-            %ul
-              - @user.errors.full_messages.each do |msg|
-                %li= msg
-        .form-inputs.form-horizontal
-          .form-group.col-sm-12
-            = f.label 'Imię*', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.text_field :first_name, class: 'form-control'
-          .form-group.col-sm-12
-            = f.label 'Nazwisko*', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.text_field :last_name, class: 'form-control'
-          .form-group.col-sm-12
-            = f.label 'Liczba gwiazdek*', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.number_field :stars, class: 'form-control', step: 1, min: 0, max: 3
-          .form-group.col-sm-12
-            = f.label 'Znaczek zucha', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.check_box :scouts_mark
-          .form-group.col-sm-12
-            = f.label 'Chusta', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.check_box :shawl
-          .form-group.col-sm-12
-            = f.label 'Informacje ogólne', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.text_area :description, class: 'form-control'
-          .form-group.col-sm-12
-            = f.label 'Pesel*', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.number_field :pesel, class: 'form-control'
-          .form-group.col-sm-12
-            = f.label 'Adres 1', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.text_field :address_1, class: 'form-control'
-          .form-group.col-sm-12
-            = f.label 'Adres 2', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.text_field :address_2, class: 'form-control'
-          .form-group.col-sm-12
-            = f.label 'Data urodzenia', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.text_field :birth_date, class: 'form-control datepicker'
-          .form-group.col-sm-12
-            = f.label 'Data przyjęcia', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.text_field :date_of_admission, class: 'form-control datepicker'
-          .form-group.col-sm-12
-            = f.label 'Szóstka', class: 'col-sm-4 control-label'
-            .col-sm-6
-              = select("user", "team_group_id", @team_groups, { include_blank: true }, class: 'form-control')
-          .form-group.col-sm-12
-            = f.label 'Data oddelegowania', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.text_field :date_of_leave, class: 'form-control datepicker'
-          .form-group.col-sm-12
-            = f.label 'Rodzic 1', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.text_field :parent_1, class: 'form-control'
-          .form-group.col-sm-12
-            = f.label 'Numer kontaktowy do pierwszego rodzica*', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.text_field :parent_1_phone, class: 'form-control'
-          .form-group.col-sm-12
-            = f.label 'Adres email pierwszego rodzica*', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.text_field :parent_1_email, class: 'form-control'
-          .form-group.col-sm-12
-            = f.label 'Rodzic 2', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.text_field :parent_2, class: 'form-control'
-          .form-group.col-sm-12
-            = f.label 'Numer kontaktowy do drugiego rodzica', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.text_field :parent_2_phone, class: 'form-control'
-          .form-group.col-sm-12
-            = f.label 'Adres email drugiego rodzica', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.text_field :parent_2_email, class: 'form-control'
-          .form-group.col-sm-12
-            = f.label 'Szkoła', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.text_field :school, class: 'form-control'
-          .form-group.col-sm-12
-            = f.label 'Klasa', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.text_field :school_class, class: 'form-control'
-          .form-group.col-sm-12
-            = f.label 'Zgoda rodziców', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.check_box :parental_agreement
-          .form-group.col-sm-12
-            = f.label 'Informacje medyczne', class: "col-sm-4 control-label"
-            .col-sm-6
-              = f.text_area :medical_info, class: 'form-control'
-    .col-md-4
-      %button.btn{"aria-controls" => '#attendance', "aria-expanded" => "false", "data-target" => '#attendance', "data-toggle" => "collapse", :type => "button"}
+  .tab-content
+    #personal_data.tab-pane.active{:role => "tabpanel"}
+      .container-fluid
+        .col-md-12
+          %b Dane osobowe
+          - if @user.errors.any?
+            #error_explanation
+              %h2
+                = pluralize(@user.errors.count, "error")
+                prohibited this user from being saved:
+              %ul
+                - @user.errors.full_messages.each do |msg|
+                  %li= msg
+          .form-inputs.form-horizontal
+            .form-group.col-sm-12
+              = f.label 'Imię*', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.text_field :first_name, class: 'form-control'
+            .form-group.col-sm-12
+              = f.label 'Nazwisko*', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.text_field :last_name, class: 'form-control'
+            .form-group.col-sm-12
+              = f.label 'Liczba gwiazdek*', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.number_field :stars, class: 'form-control', step: 1, min: 0, max: 3
+            .form-group.col-sm-12
+              = f.label 'Znaczek zucha', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.check_box :scouts_mark
+            .form-group.col-sm-12
+              = f.label 'Chusta', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.check_box :shawl
+            .form-group.col-sm-12
+              = f.label 'Informacje ogólne', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.text_area :description, class: 'form-control'
+            .form-group.col-sm-12
+              = f.label 'Pesel*', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.number_field :pesel, class: 'form-control'
+            .form-group.col-sm-12
+              = f.label 'Adres 1', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.text_field :address_1, class: 'form-control'
+            .form-group.col-sm-12
+              = f.label 'Adres 2', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.text_field :address_2, class: 'form-control'
+            .form-group.col-sm-12
+              = f.label 'Data urodzenia', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.text_field :birth_date, class: 'form-control datepicker'
+            .form-group.col-sm-12
+              = f.label 'Data przyjęcia', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.text_field :date_of_admission, class: 'form-control datepicker'
+            .form-group.col-sm-12
+              = f.label 'Szóstka', class: 'col-sm-4 control-label'
+              .col-sm-6
+                = select("user", "team_group_id", @team_groups, { include_blank: true }, class: 'form-control')
+            .form-group.col-sm-12
+              = f.label 'Data oddelegowania', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.text_field :date_of_leave, class: 'form-control datepicker'
+            .form-group.col-sm-12
+              = f.label 'Rodzic 1', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.text_field :parent_1, class: 'form-control'
+            .form-group.col-sm-12
+              = f.label 'Numer kontaktowy do pierwszego rodzica*', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.text_field :parent_1_phone, class: 'form-control'
+            .form-group.col-sm-12
+              = f.label 'Adres email pierwszego rodzica*', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.text_field :parent_1_email, class: 'form-control'
+            .form-group.col-sm-12
+              = f.label 'Rodzic 2', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.text_field :parent_2, class: 'form-control'
+            .form-group.col-sm-12
+              = f.label 'Numer kontaktowy do drugiego rodzica', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.text_field :parent_2_phone, class: 'form-control'
+            .form-group.col-sm-12
+              = f.label 'Adres email drugiego rodzica', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.text_field :parent_2_email, class: 'form-control'
+            .form-group.col-sm-12
+              = f.label 'Szkoła', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.text_field :school, class: 'form-control'
+            .form-group.col-sm-12
+              = f.label 'Klasa', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.text_field :school_class, class: 'form-control'
+            .form-group.col-sm-12
+              = f.label 'Zgoda rodziców', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.check_box :parental_agreement
+            .form-group.col-sm-12
+              = f.label 'Informacje medyczne', class: "col-sm-4 control-label"
+              .col-sm-6
+                = f.text_area :medical_info, class: 'form-control'
+    #presence.tab-pane{:role => "tabpanel"}
+      .col-md-12
         %b Obecność na zbiórkach
-      .collapse{id: 'attendance'}
         -if @user.attended_meetings.present?
           -@user.attended_meetings.each do |m|
             .col-sm-12
@@ -116,35 +122,42 @@
                 ="#{m.name} #{m.start_date.to_formatted_s(:db)} - #{m.stop_date.to_formatted_s(:db)}"
         -else
           .col-sm-12 Brak danych
-    .col-md-2
-      %button.btn{"aria-controls" => '#incomplete_badges', "aria-expanded" => "false", "data-target" => '#incomplete_badges', "data-toggle" => "collapse", :type => "button"}
-        %b Zdobywane odznaki
-      .collapse{id: 'incomplete_badges'}
-        -if @user.incomplete_badges.present?
-          -@user.incomplete_badges.each do |b|
-            .col-sm-12
-              %p
-                =b[0].name + "#{b[1]}/#{b[0].requirement_count}"
-        -else
-          .col-sm-12 Brak danych
-      %button.btn{"aria-controls" => '#badges', "aria-expanded" => "false", "data-target" => '#badges', "data-toggle" => "collapse", :type => "button"}
-        %b Zdobyte odznaki
-      .collapse{id: 'badges'}
-        -if @user.badges.present?
-          -@user.badges.each do |b|
-            .col-sm-12
-              %p
-                =b.name
-        -else
-          .col-sm-12 Brak danych
-    .col-md-12
-      %button.btn{"aria-controls" => '#add-badges', "aria-expanded" => "false", "data-target" => '#add-badges', "data-toggle" => "collapse", :type => "button"}
-        %b Dodaj odznakę
-      .collapse{id: 'add-badges'}
-        %ul.list-group
-          -@badges.each do |badge|
-            .col-sm-2
-              = f.label badge.name
-              = f.check_box :badge_ids, { :multiple => true, class: 'form-control' }, badge.id, nil
-    .col-md-1
-      = f.submit 'Zapisz zucha', class: 'btn btn-primary'
+    #badges.tab-pane{:role => "tabpanel"}
+      .col-md-6
+        %button.btn{"aria-controls" => '#incomplete_badges', "aria-expanded" => "false", "data-target" => '#incomplete_badges', "data-toggle" => "collapse", :type => "button"}
+          %b Zdobywane sprawności
+        .collapse{id: 'incomplete_badges'}
+          -if @user.incomplete_badges.present?
+            -@user.incomplete_badges.each do |b|
+              .col-sm-12
+                %p
+                  =b[0].name + "#{b[1]}/#{b[0].requirement_count}"
+          -else
+            .col-sm-12 Brak danych
+      .col-md-6
+        %button.btn{"aria-controls" => '#present_badges', "aria-expanded" => "false", "data-target" => '#present_badges', "data-toggle" => "collapse", :type => "button"}
+          %b Zdobyte sprawności
+        .collapse{id: 'present_badges'}
+          -if @user.badges.present?
+            -@user.badges.each do |b|
+              .col-sm-12
+                %p
+                  =b.name
+          -else
+            .col-sm-12 Brak danych
+      .col-md-12
+        %button.btn{"aria-controls" => '#add-badges', "aria-expanded" => "false", "data-target" => '#add-badges', "data-toggle" => "collapse", :type => "button"}
+          %b Dodaj sprawność
+        .collapse{id: 'add-badges'}
+          -@badges.keys.each do |color|
+            .col-xs-1{class: "bgn-#{color}"}
+            %br/
+            %ul.list-group
+              -@badges[color].each do |badge|
+                %li.list-group-item
+                  = f.label "#{badge.name}"
+                  = f.check_box :badge_ids, { :multiple => true }, badge.id, nil
+  %br/
+  %br/
+  .col-md-1
+    = f.submit 'Zapisz zucha', class: 'btn btn-primary'

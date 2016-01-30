@@ -9,7 +9,9 @@
         %ul
           - @user.errors.full_messages.each do |msg|
             %li= msg
-    .col-md-5
+    .actions
+      = f.submit 'Zapisz zucha'
+    .col-md-8
       .form-inputs.form-horizontal
         .form-group.col-sm-12
           = f.label 'Imię*', class: "col-sm-2 control-label"
@@ -105,11 +107,12 @@
             = f.text_area :medical_info, class: 'form-control'
 
         =f.hidden_field :team_id, value: @team.id
-    .col-md-7
-      %ul.list-group
-        -@badges.each do |badge|
-          .col-sm-2
-            = f.label badge.name
-            = f.check_box :badge_ids, { :multiple => true, class: 'form-control' }, badge.id, nil
-    .actions
-      = f.submit 'Zapisz zucha'
+    .col-md-4
+      -@badges.keys.each do |color|
+        .col-xs-1{class: "bgn-#{color}"}
+        %br/
+        %ul.list-group
+          -@badges[color].each do |badge|
+            %li.list-group-item
+              = f.label "#{badge.name}"
+              = f.check_box :badge_ids, { :multiple => true }, badge.id, nil

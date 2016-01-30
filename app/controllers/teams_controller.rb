@@ -105,11 +105,12 @@ class TeamsController < ApplicationController
   end
 
   def add_scout
-    @badges = Badge.all
+    @badges = Badge.badges_by_color
     @team = Team.find(params[:id])
     @team_groups = @team.team_groups.pluck(:name, :id)
     @user = User.new
     add_breadcrumb "Drużyny", :teams_path
+    add_breadcrumb "Lista zuchów", teams_path(@user.team)
     add_breadcrumb "Dodaj zucha", add_scout_path(@team)
   end
 
@@ -133,8 +134,9 @@ class TeamsController < ApplicationController
     @user = User.find(params[:id])
     @user.signing_in = false
     @team_groups = @user.team.team_groups.pluck(:name, :id)
-    @badges = Badge.all
-    add_breadcrumb "Drużyny", :teams_path
+    @badges = Badge.badges_by_color
+    add_breadcrumb "Drużyna", :teams_path
+    add_breadcrumb "Lista zuchów", teams_path(@user.team)
     add_breadcrumb "Edycja zucha", edit_scout_path(@user)
   end
 

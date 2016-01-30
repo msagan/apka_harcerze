@@ -38,10 +38,8 @@
               = f.nested_fields_for :custom_tasks do |ff|
                 .droppable-container
                   .custom_task_container
-                    = ff.label 'Nazwa'
+                    = ff.label 'Nazwa*'
                     = ff.text_field :name, class: 'form-control'
-                    = ff.label 'Opis'
-                    = ff.text_field :description, class: 'form-control'
                     = ff.label 'Wymagania spełniane przez to zadanie: (przeciągnij i upuść wymagania na to pole)'
                     - ff.object.rank_requirements.each do |b|
                       .col-sm-12
@@ -69,7 +67,7 @@
                     =hidden_field_tag "rank_requirement[badge_ids][]", badge.id, multiple: true
                     .col-xs-1.flt-rght{class: "bgn-#{badge.color}"}
         .col-md-2
-          =link_to 'Rozpocznij próbę', manage_trial_path, class: 'btn btn-success'
+          =link_to 'Zapisz próbę', manage_trial_path, class: 'btn btn-success'
 
 :javascript
   
