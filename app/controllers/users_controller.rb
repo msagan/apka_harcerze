@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   def edit_trial
     @colors = ['czerwony', 'zolty', 'zielony', 'fioletowy', 'niebieski']
     @trial = Trial.find(params[:id])
-    @badges = Badge.all
+    @badges = Badge.badges_by_color
     add_breadcrumb "Drużyny", :teams_path
     add_breadcrumb "Lista zuchów", team_path(@trial.user.team)
     add_breadcrumb "Próba na gwiazdkę"

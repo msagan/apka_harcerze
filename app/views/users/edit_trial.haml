@@ -4,30 +4,36 @@
     .col-md-4
       %h2 
         Wymagania
-      -@trial.rank.rank_requirements.order(id: :asc).each do |rr|
-        .sidebar
-          .col-sm-2.col-xs-1{class: "bgn-#{rr.color}"}
-          .col-sm-10.drop{id: "rank_requirement_id_#{rr.id}"}
-            =label_tag rr, rr.description, id: rr.id, class: 'item-draggable'
-            =form_for(rr, url: update_badges_path(rr)) do |f|
-              =hidden_field :rank_requirement, :id, :value => rr.id
-              =f.submit "Aktualizuj"
-              %br/
-              %b Odznaki
-              - rr.badges.each do |badge|
-                .form-group
-                  .col-sm-8
-                    =f.label badge.name, class: "control-label", id: "label_#{badge.id}"
-                  .col-sm-3
-                    =hidden_field_tag "rank_requirement[badge_ids][]", ''
-                  .col-xs-1.flt-rght{class: "bgn-#{badge.color}"}
-                  .fa.fa-trash-o.submit_on_click
-                    =check_box("rank_requirement", "badge_ids", {:multiple => true, checked: true}, badge.id, nil)
-              %b Zadania ind.
-              - rr.custom_tasks.each do |custom_task|
-                .form-group
-                  .col-sm-8
-                    = f.label custom_task.name
+      -@trial.rank.rank_requirements.order(id: :asc).group_by(&:color).each do |color|
+        #req_accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
+          %a{class: "btn btn-primary bgn-#{color[0]}-color", "aria-controls" => "req_#{color[0]}", "aria-expanded" => "true", "data-parent" => "#req_accordion", "data-toggle" => "collapse", :href => "#req_#{color[0]}", :role => "button"}
+            = color[0]
+        .panel-collapse.collapse{"aria-labelledby" => "req_#{color[0]}", :role => "tabpanel", id: "req_#{color[0]}"}
+          .panel-body
+            -color[1].each do |rr|
+              .sidebar
+                .col-sm-2.col-xs-1{class: "bgn-#{rr.color}"}
+                .col-sm-10.drop{id: "rank_requirement_id_#{rr.id}"}
+                  =label_tag rr, rr.description, id: rr.id, class: 'item-draggable'
+                  =form_for(rr, url: update_badges_path(rr)) do |f|
+                    =hidden_field :rank_requirement, :id, :value => rr.id
+                    =f.submit "Aktualizuj"
+                    %br/
+                    %b Odznaki
+                    - rr.badges.each do |badge|
+                      .form-group
+                        .col-sm-8
+                          =f.label badge.name, class: "control-label", id: "label_#{badge.id}"
+                        .col-sm-3
+                          =hidden_field_tag "rank_requirement[badge_ids][]", ''
+                        .col-xs-1.flt-rght{class: "bgn-#{badge.color}"}
+                        .fa.fa-trash-o.submit_on_click
+                          =check_box("rank_requirement", "badge_ids", {:multiple => true, checked: true}, badge.id, nil)
+                    %b Zadania ind.
+                    - rr.custom_tasks.each do |custom_task|
+                      .form-group
+                        .col-sm-8
+                          = f.label custom_task.name
     .col-md-8
       .sidebar
         =form_for(@trial, url: update_trial_path(@trial), format: :json) do |f|
@@ -37,7 +43,7 @@
             #task_accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
               %li.list-group-item
                 = f.nested_fields_for :custom_tasks do |ff|
-                  %a{"aria-controls" => "task_#{ff.object.id}", "aria-expanded" => "true", "data-parent" => "#task_accordion", "data-toggle" => "collapse", :href => "#task_#{ff.object.id}", :role => "button"}
+                  %a.btn.btn-primary{"aria-controls" => "task_#{ff.object.id}", "aria-expanded" => "true", "data-parent" => "#task_accordion", "data-toggle" => "collapse", :href => "#task_#{ff.object.id}", :role => "button"}
                     = "#{ff.object.name.present? ? ff.object.name : ''} - Rozwiń"
                   .panel-collapse.collapse{"aria-labelledby" => "#{ff.object.id}", :role => "tabpanel", id: "task_#{ff.object.id}"}
                     .panel-body
@@ -60,17 +66,23 @@
           .sidebar
             %h3 Odznaki
             / =collection_check_boxes(:trial, :badge_ids, Badge.all, :id, :name)
-            -@badges.each do |badge|
-              .item-draggable
-                .form-group
-                  .col-sm-8
-                    =link_to badge.name, '#', class: "control-label", data: {toggle: "collapse", target: "#badge_#{badge.id}"},  id: "label_#{badge.id}"
-                    .col-xs-12.collapse{id: "badge_#{badge.id}"}
-                      -badge.badge_requirements.reverse.each do |br|
-                        %p= br.description
-                  .col-sm-3
-                    =hidden_field_tag "rank_requirement[badge_ids][]", badge.id, multiple: true
-                    .col-xs-1.flt-rght{class: "bgn-#{badge.color}"}
+            -@badges.each do |color|
+              #badge_accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
+                %a{class: "btn btn-primary bgn-#{color[0]}-color", "aria-controls" => "badge_#{color[0]}", "aria-expanded" => "true", "data-parent" => "#badge_accordion", "data-toggle" => "collapse", :href => "#badge_#{color[0]}", :role => "button"}
+                  = color[0]
+                .panel-collapse.collapse{"aria-labelledby" => "badge_#{color[0]}", :role => "tabpanel", id: "badge_#{color[0]}"}
+                  .panel-body
+                    -color[1].each do |badge|
+                      .item-draggable
+                        .form-group
+                          .col-sm-8
+                            =link_to badge.name, '#', class: "control-label", data: {toggle: "collapse", target: "#badge_#{badge.id}"},  id: "label_#{badge.id}"
+                            .col-xs-12.collapse{id: "badge_#{badge.id}"}
+                              -badge.badge_requirements.reverse.each do |br|
+                                %p= br.description
+                          .col-sm-3
+                            =hidden_field_tag "rank_requirement[badge_ids][]", badge.id, multiple: true
+                            .col-xs-1.flt-rght{class: "bgn-#{badge.color}"}
         .col-md-2
           =link_to 'Zapisz próbę', manage_trial_path, class: 'btn btn-success'
 

@@ -16,15 +16,15 @@
                   .form-group.col-sm-12
                     = ff.label 'Nazwa', class: "col-sm-2 control-label"
                     .col-sm-6
-                      = ff.text_field :task_name, class: 'form-control'
+                      = ff.text_field :task_name, class: 'form-control', required: true
                   .form-group.col-sm-12
                     = ff.label 'Opis', class: "col-sm-2 control-label"
                     .col-sm-6
-                      = ff.text_field :task_info, class: 'form-control'
+                      = ff.text_field :task_info, class: 'form-control', required: true
                   .form-group.col-sm-12
                     = ff.label 'Czas operacyjny', class: "col-sm-2 control-label"
                     .col-sm-6
-                      = ff.text_field :task_time, class: 'form-control'
+                      = ff.text_field :task_time, class: 'form-control', required: true
                   .form-group.col-sm-12
                     = ff.label 'Potrzebne materiały', class: "col-sm-2 control-label"
                     .col-sm-6
