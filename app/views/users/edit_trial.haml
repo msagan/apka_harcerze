@@ -34,22 +34,27 @@
           =hidden_field :trial, :id, :value => @trial.id
           .col-md-5
             %h3 Zadania indywidualne
-            %li.list-group-item
-              = f.nested_fields_for :custom_tasks do |ff|
-                .droppable-container
-                  .custom_task_container
-                    = ff.label 'Nazwa*'
-                    = ff.text_field :name, class: 'form-control'
-                    = ff.label 'Wymagania spełniane przez to zadanie: (przeciągnij i upuść wymagania na to pole)'
-                    - ff.object.rank_requirements.each do |b|
-                      .col-sm-12
-                        .fa.fa-trash-o.submit_on_click.rank_requirement_submit
-                          =ff.check_box(:rank_requirement_ids, {:multiple => true, checked: true, class: "col-sm-2"}, b.id, nil)
-                        .col-sm-8
-                          ="#{b.description}"
-                        .col-xs-1.flt-rght{class: "bgn-#{b.color}"}
-                    %button#save.save_form Zapisz
-                = ff.remove_nested_fields_link 'Usuń zadanie'
+            #task_accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
+              %li.list-group-item
+                = f.nested_fields_for :custom_tasks do |ff|
+                  %a{"aria-controls" => "task_#{ff.object.id}", "aria-expanded" => "true", "data-parent" => "#task_accordion", "data-toggle" => "collapse", :href => "#task_#{ff.object.id}", :role => "button"}
+                    Rozwiń
+                  .panel-collapse.collapse{"aria-labelledby" => "#{ff.object.id}", :role => "tabpanel", id: "task_#{ff.object.id}"}
+                    .panel-body
+                      .droppable-container
+                        .custom_task_container
+                          = ff.label 'Nazwa*'
+                          = ff.text_field :name, class: 'form-control'
+                          = ff.label 'Wymagania spełniane przez to zadanie: (przeciągnij i upuść wymagania na to pole)'
+                          - ff.object.rank_requirements.each do |b|
+                            .col-sm-12
+                              .fa.fa-trash-o.submit_on_click.rank_requirement_submit
+                                =ff.check_box(:rank_requirement_ids, {:multiple => true, checked: true, class: "col-sm-2"}, b.id, nil)
+                              .col-sm-8
+                                ="#{b.description}"
+                              .col-xs-1.flt-rght{class: "bgn-#{b.color}"}
+                          %button#save.save_form Zapisz
+                      = ff.remove_nested_fields_link 'Usuń zadanie'
             = f.add_nested_fields_link :custom_tasks, 'Dodaj zadanie indywidualne'
         .col-md-5
           .sidebar

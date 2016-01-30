@@ -28,18 +28,28 @@
         %br/
         %h4 
           Zadania indywidualne do wykonania
-          -@trial.custom_tasks.each do |t|
-            -unless @user.has_task? t
-              .form-group
-                .col-sm-2
-                  = t.name
-                .col-sm-6
-                  = t.description
-                .col-sm-2
-                  =check_box("user", "custom_task_ids", {:multiple => true}, t.id, nil)
-              %br/
-            -else
-              =f.hidden_field 'custom_task_ids',multiple: true, value: t.id
+          #task_accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
+            -@trial.custom_tasks.each do |t|
+              -unless @user.has_task? t
+                .panel.panel-default
+                  .form-group
+                    .panel-heading{:role => "tab", id: "#{t.id}"}
+                    %h4.panel-title
+                      .inline.flt-rght
+                        =check_box("user", "custom_task_ids", {:multiple => true}, t.id, nil)
+                      %a{"aria-controls" => "task_#{t.id}", "aria-expanded" => "true", "data-parent" => "#task_accordion", "data-toggle" => "collapse", :href => "#task_#{t.id}", :role => "button"}
+                        = t.name
+                  .panel-collapse.collapse{"aria-labelledby" => "#{t.id}", :role => "tabpanel", id: "task_#{t.id}"}
+                    .panel-body
+                      -if t.rank_requirements.present?
+                        -t.rank_requirements.each do |rr|
+                          .col-sm-1{class: "bgn-#{rr.color} mrgn-xs"}
+                          %p=rr.description
+                      -else
+                        Brak związku z wymaganiem
+                %br/
+              -else
+                =f.hidden_field 'custom_task_ids', multiple: true, value: t.id
       .col-md-5
         %h2
           Zaliczone wymagania
