@@ -58,7 +58,7 @@ Rails.application.routes.draw do
   patch '/users/trial/:id/update', to: 'users#update_trial', as: :update_trial
   get '/users/trial/:id/manage', to: 'users#manage_trial', as: :manage_trial
   patch '/users/trial/:id/progress', to: 'users#progress_trial', as: :progress_trial
-  get '/users/trial/:id', to: 'users#show_trial', as: :show_trial
+  get '/users/trial/:id/show', to: 'users#show_trial', as: :show_trial
   get '/users/finish_trial/:id', to: 'users#finish_trial', as: :finish_trial
   patch '/rank_requirements/update_badges/:id', to: 'rank_requirements#update_badges', as: :update_badges
   # You can have the root of your site routed with "root"

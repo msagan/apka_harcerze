@@ -13,6 +13,7 @@
     %header
       = render 'layouts/navigation'
     %main{:role => "main"}
-      = render_breadcrumbs
+      -unless request.format.symbol == :pdf
+        = render_breadcrumbs
       = render 'layouts/flash_msgs'
       = yield

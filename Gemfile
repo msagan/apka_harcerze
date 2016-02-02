@@ -26,6 +26,8 @@ gem 'gon'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'thin'
 gem 'pry'
+# gem 'prawn'
+gem 'wisepdf'
 gem 'nested_form_fields'
 gem 'jquery-ui-rails'
 gem 'capistrano', '~> 3.4.0'

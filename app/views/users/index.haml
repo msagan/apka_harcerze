@@ -61,13 +61,14 @@
           %td
             -if user.stars < 3 && user.scouts_mark
               -if user.has_incomplete_trials?
-                =link_to 'Edytuj wymagania próby', edit_trial_path(user.trials.last.id)
+                %p= link_to 'Edytuj wymagania próby', edit_trial_path(user.trials.last.id)
+                %p= link_to 'Wygeneruj pdf z próbą', show_trial_path(user.trials.last.id, format: :pdf)
                 -if user.is_done_with_trial?
-                  =link_to 'Zamknij próbę', finish_trial_path(user.trials.last.id)
+                  %p= link_to 'Zamknij próbę', finish_trial_path(user.trials.last.id)
                 -else
-                  =link_to 'Zarządzaj próbą', manage_trial_path(user.trials.last.id)
+                  %p= link_to 'Zarządzaj próbą', manage_trial_path(user.trials.last.id)
               -else
-                =link_to 'Rozpocznij próbę na następną gwiazdkę', user_start_trial_path(user.id)
+                %p= link_to 'Rozpocznij próbę na następną gwiazdkę', user_start_trial_path(user.id)
           %td
             =link_to 'Edytuj zucha', team_edit_scout_path(user.id), class: 'btn btn-primary'
             -if user.archived?

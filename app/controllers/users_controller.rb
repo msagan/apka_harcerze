@@ -3,6 +3,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
 
+  layout 'application', :except => :show_trial
 
   def archive
     @user = User.find(params[:id])
@@ -23,7 +24,12 @@ class UsersController < ApplicationController
 
 
   def show_trial
-    @user = User.find(params[:id])
+    @trial = Trial.find(params[:id])
+    @user = @trial.user
+    respond_to do |format|
+      format.html
+      format.pdf { render pdf: "PDF_proba_#{@user.full_name}_#{@user.stars+1}_gwiazdka" }
+    end
   end
 
   def edit_trial
@@ -65,10 +71,6 @@ class UsersController < ApplicationController
     @user.update(user_params)
   end
 
-  def show_trial
-    @trial = Trial.find(params[:id])
-    @user = @trial.user
-  end
 
   def edit_trial_requirements
     @trial = Trial.find(params[:id])
@@ -83,6 +85,10 @@ class UsersController < ApplicationController
     add_breadcrumb "Drużyny", :teams_path
     add_breadcrumb "Lista zuchów", team_path(@trial.user.team)
     add_breadcrumb "Próba na gwiazdkę"
+    respond_to do |format|
+      format.html
+      format.pdf { render :pdf => "Zarzadzaj_#{@user.full_name}_#{@user.stars+1}_gwiazdka" }
+    end
   end
 
   def progress_trial

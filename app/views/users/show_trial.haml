@@ -1,41 +1,47 @@
+= wisepdf_stylesheet_tag "application"
 .container-fluid
-  %h2 Zuch #{@trial.user.full_name} próba na #{@trial.rank.level} gwiazdkę
+  %h2 Zuch #{@user.full_name} próba na #{@trial.rank.level} gwiazdkę
   .row
-    .col-md-6
-      %h2 
-        Pozostałe wymagania
+    =form_for(@user, url: progress_trial_path(@user)) do |f|
+      .col-md-5
+        %h2 
+          Pozostałe wymagania
         %h4 Odznaki do zdobycia
-        -@trial.badges.each do |b|
-          -unless @user.has_badge? b
-            .form-group
-              .col-xs-1{class: "bgn-#{b.color}"}
-              .col-sm-6
-                = b.name
-            %br
-        %h4 Zadania indywidualne do wykonania
-        -@trial.custom_tasks.each do |t|
-          -unless @user.has_task? t
-            .form-group
-              .col-sm-2
-                = t.name
-              .col-sm-6
-                = t.description
-            %br
-    .col-md-6
-      %h2
-        Zaliczone wymagania
-      %h4 Zdobyte odznaki
-      -@trial.badges.each do |b|
-        -if @user.has_badge? b
-          .col-xs-1{class: "bgn-#{b.color}"}
-          .col-sm-10
-            = b.name
-        %br
-      %h4 Wykonane zadania
-      -@trial.custom_tasks.each do |t|
-        -if @user.has_task? t
-          .col-sm-2
-            = t.name
-          .col-sm-10
-            = t.description
-        %br
+        #accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
+          -@trial.rank.rank_requirements.each do |rr|
+            -rr.badges.each do |b|
+              .panel.panel-default
+                .form-group
+                  .col-sm-1{class: "bgn-#{b.color} mrgn-xs"}
+                  .panel-heading{:role => "tab", id: "#{b.id}"}
+                    %h4.panel-title
+                      .inline.flt-rght
+                        = check_box("user", "badge_ids", {:multiple => true}, b.id, nil)
+                      %a{"aria-controls" => "badge_#{b.id}", "aria-expanded" => "true", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#badge_#{b.id}", :role => "button"}
+                        = b.name
+                  .panel-collapse.collapse.in{"aria-labelledby" => "#{b.id}", :role => "tabpanel", id: "badge_#{b.id}"}
+                    .panel-body
+                      .col-xs-12
+                        %p= rr.description
+        %br/
+        %h4
+          Zadania indywidualne do wykonania
+          #task_accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
+            -@trial.custom_tasks.each do |t|
+              .panel.panel-default
+                .form-group
+                  .panel-heading{:role => "tab", id: "#{t.id}"}
+                  %h4.panel-title
+                    .inline.flt-rght
+                      =check_box("user", "custom_task_ids", {:multiple => true}, t.id, nil)
+                    %a{"aria-controls" => "task_#{t.id}", "aria-expanded" => "true", "data-parent" => "#task_accordion", "data-toggle" => "collapse", :href => "#task_#{t.id}", :role => "button"}
+                      = t.name
+                .panel-collapse.collapse.in{"aria-labelledby" => "#{t.id}", :role => "tabpanel", id: "task_#{t.id}"}
+                  .panel-body
+                    -if t.rank_requirements.present?
+                      -t.rank_requirements.each do |rr|
+                        .col-sm-1{class: "bgn-#{rr.color} mrgn-xs"}
+                        %p=rr.description
+                    -else
+                      Brak związku z wymaganiem
+                %br/
