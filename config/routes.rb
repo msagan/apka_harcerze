@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   post 'user/move_to_archive/:id', to: 'users#finish_archiving', as: :archive_scout
 
   get 'meetings/sum_up/:id', to: 'meetings#sum_up', as: :sum_up_meeting
+  get 'meetings/show/:id', to: 'meetings#show', as: :show_meeting_summary
   patch 'plans/finish_up/:id', to: 'plans#finish_up', as: :finish_meeting_up
 
   get 'plans/new/:id', to: 'plans#new', as: :new_plan

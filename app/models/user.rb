@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :trials
   has_and_belongs_to_many :meetings
   has_and_belongs_to_many :badge_requirements
+  has_and_belongs_to_many :plan_points
   has_many :custom_tasks
   belongs_to :team_group
   attr_accessor :signing_in

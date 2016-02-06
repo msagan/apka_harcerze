@@ -23,7 +23,9 @@
           -if meeting.plan.present?
             -if meeting.summed_up?
               Zbiórka podsumowana!
+              =link_to 'Podgląd', show_meeting_summary_path(meeting.id, format: 'pdf')
             -else
+              =link_to 'Podgląd', show_meeting_summary_path(meeting.id, format: 'pdf')
               =link_to 'Edytuj plan zbiórki', edit_plan_path(meeting.plan.id), class: 'btn-sm btn-primary'
               =link_to 'Usuń plan zbiórki', destroy_plan_path(meeting.plan.id), method: :delete, class: 'btn-sm btn-danger', data: {confirm: 'Na pewno? (Tej operacji nie można cofnąć!)'}
               = link_to 'Podsumuj zbiórkę', sum_up_meeting_path(meeting), class: 'btn-sm btn-success'

@@ -1,0 +1,19 @@
+= wisepdf_stylesheet_tag "application"
+.containder-fluid
+  =raw(@meeting.commentary)
+  %table#sum_up_table{cellpadding: "0", cellspacing:"0", border: "0", class: "datatable table table-striped table-bordered"}
+    =form_for @meeting, url: finish_meeting_up_path(@meeting) do |f|
+      %thead
+        %tr
+          %th Zuch
+          %th Obecny
+          -@meeting.plan.plan_points.each do |pp|
+            %th="#{pp.task_name}"
+      %tbody
+        -@scouts.each do |s|
+          %tr
+            %td= s.full_name
+            %td= check_box("plan", "user_ids", {:multiple => true, checked: @meeting.user_ids.include?(s.id) }, s.id, nil)
+            -@meeting.plan.plan_points.each do |pp|
+              %td= check_box("plan", "users[#{s.id}][plan_points]", {:multiple => true, checked: s.plan_point_ids.include?(pp.id)}, pp.id, false)
+

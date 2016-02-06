@@ -9,9 +9,9 @@
         #task_accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
           = f.nested_fields_for :plan_points do |ff|
             %a{"aria-controls" => "task_#{ff.object.id}", "aria-expanded" => "true", "data-parent" => "#task_accordion", "data-toggle" => "collapse", :href => "#task_#{ff.object.id}", :role => "button"}
-              = "#{ff.object.task_name.present? ? ff.object.task_name : ''} - Rozwiń"
+              = "#{ff.object.task_name.present? ? ff.object.task_name : ''} - Zwiń/Rozwiń"
             %li.list-group-item
-              .panel-collapse.collapse{"aria-labelledby" => "#{ff.object.id}", :role => "tabpanel", id: "task_#{ff.object.id}"}
+              .panel-collapse.collapse.in{"aria-labelledby" => "#{ff.object.id}", :role => "tabpanel", id: "task_#{ff.object.id}"}
                 .panel-body
                   .form-group.col-sm-12
                     = ff.label 'Nazwa', class: "col-sm-2 control-label"
@@ -46,7 +46,7 @@
       .form-actions
         .form-group
           .col-sm-2.col-md-offset-3
-            = f.submit 'Zapisz'
+            = f.submit 'Zapisz', id: 'save_plan'
   .col-md-5
     %h2
       Punkty do zrealizowania w planie
@@ -83,7 +83,7 @@
           container = $(this).find('.form-group.col-sm-12').last();
           container.append(checkbox);
           container.append(label);
-
+          $('#save_plan').click();
         }
       });
     $(".drag").draggable({
@@ -112,6 +112,7 @@
           container = $(this).find('.form-group.col-sm-12').last();
           container.append(checkbox);
           container.append(label);
+          $('#save_plan').click();
         }
       });
     });

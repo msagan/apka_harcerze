@@ -1,13 +1,17 @@
 class MeetingsController < ApplicationController
   before_action :authenticate_user!
 
-  def show
-    @meeting = Meeting.find(params[:id])
-  end
-
   def sum_up
     @meeting = Meeting.find(params[:id])
     @scouts = @meeting.cycle.year_plan.team.scouts
+  end
+
+  def show
+    @meeting = Meeting.find(params[:id])
+    @scouts = @meeting.cycle.year_plan.team.scouts
+    respond_to do |format|
+      format.pdf { render pdf: "PDF_meeting_#{@meeting.id}_#{@meeting.start_date}" }
+    end
   end
 
   def new

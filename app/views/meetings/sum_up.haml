@@ -36,9 +36,9 @@
         -@scouts.each do |s|
           %tr
             %td= s.full_name
-            %td= check_box("plan", "user_ids", {:multiple => true}, s.id, nil)
+            %td= check_box("plan", "user_ids", {:multiple => true, checked: @meeting.user_ids.include?(s.id) }, s.id, nil)
             -@meeting.plan.plan_points.each do |pp|
-              %td= check_box("plan", "users[#{s.id}][plan_points]", {:multiple => true, checked: s.plan_point_ids.inlude?(pp.id)}, pp.id, false)
+              %td= check_box("plan", "users[#{s.id}][plan_points]", {:multiple => true, checked: s.plan_point_ids.include?(pp.id)}, pp.id, false)
       =f.cktext_area :commentary, class: 'col-md-8'
       =f.submit 'Zakończ podsumowanie', class: 'btn btn-success'
 

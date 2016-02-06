@@ -1,6 +1,5 @@
 -if user_signed_in?
   -if current_user.lead_teams.count > 0
     %li= link_to 'Moja gromada', teams_path
-    %li= link_to 'Plany moich gromad', year_plans_path
-  -if current_user.has_incomplete_trials?
-    %li= link_to 'Moja próba', show_trial_path(current_user.trials.last)
+    %li= link_to 'Plany mojej gromady', year_plans_path
+

@@ -26,6 +26,7 @@
         -if request.path.include? 'archive'
           %th=link_to 'Data odejścia', sort_by_path(@team.id, sort: 'date_of_leave')
           %th=link_to 'Powód odejścia', sort_by_path(@team.id, sort: 'leave_reason')
+        %th Próby
         %th
         %th
     %tbody
@@ -59,10 +60,14 @@
             %td= user.date_of_leave
             %td= user.leave_reason
           %td
+            -if user.trials.present?
+              -user.trials.each_with_index do |t, index|
+                %p= link_to "Wygeneruj pdf próby na #{index+1} gwiazdkę", show_trial_path(t.id, format: :pdf), target: '_blank'
+          %td
             -if user.stars < 3 && user.scouts_mark
               -if user.has_incomplete_trials?
                 %p= link_to 'Edytuj wymagania próby', edit_trial_path(user.trials.last.id)
-                %p= link_to 'Wygeneruj pdf z próbą', show_trial_path(user.trials.last.id, format: :pdf)
+                %p= link_to 'Wygeneruj pdf z obecną próbą', show_trial_path(user.trials.last.id, format: :pdf), target: '_blank'
                 -if user.is_done_with_trial?
                   %p= link_to 'Zamknij próbę', finish_trial_path(user.trials.last.id)
                 -else

@@ -13,6 +13,10 @@ class PlansController < ApplicationController
     @badges.each do |b|
       @badge_requirements += b.badge_requirements.collect{|b| [b.description, b.id]}
     end
+    @plan.plan_points << PlanPoint.new(task_name: '1', task_info: '2', task_time: '3')
+    @plan.plan_points << PlanPoint.new(task_name: '1', task_info: '2', task_time: '3')
+    @plan.plan_points << PlanPoint.new(task_name: '1', task_info: '2', task_time: '3')
+    @plan.plan_points << PlanPoint.new(task_name: '1', task_info: '2', task_time: '3')
     add_breadcrumb "Plany", :year_plans_path
     add_breadcrumb "Cykle", year_plan_path(@meeting.cycle.year_plan)
     add_breadcrumb 'Zbiórki', cycle_path(@meeting.cycle)
@@ -21,14 +25,17 @@ class PlansController < ApplicationController
 
   def create
     @meeting = Meeting.find(params[:id])
+    @badges = @meeting.cycle.badges
+    @badge_requirements = []
+    @badges.each do |b|
+      @badge_requirements += b.badge_requirements.collect{|b| [b.description, b.id]}
+    end
     @plan = Plan.new(plan_params)
     @plan.meeting = @meeting
-    if @plan.save
-      redirect_to cycle_path(@meeting.cycle), notice: "Zbiórka dodana"
-    else
-      redirect_to cycle_path(@meeting.cycle)
-    end
+    @plan.save
+    render :new
   end
+
 
   def edit
     @plan = Plan.find(params[:id])
@@ -42,11 +49,14 @@ class PlansController < ApplicationController
 
   def update
     @plan = Plan.find(params[:id])
-    if @plan.update(plan_params)
-      redirect_to cycle_path(@plan.meeting.cycle), notice: "Zbiórka zmieniona"
-    else
-      redirect_to cycle_path(@plan.meeting.cycle)
+    @meeting = @plan.meeting
+    @badges = @meeting.cycle.badges
+    @badge_requirements = []
+    @badges.each do |b|
+      @badge_requirements += b.badge_requirements.collect{|b| [b.description, b.id]}
     end
+    @plan.update(plan_params)
+    render :edit
   end
 
   def destroy
@@ -62,18 +72,26 @@ class PlansController < ApplicationController
     @meeting.user_ids = plan_params[:user_ids]
     @meeting.save
     users = User.where(id: params[:plan][:user_ids])
-    params[:plan][:users].each do |u|
-      user = User.find(u[0])
-      PlanPoint.where(id: u[1]['plan_points']).each do |pp|
-        user.badge_requirements << pp.badge_requirements
+    users.each do |u|
+      plan_points = PlanPoint.where(id: params[:plan][:users][u.id.to_s][:plan_points])
+      plan_points.each do |pp|
+        u.plan_points << pp
+        u.badge_requirements << pp.badge_requirements
       end
-      user.save
+      u.save
     end
+    # params[:plan][:users].each do |u|
+    #   user = User.find(u[0])
+    #   PlanPoint.where(id: u[1]['plan_points']).each do |pp|
+    #     user.badge_requirements << pp.badge_requirements
+    #   end
+    #   user.save
+    # end
     redirect_to root_path, notice: 'Podsumowane!'
   end
 
   def plan_params
-    params.require(:plan).permit(:name, :start_date, :stop_date, user_ids: [], plan_point_ids:[], plan_points_attributes: [:id, :task_name, :task_time, :task_info, :materials_needed, :person_responsible, :_destroy, badge_requirement_ids:[] ], users: [plan_points: []])
+    params.require(:plan).permit(:name, :start_date, :stop_date, user_ids: [], plan_point_ids:[], plan_points_attributes: [:id, :task_name, :task_time, :task_info, :materials_needed, :person_responsible, :_destroy, badge_requirement_ids:[] ], users: [plan_points: [:_destroy]])
   end
 
 
