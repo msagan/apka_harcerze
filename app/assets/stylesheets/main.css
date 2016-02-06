@@ -96,3 +96,10 @@ body{
 input[type=checkbox].fa-trash-o{
      /*visibility: hidden;        */
 }
+.flip{
+  height: 100%
+  position: relative;
+  -o-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+}

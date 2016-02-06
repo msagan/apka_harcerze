@@ -94,6 +94,13 @@ class UsersController < ApplicationController
   def progress_trial
     @user = User.find(params[:id])
     @user.update(user_params)
+    if params[:user][:removed_badge_ids].present?
+      @user.badge_ids = @user.badge_ids.reject{ |e| params[:user][:removed_badge_ids].map(&:to_i).include? e }
+    end
+    if params[:user][:removed_custom_task_ids].present?
+      @user.custom_task_ids = @user.custom_task_ids.reject{ |e| params[:user][:removed_custom_task_ids].map(&:to_i).include? e }
+    end
+    @user.save
     redirect_to manage_trial_path(@user.trials.last)
   end
 

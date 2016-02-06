@@ -60,14 +60,24 @@
               .col-xs-1{class: "bgn-#{b.color}"}
               .col-sm-10
                 = b.name
+                .fa.fa-trash-o.submit_on_click
+                  =check_box("user", "removed_badge_ids", {:multiple => true, checked: false}, b.id, nil)
             %br/
         %h4 Wykonane zadania
         -@trial.custom_tasks.each do |t|
           -if @user.has_task? t
-            .col-sm-2
+            .col-sm-6
               = t.name
-            .col-sm-10
-              = t.description
+              .fa.fa-trash-o.submit_on_click
+                =check_box("user", "removed_custom_task_ids", {:multiple => true, checked: false}, t.id, nil)
           %br/
       .col-md-2
         =f.submit 'Zalicz zadania', class: 'btn btn-success'
+:javascript
+  $(document).ready(function(){
+    $('.submit_on_click').click(function(){
+      checkbox = $(this).children()[0];
+      checkbox.setAttribute("checked", "checked");
+      $('.btn-success').click();
+    });
+  });
