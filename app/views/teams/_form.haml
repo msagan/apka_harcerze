@@ -37,7 +37,7 @@
         .form-group.col-md-12
           = f.label "Hufiec", class: "col-sm-2 control-label"
           .col-md-10
-            = f.select :banner, HUFCE["#{@team.chapter}"], selected: @team.banner, class: 'form-control'
+            = f.select :banner, HUFCE["#{@team.chapter || 'Chorągiew Harcerzy Ziemi Opolskiej'}"], selected: @team.banner || '', class: 'form-control'
         .form-group.col-md-12
           = f.label "Data powołania", class: "col-sm-2 control-label"
           .col-md-10
