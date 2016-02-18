@@ -25,7 +25,7 @@
 
 .containder-fluid
   %table#sum_up_table{cellpadding: "0", cellspacing:"0", border: "0", class: "datatable table table-striped table-bordered"}
-    =form_for @meeting, url: finish_meeting_up_path(@meeting) do |f|
+    =form_for @meeting, url: finish_meeting_up_path(@meeting), html: {onsubmit: "return confirm('Are you sure?');" } do |f|
       %thead
         %tr
           %th Imię i nazwisko

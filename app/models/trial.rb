@@ -18,6 +18,11 @@ class Trial < ActiveRecord::Base
     end
   end
 
+  def rank_requirements_by_color
+    self.rank.rank_requirements.reverse.group_by(&:color)
+  end
+
+
   def task_count
     self.badges.count + self.custom_tasks.count
   end

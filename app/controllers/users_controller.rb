@@ -26,6 +26,7 @@ class UsersController < ApplicationController
   def show_trial
     @trial = Trial.find(params[:id])
     @user = @trial.user
+    @rank_requirements = @trial.rank_requirements_by_color
     respond_to do |format|
       format.html
       format.pdf { render pdf: "PDF_proba_#{@user.full_name}_#{@user.stars+1}_gwiazdka" }

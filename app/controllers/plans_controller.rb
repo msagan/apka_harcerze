@@ -13,10 +13,7 @@ class PlansController < ApplicationController
     @badges.each do |b|
       @badge_requirements += b.badge_requirements.collect{|b| [b.description, b.id]}
     end
-    @plan.plan_points << PlanPoint.new(task_name: '1', task_info: '2', task_time: '3')
-    @plan.plan_points << PlanPoint.new(task_name: '1', task_info: '2', task_time: '3')
-    @plan.plan_points << PlanPoint.new(task_name: '1', task_info: '2', task_time: '3')
-    @plan.plan_points << PlanPoint.new(task_name: '1', task_info: '2', task_time: '3')
+    @plan.plan_points << PlanPoint.new(task_name: 'Obrzędowe rozpoczecie', task_time: '5')
     add_breadcrumb "Plany", :year_plans_path
     add_breadcrumb "Cykle", year_plan_path(@meeting.cycle.year_plan)
     add_breadcrumb 'Zbiórki', cycle_path(@meeting.cycle)
@@ -33,7 +30,11 @@ class PlansController < ApplicationController
     @plan = Plan.new(plan_params)
     @plan.meeting = @meeting
     @plan.save
-    render :new
+    add_breadcrumb "Plany", :year_plans_path
+    add_breadcrumb "Cykle", year_plan_path(@meeting.cycle.year_plan)
+    add_breadcrumb 'Zbiórki', cycle_path(@meeting.cycle)
+    add_breadcrumb 'Nowa zbiórka', new_meeting_path(@meeting.cycle)
+    render :edit
   end
 
 
@@ -45,6 +46,10 @@ class PlansController < ApplicationController
     @badges.each do |b|
       @badge_requirements += b.badge_requirements.collect{|b| [b.description, b.id]}
     end
+    add_breadcrumb "Plany", :year_plans_path
+    add_breadcrumb "Cykle", year_plan_path(@meeting.cycle.year_plan)
+    add_breadcrumb 'Zbiórki', cycle_path(@meeting.cycle)
+    add_breadcrumb 'Nowa zbiórka', new_meeting_path(@meeting.cycle)
   end
 
   def update
@@ -56,6 +61,10 @@ class PlansController < ApplicationController
       @badge_requirements += b.badge_requirements.collect{|b| [b.description, b.id]}
     end
     @plan.update(plan_params)
+    add_breadcrumb "Plany", :year_plans_path
+    add_breadcrumb "Cykle", year_plan_path(@meeting.cycle.year_plan)
+    add_breadcrumb 'Zbiórki', cycle_path(@meeting.cycle)
+    add_breadcrumb 'Nowa zbiórka', new_meeting_path(@meeting.cycle)
     render :edit
   end
 

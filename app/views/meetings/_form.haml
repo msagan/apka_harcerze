@@ -7,11 +7,11 @@
     .form-group.col-sm-12
       = f.label 'Data początku', class: "col-sm-2 control-label"
       .col-sm-6
-        = f.datetime_field :start_date, class: "form-control datetimepicker", required: true, id: 'datetimepicker', value: "#{@cycle.meetings.last.start_date || ""}"
+        = f.datetime_field :start_date, class: "form-control datetimepicker", required: true, id: 'datetimepicker', value: "#{@cycle.meetings.present? ? @cycle.meetings.last.start_date : ""}"
     .form-group.col-sm-12
       = f.label 'Data końca', class: "col-sm-2 control-label"
       .col-sm-6
-        = f.datetime_field :stop_date, class: "form-control datetimepicker", required: true, id: 'datetimepicker', value: "#{@cycle.meetings.last.stop_date || ""}"
+        = f.datetime_field :stop_date, class: "form-control datetimepicker", required: true, id: 'datetimepicker', value: "#{@cycle.meetings.present? ? @cycle.meetings.last.start_date : ""}"
     .form-actions
       .form-group
         .col-sm-2.col-md-offset-3

@@ -7,41 +7,29 @@
         %h2 
           Pozostałe wymagania
         %h4 Odznaki do zdobycia
-        #accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
-          -@trial.rank.rank_requirements.each do |rr|
+        -@rank_requirements.each do |color|
+          .col-sm-1{class: "bgn-#{color[0]} mrgn-xs"}
+          -color[1].each do |rr|
             -rr.badges.each do |b|
-              .panel.panel-default
-                .form-group
-                  .col-sm-1{class: "bgn-#{b.color} mrgn-xs"}
-                  .panel-heading{:role => "tab", id: "#{b.id}"}
-                    %h4.panel-title
-                      .inline.flt-rght
-                        = check_box("user", "badge_ids", {:multiple => true}, b.id, nil)
-                      %a{"aria-controls" => "badge_#{b.id}", "aria-expanded" => "true", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#badge_#{b.id}", :role => "button"}
-                        = b.name
-                  .panel-collapse.collapse.in{"aria-labelledby" => "#{b.id}", :role => "tabpanel", id: "badge_#{b.id}"}
-                    .panel-body
-                      .col-xs-12
-                        %p= rr.description
+              .form-group
+                .inline.flt-rght
+                  = check_box("user", "badge_ids", {:multiple => true}, b.id, nil)
+                %h5= b.name
+                .mrgn-xs= rr.description
         %br/
-        %h4
-          Zadania indywidualne do wykonania
-          #task_accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
-            -@trial.custom_tasks.each do |t|
-              .panel.panel-default
-                .form-group
-                  .panel-heading{:role => "tab", id: "#{t.id}"}
-                  %h4.panel-title
-                    .inline.flt-rght
-                      =check_box("user", "custom_task_ids", {:multiple => true}, t.id, nil)
-                    %a{"aria-controls" => "task_#{t.id}", "aria-expanded" => "true", "data-parent" => "#task_accordion", "data-toggle" => "collapse", :href => "#task_#{t.id}", :role => "button"}
-                      = t.name
-                .panel-collapse.collapse.in{"aria-labelledby" => "#{t.id}", :role => "tabpanel", id: "task_#{t.id}"}
-                  .panel-body
-                    -if t.rank_requirements.present?
-                      -t.rank_requirements.each do |rr|
-                        .col-sm-1{class: "bgn-#{rr.color} mrgn-xs"}
-                        %p=rr.description
-                    -else
-                      Brak związku z wymaganiem
-                %br/
+        %h4 Zadania indywidualne do wykonania
+        -@trial.custom_tasks.each do |t|
+          .form-group
+            .panel-heading{:role => "tab", id: "#{t.id}"}
+            %h5
+              %h7= t.name
+              .inline.flt-rght
+                =check_box("user", "custom_task_ids", {:multiple => true}, t.id, nil)
+            %p
+              -if t.rank_requirements.present?
+                -t.rank_requirements.each do |rr|
+                  .col-xs-1{class: "bgn-#{rr.color}"}
+                  .col-xs-11= rr.description
+              -else
+                Brak związku z wymaganiem
+          %br/

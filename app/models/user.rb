@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   belongs_to :team_group
   attr_accessor :signing_in
   validates_with UserValidator
-  validate :parent_1_phone, :parent_1, :parent_2, :school_class, :pesel, :stars, :first_name, :last_name, presence: true, if: :should_validate
+  validate :parent_1_phone, :parent_1, :parent_2, :school_class, :stars, :first_name, :last_name, presence: true, if: :should_validate
   validate :stars, numericality: { greater_than_or_equal_to: 0, lesser_than_or_equal_to: 3 }
 
   REASONS_OF_LEAVE= ['Inne', 'Przejście do drużyny', 'Rezygnacja z zuchów', 'Za mało czasu']

@@ -38,7 +38,7 @@ class Badge < ActiveRecord::Base
   end
 
   def self.badges_by_color
-    badges = Badge.all.group_by(&:color)
+    Badge.all.group_by(&:color)
   end
 
   def requirement_count

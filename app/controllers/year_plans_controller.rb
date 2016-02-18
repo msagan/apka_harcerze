@@ -32,6 +32,10 @@ class YearPlansController < ApplicationController
     end
   end
 
+  def show_year_plan
+    @year_plan.find(params[:id])
+  end
+
   def edit
     @teams = current_user.lead_teams
     @badges = @teams.first.get_team_badges

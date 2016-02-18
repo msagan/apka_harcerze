@@ -54,7 +54,7 @@
               -
           %td= user.school
           %td= user.school_class
-          %td= user.parental_agreement
+          %td= user.parental_agreement ? 'Tak' : 'Brak'
           %td= user.birth_date.strftime("%d-%m-%Y") if user.birth_date.present?
           -if request.path.include? 'archive'
             %td= user.date_of_leave
